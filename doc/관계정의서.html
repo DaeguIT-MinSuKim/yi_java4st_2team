@@ -1,0 +1,163 @@
+﻿<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<title>관계 정의서(HTML)</title>
+<style type="text/css">
+<!--
+.root {
+	border-spacing: 0px;
+	width: 1024px;
+}
+.under-line {
+	border-bottom: solid 1px gray;
+}
+.right-line {
+	border-right: solid 1px gray;
+}
+.left-line {
+	border-left: solid 1px gray;
+}
+th {
+	background-color: #eee;
+}
+.header {
+	margin-bottom: 0px;
+}
+.footter {
+	margin-top: 0px;
+	margin-bottom: 40px;
+	border-bottom: solid 2px black;
+}
+tr.first-row td,tr.first-row th {
+	border-top: solid 2px black;
+}
+tr.last-row td,tr.last-row th {
+	border-bottom: solid 2px black;
+}
+-->
+</style>
+</head>
+<body>
+	<table class="root header">
+		<tr class="first-row">
+			<th class="right-line under-line">관계명</th>
+			<td class="right-line under-line"">FK_TYPE_TO_CAR</td>
+			<th class="right-line under-line"" >부모 테이블</th>
+			<td class="under-line right-line">TYPE</td>
+			<th class="right-line under-line"" >자식 테이블</th>
+			<td class="under-line">CAR</td>
+		</tr> 
+		<tr class="last-row">
+			<th class="right-line">식별 유형</th>
+			<td class="right-line">비식별</td>
+			<th class="right-line">부모 차수</th>
+			<td class="right-line">EXACTLY_ONE</td>
+			<th class="right-line">자식 차수</th>
+			<td>ZERO_OR_MORE</td>
+		</tr>
+	</table>
+	<table class="root footter">
+		<tr class="last-row">
+			<th class="right-line under-line">부모 컬럼</th>
+			<th class="right-line under-line">자식 컬럼</th>
+			<th class="under-line">데이터 타입</th>
+		</tr>
+		<tr>
+			<td class="right-line">type_no</td>
+			<td class="right-line">type</td>
+			<td>NUMBER</td>
+		</tr>
+	</table>
+	<table class="root header">
+		<tr class="first-row">
+			<th class="right-line under-line">관계명</th>
+			<td class="right-line under-line"">FK_CUSTOMER_TO_MILEAGE</td>
+			<th class="right-line under-line"" >부모 테이블</th>
+			<td class="under-line right-line">CUSTOMER</td>
+			<th class="right-line under-line"" >자식 테이블</th>
+			<td class="under-line">MILEAGE</td>
+		</tr> 
+		<tr class="last-row">
+			<th class="right-line">식별 유형</th>
+			<td class="right-line">식별</td>
+			<th class="right-line">부모 차수</th>
+			<td class="right-line">EXACTLY_ONE</td>
+			<th class="right-line">자식 차수</th>
+			<td>EXACTLY_ONE</td>
+		</tr>
+	</table>
+	<table class="root footter">
+		<tr class="last-row">
+			<th class="right-line under-line">부모 컬럼</th>
+			<th class="right-line under-line">자식 컬럼</th>
+			<th class="under-line">데이터 타입</th>
+		</tr>
+		<tr>
+			<td class="right-line">ctm_no</td>
+			<td class="right-line">ctm_no</td>
+			<td>NUMBER</td>
+		</tr>
+	</table>
+	<table class="root header">
+		<tr class="first-row">
+			<th class="right-line under-line">관계명</th>
+			<td class="right-line under-line"">FK_CUSTOMER_TO_RENT</td>
+			<th class="right-line under-line"" >부모 테이블</th>
+			<td class="under-line right-line">CUSTOMER</td>
+			<th class="right-line under-line"" >자식 테이블</th>
+			<td class="under-line">RENT</td>
+		</tr> 
+		<tr class="last-row">
+			<th class="right-line">식별 유형</th>
+			<td class="right-line">비식별</td>
+			<th class="right-line">부모 차수</th>
+			<td class="right-line">EXACTLY_ONE</td>
+			<th class="right-line">자식 차수</th>
+			<td>ZERO_OR_MORE</td>
+		</tr>
+	</table>
+	<table class="root footter">
+		<tr class="last-row">
+			<th class="right-line under-line">부모 컬럼</th>
+			<th class="right-line under-line">자식 컬럼</th>
+			<th class="under-line">데이터 타입</th>
+		</tr>
+		<tr>
+			<td class="right-line">ctm_no</td>
+			<td class="right-line">ctm_no</td>
+			<td>NUMBER</td>
+		</tr>
+	</table>
+	<table class="root header">
+		<tr class="first-row">
+			<th class="right-line under-line">관계명</th>
+			<td class="right-line under-line"">FK_CAR_TO_RENT</td>
+			<th class="right-line under-line"" >부모 테이블</th>
+			<td class="under-line right-line">CAR</td>
+			<th class="right-line under-line"" >자식 테이블</th>
+			<td class="under-line">RENT</td>
+		</tr> 
+		<tr class="last-row">
+			<th class="right-line">식별 유형</th>
+			<td class="right-line">비식별</td>
+			<th class="right-line">부모 차수</th>
+			<td class="right-line">EXACTLY_ONE</td>
+			<th class="right-line">자식 차수</th>
+			<td>ZERO_OR_MORE</td>
+		</tr>
+	</table>
+	<table class="root footter">
+		<tr class="last-row">
+			<th class="right-line under-line">부모 컬럼</th>
+			<th class="right-line under-line">자식 컬럼</th>
+			<th class="under-line">데이터 타입</th>
+		</tr>
+		<tr>
+			<td class="right-line">car_no</td>
+			<td class="right-line">car_no</td>
+			<td>NUMBER</td>
+		</tr>
+	</table>
+</body>
+</html>

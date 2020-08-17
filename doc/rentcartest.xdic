@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="utf-8"?>
+<tm:TermDictionary xmlns:tm="http://exerd.com/term-model" version="1.1">
+  <term name="고객" description="고객" physicalName="customer">
+    <physicalSynonyms>ctm</physicalSynonyms>
+  </term>
+  <term name="이름" description="이름, 명" physicalName="name">
+    <synonyms>명</synonyms>
+  </term>
+  <term name="번호" description="번호" physicalName="no"/>
+  <term name="연락처" description="연락처" physicalName="tel"/>
+  <term name="주소" description="주소" physicalName="address">
+    <physicalSynonyms>add</physicalSynonyms>
+  </term>
+  <term name="비고" description="비고" physicalName="remark"/>
+  <term name="마일리지" description="마일리지" physicalName="mileage">
+    <physicalSynonyms>mlg</physicalSynonyms>
+  </term>
+  <term name="차" description="차량" physicalName="car">
+    <synonyms>차량</synonyms>
+  </term>
+  <term name="분류" description="분류" physicalName="kind"/>
+  <term name="연료" description="연료" physicalName="fuel"/>
+  <term name="거리" description="거리" physicalName="distance">
+    <physicalSynonyms>dis</physicalSynonyms>
+  </term>
+  <term name="금액" description="가격" physicalName="fare"/>
+  <term name="할인" description="할인" physicalName="sale"/>
+  <term name="날짜" description="날짜" physicalName="date">
+    <synonyms>일자</synonyms>
+  </term>
+  <term name="대여" description="대여" physicalName="rent"/>
+  <term name="기사여부" description="기사여부" physicalName="is_driver"/>
+  <term name="반납" description="반납" physicalName="return">
+    <physicalSynonyms>rtn</physicalSynonyms>
+  </term>
+  <term name="대여여부" description="대여여부" physicalName="is_rent"/>
+</tm:TermDictionary>
