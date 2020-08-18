@@ -6,4 +6,16 @@ import rentcarTest.dto.Customer;
 
 public interface CustomerDao {
 	List<Customer> selectCustomerByAll();
+	
+	List<Customer> selectCustomerByFind(Customer ctm);
+	
+	List<Customer> selectCustomerByRent(Customer ctm);
+
+	List<Customer> selectCustomerBlackList(Customer ctm);
+	
+	int insertCustomer (Customer ctm);
+
+	int updateCustomer (Customer ctm);
+	
+	int deleteCustomer (Customer ctm);
 }

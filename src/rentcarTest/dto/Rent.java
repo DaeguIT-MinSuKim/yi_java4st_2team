@@ -9,6 +9,7 @@ public class Rent {
 	private Car car_no; // 차량번호
 	private Date rent_date; // 대여일자
 	private Date return_date; // 반납일자
+	private int rent_time;	//대여시간
 	private int is_driver; // 기사여부
 	private String rent_remark; // 대여비고
 	

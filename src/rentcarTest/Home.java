@@ -62,7 +62,7 @@ public class Home extends JFrame{
 		contentPane.add(panemenu);
 		panemenu.setLayout(null);
 		
-		lblLogo = new JLabel("Rent-Car");
+		lblLogo = new JLabel("RentDao-Car");
 		lblLogo.setForeground(new Color(255, 255, 255));
 		lblLogo.setFont(new Font("인터파크고딕 M", Font.PLAIN, 30));
 		lblLogo.setBounds(33, 30, 160, 51);

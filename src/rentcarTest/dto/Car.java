@@ -2,7 +2,7 @@ package rentcarTest.dto;
 
 public class Car {
 //	릴레이션 (차량 객체 특징 / DB연동 필요요소)
-	private int carNum; // 차번호(기본키)
+	private int carNo; // 차번호(기본키)
 	private String carName; // 차종
 	private Kind carKind; // 차분류
 	private String fuel; // 연료
@@ -13,10 +13,10 @@ public class Car {
 
 //	생성자
 //	더 추가할 생성자? 매개변수 뭘로할지 피드백 주세요
-	public Car(int carNum, String carName, Kind carKind, String fuel, int distance, int fare, int sale,
+	public Car(int carNo, String carName, Kind carKind, String fuel, int distance, int fare, int sale,
 			String carRemark) {
 		super();
-		this.carNum = carNum;
+		this.carNo = carNo;
 		this.carName = carName;
 		this.carKind = carKind;
 		this.fuel = fuel;
@@ -26,8 +26,8 @@ public class Car {
 		this.carRemark = carRemark;
 	}
 
-	public Car(int carNum) {
-		this.carNum = carNum;
+	public Car(int carNo) {
+		this.carNo = carNo;
 	}
 
 	public Car(Kind carKind) {
@@ -35,12 +35,12 @@ public class Car {
 	}
 
 //	getter & setter & toString
-	public int getCarNum() {
-		return carNum;
+	public int getCarNo() {
+		return carNo;
 	}
 
-	public void setCarNum(int carNum) {
-		this.carNum = carNum;
+	public void setCarNo(int carNo) {
+		this.carNo = carNo;
 	}
 
 	public String getCarName() {
@@ -101,15 +101,15 @@ public class Car {
 
 	@Override
 	public String toString() {
-		return String.format("%s,%s,%s,%s,%s,%s,%s,%s", carNum,	carName, carKind, fuel, distance, fare, sale, carRemark);
+		return String.format("%s,%s,%s,%s,%s,%s,%s,%s", carNo,	carName, carKind, fuel, distance, fare, sale, carRemark);
 	}
 
-//	차량번호가 기본키이기 때문에 hashcode & equals 차량번호(num)만 비교
+//	차량번호가 기본키이기 때문에 hashcode & equals 차량번호(no)만 비교
 	@Override
 	public int hashCode() {
 		final int prime = 31;
 		int result = 1;
-		result = prime * result + carNum;
+		result = prime * result + carNo;
 		return result;
 	}
 
@@ -122,7 +122,7 @@ public class Car {
 		if (getClass() != obj.getClass())
 			return false;
 		Car other = (Car) obj;
-		if (carNum != other.carNum)
+		if (carNo != other.carNo)
 			return false;
 		return true;
 	}

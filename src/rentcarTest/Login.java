@@ -31,7 +31,7 @@ import java.awt.Window.Type;
 
 public class Login extends JFrame{
 	//Image Icons
-	private Image img_carlogo = new ImageIcon(Login.class.getResource("res/car2.png")).getImage().getScaledInstance(130,130,Image.SCALE_SMOOTH);
+	private Image img_carlogo = new ImageIcon(Login.class.getResource("res/car2.png")).getImage().getScaledInstance(50,50,Image.SCALE_SMOOTH);
 	private Image img_lock = new ImageIcon(Login.class.getResource("res/lock.png")).getImage().getScaledInstance(25,20,Image.SCALE_SMOOTH);
 	private Image img_log = new ImageIcon(Login.class.getResource("res/log.jpg")).getImage().getScaledInstance(20,20,Image.SCALE_SMOOTH);
 
