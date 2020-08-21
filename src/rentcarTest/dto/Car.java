@@ -2,7 +2,7 @@ package rentcarTest.dto;
 
 public class Car {
 //	릴레이션 (차량 객체 특징 / DB연동 필요요소)
-	private int carNo; // 차번호(기본키)
+	private String carNo; // 차번호(기본키)
 	private String carName; // 차종
 	private Kind carKind; // 차분류
 	private String fuel; // 연료
@@ -13,7 +13,7 @@ public class Car {
 
 //	생성자
 //	더 추가할 생성자? 매개변수 뭘로할지 피드백 주세요
-	public Car(int carNo, String carName, Kind carKind, String fuel, int distance, int fare, int sale,
+	public Car(String carNo, String carName, Kind carKind, String fuel, int distance, int fare, int sale,
 			String carRemark) {
 		super();
 		this.carNo = carNo;
@@ -26,7 +26,7 @@ public class Car {
 		this.carRemark = carRemark;
 	}
 
-	public Car(int carNo) {
+	public Car(String carNo) {
 		this.carNo = carNo;
 	}
 
@@ -35,11 +35,11 @@ public class Car {
 	}
 
 //	getter & setter & toString
-	public int getCarNo() {
+	public String getCarNo() {
 		return carNo;
 	}
 
-	public void setCarNo(int carNo) {
+	public void setCarNo(String carNo) {
 		this.carNo = carNo;
 	}
 
@@ -109,7 +109,7 @@ public class Car {
 	public int hashCode() {
 		final int prime = 31;
 		int result = 1;
-		result = prime * result + carNo;
+		result = prime * result + ((carNo == null) ? 0 : carNo.hashCode());
 		return result;
 	}
 
@@ -122,11 +122,14 @@ public class Car {
 		if (getClass() != obj.getClass())
 			return false;
 		Car other = (Car) obj;
-		if (carNo != other.carNo)
+		if (carNo == null) {
+			if (other.carNo != null)
+				return false;
+		} else if (!carNo.equals(other.carNo))
 			return false;
 		return true;
 	}
+
 	
-
-
+	
 }
