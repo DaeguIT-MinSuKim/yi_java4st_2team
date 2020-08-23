@@ -4,22 +4,20 @@ public class Customer {
 //	릴레이션 (고객 객체 특징 / DB연동 필요요소)
 	private int no;		//고객번호(기본키)
 	private String name;	//성명
-	private int tel;		//연락처
+	private String tel;		//연락처
 	private String address;	//주소
 	private String remark;	//고객비고
-	private Mileage mileage;	//마일리지
 	
 //	생성자
 //	더 추가할 생성자? 매개변수 뭘로할지 피드백 주세요
 
-	public Customer(int no, String name, int tel, String address, String remark, Mileage mileage) {
+	public Customer(int no, String name, String tel, String address, String remark) {
 		super();
 		this.no = no;
 		this.name = name;
 		this.tel = tel;
 		this.address = address;
 		this.remark = remark;
-		this.mileage = mileage;
 	}	
 	
 	public Customer(int no) {
@@ -27,11 +25,11 @@ public class Customer {
 	}
 
 //	getter & setter & toString
-	public int getNum() {
+	public int getNo() {
 		return no;
 	}
 
-	public void setNum(int no) {
+	public void setNo(int no) {
 		this.no = no;
 	}
 
@@ -43,11 +41,11 @@ public class Customer {
 		this.name = name;
 	}
 
-	public int getTel() {
+	public String getTel() {
 		return tel;
 	}
 
-	public void setTel(int tel) {
+	public void setTel(String tel) {
 		this.tel = tel;
 	}
 
@@ -57,14 +55,6 @@ public class Customer {
 
 	public void setAddress(String address) {
 		this.address = address;
-	}
-
-	public Mileage getMileage() {
-		return mileage;
-	}
-
-	public void setMileage(Mileage mileage) {
-		this.mileage = mileage;
 	}
 
 	public String getRemark() {
@@ -77,7 +67,7 @@ public class Customer {
 	
 	@Override
 	public String toString() {
-		return String.format("%s %s %s %s %s %s", no, name, tel, address, mileage);
+		return String.format("%s %s %s %s %s", no, name, tel, address, remark);
 	}
 
 	//	고객번호가 기본키이기 때문에 hashcode & equals 고객번호(no)만 비교
