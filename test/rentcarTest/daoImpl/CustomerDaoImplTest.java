@@ -44,7 +44,11 @@ public class CustomerDaoImplTest {
 
 	@Test
 	public void test06SelectCustomerByRent() {
-		fail("Not yet implemented");
+		System.out.println("testSelectCustomerByRent");
+		Customer rentCtm = new Customer(1);
+		List <Customer> list = dao.selectCustomerByRent(rentCtm);
+		Assert.assertNotNull(list);
+		list.stream().forEach(System.out::println);		
 	}
 
 	@Test
@@ -69,5 +73,4 @@ public class CustomerDaoImplTest {
 		int res = dao.deleteCustomer(deleteCtm);
 		Assert.assertEquals(1, res);
 	}
-
 }

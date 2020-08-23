@@ -176,13 +176,12 @@ public class Home extends JFrame{
 		
 		lblSignOut = new JLabel("");
 		lblSignOut.setBounds(172, 580, 94, 71);
-//		lblSignOut.setIcon(new ImageIcon(img_path + "inout.jpg"));
 		lblSignOut.setIcon(new ImageIcon(img_logo));
 		
 		panemenu.add(lblSignOut);
 
 	}
-	//MENU 
+	//오른쪽 컨텐트 페널 SET VISIBLE
 	public void MenuClicked(JPanel panel) {
 		
 		CarListPanel.setVisible(false);
