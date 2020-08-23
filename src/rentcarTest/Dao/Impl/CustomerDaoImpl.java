@@ -51,9 +51,9 @@ public class CustomerDaoImpl implements CustomerDao {
 				+ "FROM RENT" + "	LEFT OUTER JOIN CUSTOMER CT ON CT.CTM_NO = R.CTM_NO"
 				+ "	LEFT OUTER JOIN CAR C ON C.CAR_NO = R.CAR_NO"
 				+ "	LEFT OUTER JOIN MILEAGE M ON M.CTM_NO = R.CTM_NO";
-		try (Connection con = JdbcUtil.getConnection(); PreparedStatement pstmt = con.prepareStatement(sql)) {
-
-			pstmt.setInt(1, ctm.getNo());
+		try (Connection con = JdbcUtil.getConnection(); 
+				PreparedStatement pstmt = con.prepareStatement(sql)) {
+        		pstmt.setInt(1, ctm.getNo());
 
 			try (ResultSet rs = pstmt.executeQuery()) {
 				if (rs.next()) {
@@ -77,8 +77,22 @@ public class CustomerDaoImpl implements CustomerDao {
 
 	@Override
 	public int insertCustomer(Customer ctm) {
-		return 0;
-	}
+		String sql ="";
+		try(Connection con = JdbcUtil.getConnection();
+				PreparedStatement pstmt = con.prepareStatement(sql)){
+				
+				pstmt.setInt(1, ctm.getNo());
+				pstmt.setString(2, ctm.getName());
+				pstmt.setString(3, ctm.getTel());
+				pstmt.setString(4, ctm.getAddress());
+				pstmt.setString(5, ctm.getRemark());
+				return pstmt.executeUpdate();
+				
+			} catch (SQLException e) {
+				throw new RuntimeException(e);
+			}
+		}
+		
 
 	@Override
 	public int updateCustomer(Customer ctm) {
