@@ -57,8 +57,11 @@ public class CustomerDaoImplTest {
 
 	@Test
 	public void test01InsertCustomer() {
-		fail("Not yet implemented");
-	}
+		System.out.printf("%s()%n","testInsertCustomer");
+		Customer newCtm = new Customer(11, "백종원", "010","서울시 강남구","돈이 많다");
+		int res = dao.insertCustomer(newCtm);
+		Assert.assertEquals(1, res);
+		}
 
 	@Test
 	public void test02UpdateCustomer() {
