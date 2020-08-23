@@ -46,23 +46,21 @@ public class CustomerDaoImpl implements CustomerDao {
 	}
 
 	@Override
-	public List<Customer> selectCustomerByRent(Customer ctm) {
-		String sql = "SELECT C.CAR_KIND, CT.CTM_NAME, CT.TEL, CT.ADDRESS, M.MILEAGE, C.IS_RENT, CT.CTM_REMARK"
-				+ "FROM RENT" + "	LEFT OUTER JOIN CUSTOMER CT ON CT.CTM_NO = R.CTM_NO"
-				+ "	LEFT OUTER JOIN CAR C ON C.CAR_NO = R.CAR_NO"
-				+ "	LEFT OUTER JOIN MILEAGE M ON M.CTM_NO = R.CTM_NO";
-		try (Connection con = JdbcUtil.getConnection(); PreparedStatement pstmt = con.prepareStatement(sql)) {
-
-			pstmt.setInt(1, ctm.getNo());
-
-			try (ResultSet rs = pstmt.executeQuery()) {
+	public List<Customer> selectCustomerByRent() {
+		String sql = "SELECT" + 
+				"  FROM CUSTOMER" + 
+				" WHERE CTM_NO IN(SELECT CTM_No" + 
+				"   FROM RENT r LEFT OUTER JOIN CAR c ON r.CAR_NO = c.CAR_NO" + 
+				"  WHERE c.IS_RENT = 0";
+		try (Connection con = JdbcUtil.getConnection();
+				PreparedStatement pstmt = con.prepareStatement(sql);
+						ResultSet rs = pstmt.executeQuery()) {
 				if (rs.next()) {
 					List<Customer> list = new ArrayList<Customer>();
 					do {
 						list.add(getCustomer(rs));
 					} while (rs.next());
 					return list;
-				}
 			}
 		} catch (SQLException e) {
 			throw new RuntimeException(e);

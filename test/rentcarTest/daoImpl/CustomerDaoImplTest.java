@@ -45,10 +45,9 @@ public class CustomerDaoImplTest {
 	@Test
 	public void test06SelectCustomerByRent() {
 		System.out.println("testSelectCustomerByRent");
-		Customer rentCtm = new Customer(1);
-		List <Customer> list = dao.selectCustomerByRent(rentCtm);
+		List <Customer> list = dao.selectCustomerByRent();
 		Assert.assertNotNull(list);
-		list.stream().forEach(System.out::println);		
+		list.stream().forEach(System.out::println);
 	}
 
 	@Test

@@ -9,7 +9,7 @@ public interface CustomerDao {
 	
 	List<Customer> selectCustomerByFind(Customer ctm);
 	
-	List<Customer> selectCustomerByRent(Customer ctm);
+	List<Customer> selectCustomerByRent();
 
 	List<Customer> selectCustomerBlackList(Customer ctm);
 	
