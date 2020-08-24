@@ -1,13 +1,11 @@
 package rentcarTest.daoImpl;
 
-import static org.junit.jupiter.api.Assertions.fail;
-
 import java.util.List;
 
+import org.junit.After;
 import org.junit.Assert;
+import org.junit.Before;
 import org.junit.FixMethodOrder;
-import org.junit.jupiter.api.AfterEach;
-import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.junit.runners.MethodSorters;
 
@@ -19,12 +17,12 @@ import rentcarTest.dto.Customer;
 public class CustomerDaoImplTest {
 	private CustomerDao dao;
 
-	@BeforeEach
+	@Before
 	public void setUp() throws Exception {
 		dao = CustomerDaoImpl.getInstance();
 	}
 
-	@AfterEach
+	@After
 	public void tearDown() throws Exception {
 		dao = null;
 	}
@@ -39,7 +37,11 @@ public class CustomerDaoImplTest {
 
 	@Test
 	public void test04SelectCustomerByFind() {
-		fail("Not yet implemented");
+		System.out.printf("%s()%n", "test04SelectCustomerByFind");
+		List<Customer> ctm = dao.selectCustomerByFind(new Customer(1));
+		//List<Mileage> list = ctm.get
+		Assert.assertNotNull(ctm);
+		ctm.stream().forEach(System.out::println);
 	}
 
 	@Test
@@ -52,7 +54,7 @@ public class CustomerDaoImplTest {
 
 	@Test
 	public void test05SelectCustomerBlackList() {
-		fail("Not yet implemented");
+		System.out.printf("%s()%n","SelectCustomerBlackList()");
 	}
 
 	@Test
@@ -65,12 +67,12 @@ public class CustomerDaoImplTest {
 
 	@Test
 	public void test02UpdateCustomer() {
-		fail("Not yet implemented");
+		System.out.printf("%s()%n","test02UpdateCustomer()");
 	}
 
 	@Test
 	public void test03DeleteCustomer() {
-		System.out.println("testDeleteCustomer");
+		System.out.println("test03DeleteCustomer()");
 		Customer deleteCtm = new Customer(4);
 		int res = dao.deleteCustomer(deleteCtm);
 		Assert.assertEquals(1, res);

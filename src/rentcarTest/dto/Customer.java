@@ -1,5 +1,7 @@
 package rentcarTest.dto;
 
+import java.util.List;
+
 public class Customer {
 //	릴레이션 (고객 객체 특징 / DB연동 필요요소)
 	private int no;		//고객번호(기본키)
@@ -7,6 +9,8 @@ public class Customer {
 	private String tel;		//연락처
 	private String address;	//주소
 	private String remark;	//고객비고
+	
+	private List<Mileage> list;
 	
 //	생성자
 //	더 추가할 생성자? 매개변수 뭘로할지 피드백 주세요
@@ -65,6 +69,14 @@ public class Customer {
 		this.remark = remark;
 	}
 	
+	public List<Mileage> getList() {
+		return list;
+	}
+
+	public void setList(List<Mileage> list) {
+		this.list = list;
+	}
+
 	@Override
 	public String toString() {
 		return String.format("%s %s %s %s %s", no, name, tel, address, remark);
