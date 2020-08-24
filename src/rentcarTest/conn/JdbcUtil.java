@@ -11,13 +11,16 @@ public class JdbcUtil {
 	public static Connection getConnection() {
 		Connection con = null;
 		String proptiesPath = "db.properties";
-		try (InputStream is = ClassLoader.getSystemResourceAsStream(proptiesPath)){
+		try (InputStream is =Thread.currentThread().getContextClassLoader().getResourceAsStream(proptiesPath)){
+			Class.forName("oracle.jdbc.driver.OracleDriver");
 			Properties props = new Properties();
 			props.load(is);
 			
-				String url = props.getProperty("url");
+			String url = props.getProperty("url");
+			
+				/*String url = props.getProperty("url");
 				String user = props.getProperty("user");
-				String password = props.getProperty("password");
+				String password = props.getProperty("password");*/
 				
 			con = DriverManager.getConnection(url, props);
 				
@@ -25,6 +28,9 @@ public class JdbcUtil {
 			System.out.println(e.getMessage());
 			e.printStackTrace();
 		} catch (SQLException e) {
+			e.printStackTrace();
+		} catch (ClassNotFoundException e) {
+			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
 		return con;
