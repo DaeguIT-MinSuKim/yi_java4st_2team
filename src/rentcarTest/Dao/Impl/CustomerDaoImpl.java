@@ -150,14 +150,8 @@ public class CustomerDaoImpl implements CustomerDao {
 		String tel = rs.getString("TEL");
 		String address = rs.getString("ADDRESS");
 		String remark = rs.getString("CTM_REMARK");
-		int mlg = rs.getInt("MILEAGE");
+		int mlg = rs.getInt("CTM_MLG");
 		return new Customer(no, name, tel, address, remark, mlg);
-	}
-
-	private Mileage getMileage(ResultSet rs) throws SQLException {
-		Mileage mlg = new Mileage();
-		mlg.setPoint(rs.getInt("MILEAGE"));
-		return mlg;
 	}
 
 }
