@@ -9,8 +9,7 @@ public class Customer {
 	private String tel;		//연락처
 	private String address;	//주소
 	private String remark;	//고객비고
-	
-	private int ctm_mlg;
+	private int ctm_mlg;	//고객마일리지
 	
 //	생성자
 //	더 추가할 생성자? 매개변수 뭘로할지 피드백 주세요
