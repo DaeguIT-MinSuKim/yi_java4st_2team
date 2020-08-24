@@ -37,6 +37,7 @@ public class Home extends JFrame {
 	private JPanel CustomerListPanel;
 	private JPanel CarListPanel;
 	private JPanel RentListPanel;
+	private JPanel HomePanel;
 	private JLabel lblSignOut;
 
 	public Home() {
@@ -58,6 +59,7 @@ public class Home extends JFrame {
 		CustomerListPanel = new CustomerListPanel();
 		CarListPanel = new CarListPanel();
 		RentListPanel = new RentListPanel();
+		HomePanel = new HomePanel();
 
 		// 사이드바 _1_로고
 		panemenu = new JPanel();
