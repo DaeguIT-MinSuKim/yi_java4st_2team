@@ -1,4 +1,4 @@
-package rentcarTest;
+package rentcarTest.panel;
 
 import javax.swing.JPanel;
 

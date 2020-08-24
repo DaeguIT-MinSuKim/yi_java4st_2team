@@ -14,6 +14,7 @@ import javax.swing.border.LineBorder;
 
 import rentcarTest.panel.CarListPanel;
 import rentcarTest.panel.CustomerListPanel;
+import rentcarTest.panel.HomePanel;
 import rentcarTest.panel.RentListPanel;
 
 public class Home extends JFrame {
