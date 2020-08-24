@@ -26,8 +26,7 @@
 					"@dbeaver-connection-type@": "BASIC",
 					"@dbeaver-sid-service@": "SERVICE"
 				},
-				"auth-model": "oracle_native",
-				"handlers": {}
+				"auth-model": "oracle_native"
 			}
 		},
 		"oracle_thin-173f085a933-745f0f460ffacf23": {
@@ -42,7 +41,7 @@
 				"port": "1521",
 				"database": "orcl",
 				"url": "jdbc:oracle:thin:@//localhost:1521/orcl",
-				"home": "D:\\app\\lenovo\\product\\11.2.0\\dbhome_1",
+				"home": "D:\\app\\lenovo\\product\\11.2.0\\dbhome_2",
 				"type": "dev",
 				"provider-properties": {
 					"@dbeaver-check-schema-content@": "false",
