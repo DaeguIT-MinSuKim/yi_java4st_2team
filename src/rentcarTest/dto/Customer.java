@@ -68,14 +68,14 @@ public class Customer {
 	public void setRemark(String remark) {
 		this.remark = remark;
 	}
-	
-//	public List<Mileage> getList() {
-//		return list;
-//	}
-//
-//	public void setList(List<Mileage> list) {
-//		this.list = list;
-//	}
+
+	public int getCtm_mlg() {
+		return ctm_mlg;
+	}
+
+	public void setCtm_mlg(int ctm_mlg) {
+		this.ctm_mlg = ctm_mlg;
+	}
 
 	@Override
 	public String toString() {

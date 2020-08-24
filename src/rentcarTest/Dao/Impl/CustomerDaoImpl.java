@@ -44,51 +44,37 @@ public class CustomerDaoImpl implements CustomerDao {
 	}
 
 	@Override
-	public List<Customer> selectCustomerByFind(Customer ctm) {
-		String sql = "SELECT DISTINCT c.CTM_NO, c.CTM_NAME, c.TEL, c.ADDRESS, (SELECT SUM(MILEAGE) FROM MILEAGE WHERE CTM_NO = ?) AS MILEAGE, c.CTM_REMARK "
-				+ "  FROM CUSTOMER c JOIN MILEAGE m ON c.CTM_NO = m.CTM_NO " + " WHERE c.CTM_NO = ?";
-		try (Connection con = JdbcUtil.getConnection();
-				PreparedStatement pstmt = con.prepareStatement(sql);
-				ResultSet rs = pstmt.executeQuery()) {
-			pstmt.setInt(1, ctm.getNo());
-			pstmt.setInt(2, ctm.getNo());
+	   public List<Customer> selectCustomerByFind(Customer ctm) {
+	      String sql = "SELECT CTM_NO, CTM_NAME, TEL, ADDRESS, CTM_MLG, CTM_REMARK " + 
+	            "  FROM CUSTOMER " + 
+	            " WHERE CTM_NO = ? OR CTM_NAME = ? OR TEL = ? OR ADDRESS = ?" +
+	            " ORDER BY CTM_NO";
+	      try (Connection con = JdbcUtil.getConnection();
+	            PreparedStatement pstmt = con.prepareStatement(sql)){
+	         pstmt.setInt(1, ctm.getNo());
+	         pstmt.setString(2, ctm.getName());
+	         pstmt.setString(3, ctm.getTel());
+	         pstmt.setString(4, ctm.getAddress());
+	         try(ResultSet rs = pstmt.executeQuery()){
+	            if(rs.next()) {
+	               List<Customer> item_list = new ArrayList<>();
+	               do {
+	                  item_list.add(getCustomer(rs));
+	               } while (rs.next());
+	               return item_list;
+	            }
+	         }
+	      } catch (SQLException e) {
+	         throw new RuntimeException(e);
+	      }
+	      return null;
+	   }
 
-			if (rs.next()) {
-				List<Customer> list = new ArrayList<Customer>();
-				do {
-					list.add(getCustomer(rs));
-				} while (rs.next());
-				return list;
-			}
-			return null;
-		} catch (SQLException e) {
-			throw new RuntimeException(e);
-		}
-	}
 
-	/*
-	 * @Override public List<Customer> selectCustomerByFind(Customer ctm) { String
-	 * sql =
-	 * "SELECT DISTINCT c.CTM_NO, c.CTM_NAME, c.TEL, c.ADDRESS, (SELECT SUM(MILEAGE) FROM MILEAGE WHERE CTM_NO = ?) AS MILEAGE, c.CTM_REMARK "
-	 * + "  FROM CUSTOMER c JOIN MILEAGE m ON c.CTM_NO = m.CTM_NO " +
-	 * " WHERE c.CTM_NO = ?"; String sql =
-	 * "SELECT DISTINCT CTM_NO, CTM_NAME, TEL, ADDRESS, CTM_REMARK " +
-	 * "  FROM CUSTOMER " + " WHERE CTM_NO = ?"; try (Connection con =
-	 * JdbcUtil.getConnection(); PreparedStatement pstmt =
-	 * con.prepareStatement(sql)){ pstmt.setInt(1, ctm.getNo()); //pstmt.setInt(2,
-	 * ctm.getNo()); try(ResultSet rs = pstmt.executeQuery()){ if(rs.next()) {
-	 * List<Customer> item = new ArrayList<>(); do { item.add(getCustomer(rs)); }
-	 * while (rs.next()); return item; Customer item = getCustomer(rs); if
-	 * (rs.getInt("CTM_NO") != 0) { List<Mileage> list = new ArrayList<>(); do {
-	 * list.add(getMileage(rs)); } while (rs.next()); item.setList(list); return
-	 * item; } } } } catch (SQLException e) { throw new RuntimeException(e); }
-	 * return null; }
-	 */
 
 	@Override
 	public List<Customer> selectCustomerByRent() {
-		String sql = "SELECT" + "  FROM CUSTOMER" + " WHERE CTM_NO IN(SELECT CTM_No"
-				+ "   FROM RENT r LEFT OUTER JOIN CAR c ON r.CAR_NO = c.CAR_NO" + "  WHERE c.IS_RENT = 0";
+		String sql = "SELECT CTM_NO, CTM_NAME, TEL, ADDRESS, CTM_REMARK, CTM_MLG FROM CUSTOMER WHERE CTM_NO IN(SELECT R.CTM_NO FROM RENT r LEFT OUTER JOIN CUSTOMER c ON r.CTM_NO = c.CTM_NO WHERE IS_RENT=1) ORDER BY CTM_NO";
 		try (Connection con = JdbcUtil.getConnection();
 				PreparedStatement pstmt = con.prepareStatement(sql);
 				ResultSet rs = pstmt.executeQuery()) {
@@ -112,7 +98,7 @@ public class CustomerDaoImpl implements CustomerDao {
 
 	@Override
 	public int insertCustomer(Customer ctm) {
-		String sql = "INSERT INTO CUSTOMER VALUES (?,?,?,?,?)";
+		String sql = "INSERT INTO CUSTOMER VALUES (?,?,?,?,?,?,?)";
 		try (Connection con = JdbcUtil.getConnection(); PreparedStatement pstmt = con.prepareStatement(sql)) {
 
 			pstmt.setInt(1, ctm.getNo());
@@ -120,6 +106,8 @@ public class CustomerDaoImpl implements CustomerDao {
 			pstmt.setString(3, ctm.getTel());
 			pstmt.setString(4, ctm.getAddress());
 			pstmt.setString(5, ctm.getRemark());
+			pstmt.setInt(6, 0);
+			pstmt.setInt(7, 0);
 			return pstmt.executeUpdate();
 
 		} catch (SQLException e) {
@@ -129,7 +117,23 @@ public class CustomerDaoImpl implements CustomerDao {
 
 	@Override
 	public int updateCustomer(Customer ctm) {
-		return 0;
+		 String sql = "UPDATE CUSTOMER SET CTM_NAME=?, TEL=?, ADDRESS=?, CTM_REMARK=?, CTM_MLG=? WHERE CTM_NO=?";
+
+	        try (Connection con = JdbcUtil.getConnection();
+	               PreparedStatement pstmt = con.prepareStatement(sql.toString())) {
+	           
+	           pstmt.setString(1, ctm.getName());
+	            pstmt.setString(2, ctm.getTel());
+	            pstmt.setString(3, ctm.getAddress());
+	            pstmt.setString(4, ctm.getRemark());
+	            pstmt.setInt(5, ctm.getCtm_mlg());
+	            pstmt.setInt(6, ctm.getNo());
+	            return pstmt.executeUpdate();
+	            
+	        } catch (SQLException e) {
+	            throw new RuntimeException(e);
+	        }
+
 	}
 
 	@Override
