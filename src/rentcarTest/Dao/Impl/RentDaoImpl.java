@@ -2,43 +2,38 @@ package rentcarTest.Dao.Impl;
 
 import java.util.List;
 
-import rentcarTest.Dao.CustomerDao;
-import rentcarTest.dto.Customer;
+import rentcarTest.Dao.RentDao;
+import rentcarTest.dto.Rent;
 
-public class RentDaoImpl implements CustomerDao{
+public class RentDaoImpl implements RentDao{
 
 	@Override
-	public List<Customer> selectCustomerByAll() {
+	public List<Rent> selectRentByAll() {
 		return null;
 	}
 
 	@Override
-	public List<Customer> selectCustomerByFind(Customer ctm) {
+	public RentDao selectRentByFind(Rent rent) {
 		return null;
 	}
 
 	@Override
-	public List<Customer> selectCustomerByRent(Customer ctm) {
+	public RentDao selectRentByDate(Rent rent) {
 		return null;
 	}
 
 	@Override
-	public List<Customer> selectCustomerBlackList(Customer ctm) {
+	public RentDao selectRentByRent(Rent rent) {
 		return null;
 	}
 
 	@Override
-	public int insertCustomer(Customer ctm) {
+	public int insertRent(Rent rent) {
 		return 0;
 	}
 
 	@Override
-	public int updateCustomer(Customer ctm) {
-		return 0;
-	}
-
-	@Override
-	public int deleteCustomer(Customer ctm) {
+	public int updateRent(Rent rent) {
 		return 0;
 	}
 
