@@ -79,7 +79,7 @@ public class Customer {
 
 	@Override
 	public String toString() {
-		return String.format("%s %s %s %s %s", no, name, tel, address, remark);
+		return String.format("%s %s %s %s %s %s", no, name, tel, address, remark, ctm_mlg);
 	}
 
 	//	고객번호가 기본키이기 때문에 hashcode & equals 고객번호(no)만 비교
