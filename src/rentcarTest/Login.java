@@ -35,9 +35,6 @@ public class Login extends JFrame{
 	private Image img_lock = new ImageIcon(Login.class.getResource("res/lock.png")).getImage().getScaledInstance(25,20,Image.SCALE_SMOOTH);
 	private Image img_log = new ImageIcon(Login.class.getResource("res/log.jpg")).getImage().getScaledInstance(20,20,Image.SCALE_SMOOTH);
 
-//	private String img_path = System.getProperty("user.dir") + File.separator + "images" + File.separator;
-
-
 	private JPanel contentPane;
 	private JPanel panel;
 	private JPanel panel_2;
