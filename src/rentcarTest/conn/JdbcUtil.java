@@ -33,6 +33,7 @@ public class JdbcUtil {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
+		System.out.println("연결상태 양호");
 		return con;
 	}
 }

@@ -10,18 +10,19 @@ public class Customer {
 	private String address;	//주소
 	private String remark;	//고객비고
 	
-	private List<Mileage> list;
+	private int ctm_mlg;
 	
 //	생성자
 //	더 추가할 생성자? 매개변수 뭘로할지 피드백 주세요
 
-	public Customer(int no, String name, String tel, String address, String remark) {
+	public Customer(int no, String name, String tel, String address, String remark, int ctm_mlg) {
 		super();
 		this.no = no;
 		this.name = name;
 		this.tel = tel;
 		this.address = address;
 		this.remark = remark;
+		this.ctm_mlg = ctm_mlg;
 	}	
 	
 	public Customer(int no) {
@@ -69,13 +70,13 @@ public class Customer {
 		this.remark = remark;
 	}
 	
-	public List<Mileage> getList() {
-		return list;
-	}
-
-	public void setList(List<Mileage> list) {
-		this.list = list;
-	}
+//	public List<Mileage> getList() {
+//		return list;
+//	}
+//
+//	public void setList(List<Mileage> list) {
+//		this.list = list;
+//	}
 
 	@Override
 	public String toString() {
