@@ -46,37 +46,38 @@ public class CustomerDaoImplTest {
 ////		ctm.stream().forEach(System.out::println);
 //	}
 
-//	@Test
-//	public void test06SelectCustomerByRent() {
-//		System.out.println("testSelectCustomerByRent");
-//		List <Customer> list = dao.selectCustomerByRent();
-//		Assert.assertNotNull(list);
-//		list.stream().forEach(System.out::println);
-//	}
-//
-//	@Test
-//	public void test05SelectCustomerBlackList() {
-//		fail("Not yet implemented");
-//	}
-//
-//	@Test
-//	public void test01InsertCustomer() {
-//		System.out.printf("%s()%n","testInsertCustomer");
-//		Customer newCtm = new Customer(11, "백종원", "010","서울시 강남구","돈이 많다");
-//		int res = dao.insertCustomer(newCtm);
-//		Assert.assertEquals(1, res);
-//		}
-//
-//	@Test
-//	public void test02UpdateCustomer() {
-//		fail("Not yet implemented");
-//	}
-//
-//	@Test
-//	public void test03DeleteCustomer() {
-//		System.out.println("testDeleteCustomer");
-//		Customer deleteCtm = new Customer(4);
-//		int res = dao.deleteCustomer(deleteCtm);
-//		Assert.assertEquals(1, res);
-//	}
+
+	@Test
+	public void test06SelectCustomerByRent() {
+		System.out.println("testSelectCustomerByRent");
+		List <Customer> list = dao.selectCustomerByRent();
+		Assert.assertNotNull(list);
+		list.stream().forEach(System.out::println);
+	}
+
+	@Test
+	public void test05SelectCustomerBlackList() {
+		System.out.printf("%s()%n","SelectCustomerBlackList()");
+	}
+
+	@Test
+	public void test01InsertCustomer() {
+		System.out.printf("%s()%n","testInsertCustomer");
+		Customer newCtm = new Customer(11, "백종원", "010","서울시 강남구","돈이 많다", 0);
+		int res = dao.insertCustomer(newCtm);
+		Assert.assertEquals(1, res);
+		}
+
+	@Test
+	public void test02UpdateCustomer() {
+		System.out.printf("%s()%n","test02UpdateCustomer()");
+	}
+
+	@Test
+	public void test03DeleteCustomer() {
+		System.out.println("test03DeleteCustomer()");
+		Customer deleteCtm = new Customer(4);
+		int res = dao.deleteCustomer(deleteCtm);
+		Assert.assertEquals(1, res);
+	}
 }
