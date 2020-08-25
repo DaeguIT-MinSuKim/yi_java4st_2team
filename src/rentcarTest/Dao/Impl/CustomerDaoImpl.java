@@ -90,10 +90,25 @@ public class CustomerDaoImpl implements CustomerDao {
 		return null;
 	}
 
-	@Override
-	public List<Customer> selectCustomerBlackList(Customer ctm) {
-		return null;
-	}
+	  @Override
+	   public List<Customer> selectCustomerBlackList() {
+	      String sql="SELECT CTM_NO, CTM_NAME, TEL, ADDRESS, CTM_REMARK, CTM_MLG FROM CUSTOMER WHERE LIST_CTM = 1";
+	      try(Connection con = JdbcUtil.getConnection(); 
+	         PreparedStatement pstmt = con.prepareStatement(sql);
+	         ResultSet rs = pstmt.executeQuery()) {
+	      if (rs.next()) {
+	         List<Customer> list = new ArrayList<Customer>();
+	         do {
+	            list.add(getCustomer(rs));
+	         } while (rs.next());
+	         return list;
+	      }
+	         
+	      } catch (SQLException e) {
+	         throw new RuntimeException(e);
+	      }
+	      return null;
+	   }
 
 	@Override
 	public int insertCustomer(Customer ctm) {
