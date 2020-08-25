@@ -5,7 +5,6 @@ import java.awt.Font;
 import java.awt.Image;
 import java.awt.event.FocusAdapter;
 import java.awt.event.FocusEvent;
-import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
 
@@ -13,7 +12,6 @@ import javax.swing.Icon;
 import javax.swing.ImageIcon;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
-import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JPasswordField;
 import javax.swing.JTextField;
@@ -21,26 +19,29 @@ import javax.swing.SwingConstants;
 
 public class Login extends JFrame {
 	// Image Icons
-	private Image img_carlogo = new ImageIcon(Login.class.getResource("res/car2.png")).getImage().getScaledInstance(50,
-			50, Image.SCALE_SMOOTH);
-	private Image img_lock = new ImageIcon(Login.class.getResource("res/lock.png")).getImage().getScaledInstance(25, 20,
+	private Image img_carlogo = new ImageIcon(Login.class.getResource("../res/car2.png")).getImage().getScaledInstance(125,125,
 			Image.SCALE_SMOOTH);
-	private Image img_log = new ImageIcon(Login.class.getResource("res/log.jpg")).getImage().getScaledInstance(20, 20,
+	private Image img_lock = new ImageIcon(Login.class.getResource("../res/lock.png")).getImage().getScaledInstance(25, 20,
+			Image.SCALE_SMOOTH);
+	private Image img_log = new ImageIcon(Login.class.getResource("../res/log.jpg")).getImage().getScaledInstance(20, 20,
 			Image.SCALE_SMOOTH);
 	//페널 선언
 	private JPanel contentPane;
-	private JPanel panel;
-	private JPanel panel_2;
+	private JPanel Idpanel;
+	private JPanel Pwdpanel;
 	private JTextField txtUsername;
 	private JPanel pnlBtnLogin;
 	private JLabel lblLogin;
 	private JLabel lblCancel;
 	private JLabel lblIconLogo;
 	private JPasswordField pwdPassword;
+	//공백 label
 	private JLabel lblmess;
+	//자물쇠 label
 	private JLabel lblLock;
-	private Icon icon_lock;
+	//사람 label
 	private JLabel lblLog;
+	//크리링 렌터카 label
 	private JLabel lblTitle;
 
 	public Login() {
@@ -58,11 +59,11 @@ public class Login extends JFrame {
 		setContentPane(contentPane);
 		contentPane.setLayout(null);
 
-		panel = new JPanel();
-		panel.setBackground(new Color(255, 255, 255));
-		panel.setBounds(163, 203, 300, 45);
-		contentPane.add(panel);
-		panel.setLayout(null);
+		Idpanel = new JPanel();
+		Idpanel.setBackground(new Color(255, 255, 255));
+		Idpanel.setBounds(163, 203, 300, 45);
+		contentPane.add(Idpanel);
+		Idpanel.setLayout(null);
 		// ID
 		txtUsername = new JTextField();
 		txtUsername.setBorder(null);
@@ -90,20 +91,20 @@ public class Login extends JFrame {
 		txtUsername.setText("Username");
 		txtUsername.setHorizontalAlignment(SwingConstants.LEFT);
 		txtUsername.setBounds(12, 10, 222, 25);
-		panel.add(txtUsername);
+		Idpanel.add(txtUsername);
 		txtUsername.setColumns(10);
 
 		lblLog = new JLabel("");
 		lblLog.setBounds(255, 0, 54, 45);
 		lblLog.setIcon(new ImageIcon(img_log));
-		panel.add(lblLog);
+		Idpanel.add(lblLog);
 
 		// PASSWORD
-		panel_2 = new JPanel();
-		panel_2.setBackground(new Color(255, 255, 255));
-		panel_2.setLayout(null);
-		panel_2.setBounds(163, 271, 300, 45);
-		contentPane.add(panel_2);
+		Pwdpanel = new JPanel();
+		Pwdpanel.setBackground(new Color(255, 255, 255));
+		Pwdpanel.setLayout(null);
+		Pwdpanel.setBounds(163, 271, 300, 45);
+		contentPane.add(Pwdpanel);
 
 		pwdPassword = new JPasswordField();
 		pwdPassword.setBorder(null);
@@ -130,11 +131,11 @@ public class Login extends JFrame {
 
 		pwdPassword.setText("password");
 		pwdPassword.setBounds(12, 10, 222, 25);
-		panel_2.add(pwdPassword);
+		Pwdpanel.add(pwdPassword);
 
 		lblLock = new JLabel("");
 		lblLock.setBounds(252, 0, 54, 45);
-		panel_2.add(lblLock);
+		Pwdpanel.add(lblLock);
 		lblLock.setIcon(new ImageIcon(img_lock));
 		// LOGIN
 		pnlBtnLogin = new JPanel();
@@ -187,14 +188,10 @@ public class Login extends JFrame {
 
 		lblLogin = new JLabel("LOGIN");
 		lblLogin.setFont(new Font("Yu Gothic UI Semibold", Font.BOLD, 18));
-		lblLogin.setForeground(new Color(255, 255, 255));
+	    lblLogin.setForeground(new Color(255, 255, 255));
 		lblLogin.setBounds(129, 3, 83, 35);
 		pnlBtnLogin.add(lblLogin);
 		
-		lblCancel.setFont(new Font("Yu Gothic UI Semibold", Font.BOLD, 28));
-		lblCancel.setForeground(new Color(255, 255, 255));
-		lblCancel.setBounds(590, 10, 20, 22);
-		contentPane.add(lblCancel);
 		// TITLE LOGO
 		lblIconLogo = new JLabel("");
 		lblIconLogo.setBounds(263, 32, 124, 122);

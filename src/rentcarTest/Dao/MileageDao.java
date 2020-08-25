@@ -2,10 +2,12 @@ package rentcarTest.Dao;
 
 import java.util.List;
 
+import rentcarTest.dto.Mileage;
+
 public interface MileageDao {
-	List<MileageDao> selectRentByAll();
-	
-	List<MileageDao> selectRentByName(MileageDao mlg);
-	
-	int insertMileageDao (MileageDao mlg);
-}
+	List<Mileage> selectMileageByAll();
+		
+	int insertMileage(Mileage mlg);
+
+	List<Mileage> selectMileageByNo(Mileage mlg);
+	}

@@ -18,7 +18,7 @@ import rentcarTest.panel.HomePanel;
 import rentcarTest.panel.RentListPanel;
 
 public class Home extends JFrame {
-	private Image img_logo = new ImageIcon(Home.class.getResource("res/logout.png")).getImage().getScaledInstance(40,
+	private Image img_logo = new ImageIcon(Home.class.getResource("../res/logout.png")).getImage().getScaledInstance(40,
 			40, Image.SCALE_SMOOTH);
 	private JPanel contentPane;
 	private JPanel panemenu;
@@ -69,7 +69,7 @@ public class Home extends JFrame {
 		contentPane.add(panemenu);
 		panemenu.setLayout(null);
 
-		lblLogo = new JLabel("RentDao-Car");
+		lblLogo = new JLabel("Rent-Car");
 		lblLogo.setForeground(new Color(255, 255, 255));
 		lblLogo.setFont(new Font("인터파크고딕 M", Font.PLAIN, 30));
 		lblLogo.setBounds(33, 30, 160, 51);
