@@ -1,24 +1,44 @@
 package rentcarTest.panel;
 
-import javax.swing.JPanel;
-import javax.swing.JLabel;
-
 import java.awt.BorderLayout;
-import java.awt.Font;
 import java.awt.Color;
+import java.util.List;
 
+import javax.swing.BoxLayout;
+import javax.swing.JPanel;
+import javax.swing.JScrollPane;
+
+import rentcarTest.Dao.service.CustomerService;
+import rentcarTest.dto.Customer;
+import rentcarTest.table.CustomerTable;
+
+@SuppressWarnings("serial")
 public class CustomerListPanel extends JPanel {
-	private JLabel lblNewLabel;
+	private JPanel panel;
+	private JScrollPane scrollPane;
+	private CustomerTable table;
+	private CustomerService service;
+	private List<Customer> lists;
+	
 	public CustomerListPanel() {
+		service = new CustomerService();
+		lists = service.showCustomers();
 		initComponents();
 	}
+	
 	private void initComponents() {
 		setBackground(Color.WHITE);
-		setLayout(new BorderLayout(0, 0));
+		setLayout(new BoxLayout(this, BoxLayout.Y_AXIS));
 		
-		lblNewLabel = new JLabel("고객 명단");
-		lblNewLabel.setBackground(Color.WHITE);
-		lblNewLabel.setFont(new Font("인터파크고딕 L", Font.PLAIN, 20));
-		add(lblNewLabel, BorderLayout.CENTER);
+		panel = new JPanel();
+		add(panel);
+		panel.setLayout(new BorderLayout(0, 0));
+		
+		scrollPane = new JScrollPane();
+		panel.add(scrollPane, BorderLayout.CENTER);
+		
+		table = new CustomerTable();
+		table.setItems(lists);
+		scrollPane.setViewportView(table);
 	}
 }
