@@ -5,7 +5,6 @@ import java.awt.Font;
 import java.awt.Image;
 import java.awt.event.FocusAdapter;
 import java.awt.event.FocusEvent;
-import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
 
@@ -13,7 +12,6 @@ import javax.swing.Icon;
 import javax.swing.ImageIcon;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
-import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JPasswordField;
 import javax.swing.JTextField;
@@ -21,11 +19,11 @@ import javax.swing.SwingConstants;
 
 public class Login extends JFrame {
 	// Image Icons
-	private Image img_carlogo = new ImageIcon(Login.class.getResource("res/car2.png")).getImage().getScaledInstance(50,
+	private Image img_carlogo = new ImageIcon(Login.class.getResource("../res/car2.png")).getImage().getScaledInstance(50,
 			50, Image.SCALE_SMOOTH);
-	private Image img_lock = new ImageIcon(Login.class.getResource("res/lock.png")).getImage().getScaledInstance(25, 20,
+	private Image img_lock = new ImageIcon(Login.class.getResource("../res/lock.png")).getImage().getScaledInstance(25, 20,
 			Image.SCALE_SMOOTH);
-	private Image img_log = new ImageIcon(Login.class.getResource("res/log.jpg")).getImage().getScaledInstance(20, 20,
+	private Image img_log = new ImageIcon(Login.class.getResource("../res/log.jpg")).getImage().getScaledInstance(20, 20,
 			Image.SCALE_SMOOTH);
 	//페널 선언
 	private JPanel contentPane;
@@ -186,13 +184,13 @@ public class Login extends JFrame {
 		pnlBtnLogin.setLayout(null);
 
 		lblLogin = new JLabel("LOGIN");
-		lblLogin.setFont(new Font("Yu Gothic UI Semibold", Font.BOLD, 18));
-		lblLogin.setForeground(new Color(255, 255, 255));
+		//lblLogin.setFont(new Font("Yu Gothic UI Semibold", Font.BOLD, 18));
+	//	lblLogin.setForeground(new Color(255, 255, 255));
 		lblLogin.setBounds(129, 3, 83, 35);
 		pnlBtnLogin.add(lblLogin);
 		
-		lblCancel.setFont(new Font("Yu Gothic UI Semibold", Font.BOLD, 28));
-		lblCancel.setForeground(new Color(255, 255, 255));
+		//lblCancel.setFont(new Font("Yu Gothic UI Semibold", Font.BOLD, 28));
+		//lblCancel.setForeground(new Color(255, 255, 255));
 		lblCancel.setBounds(590, 10, 20, 22);
 		contentPane.add(lblCancel);
 		// TITLE LOGO
