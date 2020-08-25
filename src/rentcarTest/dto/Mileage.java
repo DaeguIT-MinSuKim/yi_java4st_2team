@@ -22,6 +22,10 @@ public class Mileage {
 		super();
 	}
 	
+public Mileage(int mlg_no) {
+		super();
+		this.mlg_no = mlg_no;
+	}
 //	getter & setter & toString
 	public int getMlg_no() {
 		return mlg_no;

@@ -10,7 +10,6 @@ import java.util.List;
 import rentcarTest.Dao.CustomerDao;
 import rentcarTest.conn.JdbcUtil;
 import rentcarTest.dto.Customer;
-import rentcarTest.dto.Mileage;
 
 public class CustomerDaoImpl implements CustomerDao {
 	private static final CustomerDaoImpl instance = new CustomerDaoImpl();

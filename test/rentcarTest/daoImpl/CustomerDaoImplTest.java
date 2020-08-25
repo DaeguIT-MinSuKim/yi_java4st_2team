@@ -80,6 +80,7 @@ public class CustomerDaoImplTest {
 		System.out.printf("%s()%n","test02UpdateCustomer()");
 		Customer updateCtm = new Customer(2, "김창동", "010-7724-6072", "대구 두류동", "근육천사", 99999);
 		int res = dao.updateCustomer(updateCtm);
+		Assert.assertEquals(1, res);
 	}
 
 	@Test
