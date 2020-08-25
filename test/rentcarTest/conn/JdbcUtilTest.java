@@ -19,7 +19,6 @@ public class JdbcUtilTest {
 	@Test
 	public void testGetConnection() {
 		JdbcUtil.getConnection();
-		
 	}
 
 }
