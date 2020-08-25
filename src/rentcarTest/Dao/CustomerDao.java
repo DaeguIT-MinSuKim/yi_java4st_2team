@@ -11,7 +11,7 @@ public interface CustomerDao {
 	
 	List<Customer> selectCustomerByRent();
 
-	List<Customer> selectCustomerBlackList(Customer ctm);
+	List<Customer> selectCustomerBlackList();
 	
 	int insertCustomer (Customer ctm);
 

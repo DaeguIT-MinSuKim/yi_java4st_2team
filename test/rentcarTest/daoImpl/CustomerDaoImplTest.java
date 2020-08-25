@@ -62,10 +62,13 @@ public class CustomerDaoImplTest {
 	@Test
 	public void test05SelectCustomerBlackList() {
 		System.out.printf("%s()%n","SelectCustomerBlackList()");
+		List <Customer> list = dao.selectCustomerBlackList();
+		Assert.assertNotNull(list);
+		list.stream().forEach(System.out::println);
 	}
 
 	@Test
-	public void test03InsertCustomer() {
+	public void test01InsertCustomer() {
 		System.out.printf("%s()%n","testInsertCustomer");
 		Customer newCtm = new Customer(12, "백종원", "010","서울시 강남구","돈이 많다", 0);
 		int res = dao.insertCustomer(newCtm);
@@ -80,7 +83,7 @@ public class CustomerDaoImplTest {
 	}
 
 	@Test
-	public void test01DeleteCustomer() {
+	public void test03DeleteCustomer() {
 		System.out.println("test03DeleteCustomer()");
 		Customer deleteCtm = new Customer(12);
 		int res = dao.deleteCustomer(deleteCtm);
