@@ -13,6 +13,8 @@ public class Car {
 
 //	생성자
 //	더 추가할 생성자? 매개변수 뭘로할지 피드백 주세요
+	public Car() {}
+	
 	public Car(String carNo, String carName, Kind carKind, String fuel, int distance, int fare, int sale,
 			String carRemark) {
 		super();
@@ -101,7 +103,7 @@ public class Car {
 
 	@Override
 	public String toString() {
-		return String.format("%s,%s,%s,%s,%s,%s,%s,%s", carNo,	carName, carKind, fuel, distance, fare, sale, carRemark);
+		return String.format("%s,%s,%s,%s,%s,%s,%s,%s", carNo, carName, carKind, fuel, distance, fare, sale, carRemark);
 	}
 
 //	차량번호가 기본키이기 때문에 hashcode & equals 차량번호(no)만 비교

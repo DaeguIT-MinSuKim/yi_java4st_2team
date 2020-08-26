@@ -13,6 +13,7 @@ public class Customer {
 	
 //	생성자
 //	더 추가할 생성자? 매개변수 뭘로할지 피드백 주세요
+	public Customer() {}
 
 	public Customer(int no, String name, String tel, String address, String remark, int ctm_mlg) {
 		super();
@@ -23,7 +24,7 @@ public class Customer {
 		this.remark = remark;
 		this.ctm_mlg = ctm_mlg;
 	}	
-	
+
 	public Customer(int no) {
 		this.no = no;
 	}
