@@ -58,8 +58,6 @@ public class Home extends JFrame {
 
 		// contentPane 안의 panel 선언
 		CustomerListPanel = new CustomerListPanel();
-		CarListPanel = new CarListPanel();
-		RentListPanel = new RentListPanel();
 		HomePanel = new HomePanel();
 
 		// 사이드바 _1_로고
@@ -168,13 +166,15 @@ public class Home extends JFrame {
 		// 오른쪽 MainContentPane
 		MainContentPane = new JPanel();
 		MainContentPane.setBackground(new Color(255, 255, 255));
-		MainContentPane.setBounds(236, 10, 631, 60);
+		MainContentPane.setBounds(236, 0, 643, 661);
 
 		contentPane.add(MainContentPane);
 		
 		//페널 추가 
 		MainContentPane.add(CustomerListPanel);
+		CarListPanel = new CarListPanel();
 		MainContentPane.add(CarListPanel);
+		RentListPanel = new RentListPanel();
 		MainContentPane.add(RentListPanel);
 //		MainContentPane.add(MileagePanel);
 //		MainContentPane.add(PerformancePane);
