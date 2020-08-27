@@ -28,7 +28,7 @@ public class CustomerDaoImplTest {
 	}
 
 	@Test
-	public void test04SelectCustomerByAll() {
+	public void test05SelectCustomerByAll() {
 		System.out.println("testSelectCustomerByAll");
 		List<Customer> list = dao.selectCustomerByAll();
 		Assert.assertNotNull(list);
@@ -37,18 +37,17 @@ public class CustomerDaoImplTest {
 
 	@Test
 	public void test04SelectCustomerByFind() {
-	System.out.printf("%s()%n", "test04SelectCustomerByFind");
-	Customer ctm_search = new Customer(0);
-	ctm_search.setNo(1);
-	ctm_search.setName("홍길동");
-	ctm_search.setTel("010-5177-0965");
-	ctm_search.setAddress("지구");
-	
-	List<Customer> ctm = dao.selectCustomerByFind(ctm_search);
-	Assert.assertNotNull(ctm);
-	ctm.stream().forEach(System.out::println);
-
-	}
+		System.out.printf("%s()%n", "test04SelectCustomerByFind");
+	      Customer ctm_search = new Customer(1);
+	      ctm_search.setNo(0);
+	      ctm_search.setName("홍길동");
+	      ctm_search.setTel("010-5177-0965");
+	      ctm_search.setAddress("지구");
+	      
+	      List<Customer> ctm = dao.selectCustomerByFind(ctm_search);
+	      Assert.assertNotNull(ctm);
+	      ctm.stream().forEach(System.out::println);
+}
 
 
 	@Test
@@ -60,7 +59,7 @@ public class CustomerDaoImplTest {
 	}
 
 	@Test
-	public void test05SelectCustomerBlackList() {
+	public void test07SelectCustomerBlackList() {
 		System.out.printf("%s()%n","SelectCustomerBlackList()");
 		List <Customer> list = dao.selectCustomerBlackList();
 		Assert.assertNotNull(list);

@@ -36,7 +36,8 @@ public class Car {
 		this.carKind = carKind;
 	}
 
-//	getter & setter & toString
+
+	//	getter & setter & toString
 	public String getCarNo() {
 		return carNo;
 	}

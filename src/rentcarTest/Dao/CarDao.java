@@ -9,8 +9,8 @@ public interface CarDao {
 	
 	List<Car> selectCarByFind(Car car);
 	
-	List<Car> selectCarByRent(Car car);
-
+	List<Car> selectCarByRent();
+	
 	int insertCar (Car car);
 
 	int updateCar (Car car);
