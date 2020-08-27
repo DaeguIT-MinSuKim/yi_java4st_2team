@@ -35,7 +35,9 @@
 			"driver": "oracle_thin",
 			"name": "orcl - renttest",
 			"save-password": true,
-			"show-system-objects": true,
+			"navigator-show-only-entities": true,
+			"navigator-hide-folders": true,
+			"navigator-hide-virtual": true,
 			"read-only": false,
 			"configuration": {
 				"host": "localhost",

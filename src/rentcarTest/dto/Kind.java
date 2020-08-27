@@ -11,7 +11,6 @@ public class Kind {
 	}
 
 	public Kind(String car_kind) {
-		super();
 		this.car_kind = car_kind;
 	}
 
@@ -35,6 +34,11 @@ public class Kind {
 
 	public void setKind_name(String kind_name) {
 		this.kind_name = kind_name;
+	}
+
+	@Override
+	public String toString() {
+		return String.format("%s, %s", car_kind, kind_name);
 	}
 
 }

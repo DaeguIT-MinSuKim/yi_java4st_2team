@@ -15,6 +15,8 @@ public class Rent {
 	
 //	생성자
 //	더 추가할 생성자? 매개변수 뭘로할지 피드백 주세요
+	public Rent() {}
+	
 	public Rent(int rent_no, Customer ctm_no, Car car_no, Date rent_date, Date return_date, int is_driver,
 			String rent_remark) {
 		super();
@@ -97,6 +99,14 @@ public class Rent {
 		this.is_driver = is_driver;
 	}
 
+	public int getRent_time() {
+		return rent_time;
+	}
+
+	public void setRent_time(int rent_time) {
+		this.rent_time = rent_time;
+	}
+
 	public String getRent_remark() {
 		return rent_remark;
 	}
@@ -109,7 +119,7 @@ public class Rent {
 	public String toString() {
 		return String.format(
 				"%s,%s,%s,%s,%s,%s,%s,%s",
-				rent_no, ctm_no, car_no, rent_date, return_date, is_driver, rent_remark);
+				rent_no, ctm_no, car_no, rent_date, return_date, rent_time, is_driver, rent_remark);
 	}
 
 //	고객번호가 기본키이기 때문에 hashcode & equals 고객번호(num)만 비교
