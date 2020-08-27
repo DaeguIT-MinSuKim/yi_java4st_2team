@@ -7,11 +7,11 @@ import rentcarTest.dto.Rent;
 public interface RentDao {
 	List<Rent> selectRentByAll();
 	
-	RentDao selectRentByFind(Rent rent);
+	List<Rent> selectRentByFind(Rent rent);
 	
-	RentDao selectRentByDate(Rent rent);
+	List<Rent> selectRentByDate(Rent rent);
 
-	RentDao selectRentByRent(Rent rent);
+	List<Rent> selectRentByRent();
 	
 	int insertRent (Rent rent);
 
