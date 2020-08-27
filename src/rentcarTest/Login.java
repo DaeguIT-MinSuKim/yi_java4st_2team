@@ -25,7 +25,7 @@ public class Login extends JFrame {
 			Image.SCALE_SMOOTH);
 	private Image img_log = new ImageIcon(Login.class.getResource("../res/log.jpg")).getImage().getScaledInstance(20, 20,
 			Image.SCALE_SMOOTH);
-	//페널 선언
+	//패널 선언
 	private JPanel contentPane;
 	private JPanel Idpanel;
 	private JPanel Pwdpanel;

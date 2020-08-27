@@ -57,9 +57,7 @@ public class Home extends JFrame {
 		contentPane.setLayout(null);
 		// contentPane 안의 panel 선언
 		CustomerListPanel = new CustomerListPanel();
-		CarListPanel = new CarListPanel();
-		RentListPanel = new RentListPanel();
-		HomePanel = new HomePanel();
+		//HomePanel = new HomePanel();
 		// 사이드바 _1_로고
 		panemenu = new JPanel();
 		panemenu.setBackground(new Color(30, 144, 255));
@@ -172,9 +170,11 @@ public class Home extends JFrame {
 		contentPane.add(MainContentPane);
 
 		// 페널 추가
-		MainContentPane.add(HomePanel);
+		//MainContentPane.add(HomePanel);
 		MainContentPane.add(CustomerListPanel);
+		CarListPanel = new CarListPanel();
 		MainContentPane.add(CarListPanel);
+		RentListPanel = new RentListPanel();
 		MainContentPane.add(RentListPanel);
 //		MainContentPane.add(PerformancePane);
 //		 
@@ -208,7 +208,7 @@ public class Home extends JFrame {
 	// 오른쪽 MainContentPane 클릭시 보이는 메뉴 컨트롤
 	public void MenuClicked(JPanel panel) {
 
-		HomePanel.setVisible(true);
+		//HomePanel.setVisible(true);
 		CarListPanel.setVisible(false);
 		RentListPanel.setVisible(false);
 		CustomerListPanel.setVisible(false);
