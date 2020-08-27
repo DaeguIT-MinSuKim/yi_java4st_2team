@@ -13,7 +13,7 @@ import javax.swing.JScrollPane;
 
 import rentcarTest.Dao.service.CustomerService;
 import rentcarTest.dto.Customer;
-import rentcarTest.panel.popup.AddCustomerPanel2;
+import rentcarTest.panel.popup.AddCustomerPanel;
 import rentcarTest.table.CustomerTable;
 
 @SuppressWarnings("serial")
@@ -60,7 +60,7 @@ public class CustomerListPanel extends JPanel implements ActionListener {
 		}
 	}
 	protected void actionPerformedBtnNewButton(ActionEvent e) {
-		AddCustomerPanel2 ctmPanel = new AddCustomerPanel2();
+		AddCustomerPanel ctmPanel = new AddCustomerPanel();
 		ctmPanel.setVisible(true);
 	}
 }

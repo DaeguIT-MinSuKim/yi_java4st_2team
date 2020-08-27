@@ -130,7 +130,7 @@ CREATE TABLE RENT (
 	car_no VARCHAR2(20) NOT NULL, /* 차량번호 */
 	rent_date DATE NOT NULL, /* 대여일자 */
 	return_date DATE NOT NULL, /* 반납일자 */
-	rent_time NUMBER, /* 대여시간 */
+	rent_time NUMBER,/* 대여시간 */
 	is_driver NUMBER(1) NOT NULL, /* 기사여부 */
 	rent_remark VARCHAR2(500), /* 대여비고 */
 	is_rent NUMBER(1) NOT NULL /* 대여여부 */

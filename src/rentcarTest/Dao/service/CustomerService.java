@@ -10,6 +10,7 @@ public class CustomerService {
 	private CustomerDao dao = CustomerDaoImpl.getInstance();
 	
 	public void insertCtm(Customer item) {
+		System.out.println("?");
 		dao.insertCustomer(item);
 	}
 	

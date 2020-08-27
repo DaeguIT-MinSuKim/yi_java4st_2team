@@ -120,10 +120,10 @@ public class CustomerDaoImpl implements CustomerDao {
 			pstmt.setString(3, ctm.getTel());
 			pstmt.setString(4, ctm.getAddress());
 			pstmt.setString(5, ctm.getRemark());
-			pstmt.setInt(6, 0);
+			pstmt.setInt(6, ctm.getCtm_mlg());
 			pstmt.setInt(7, 0);
+			
 			return pstmt.executeUpdate();
-
 		} catch (SQLException e) {
 			throw new RuntimeException(e);
 		}
