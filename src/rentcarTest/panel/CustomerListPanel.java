@@ -2,23 +2,29 @@ package rentcarTest.panel;
 
 import java.awt.BorderLayout;
 import java.awt.Color;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 import java.util.List;
 
 import javax.swing.BoxLayout;
+import javax.swing.JButton;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 
 import rentcarTest.Dao.service.CustomerService;
 import rentcarTest.dto.Customer;
+import rentcarTest.panel.popup.AddCustomerPanel2;
 import rentcarTest.table.CustomerTable;
 
 @SuppressWarnings("serial")
-public class CustomerListPanel extends JPanel {
-	private JPanel panel;
+public class CustomerListPanel extends JPanel implements ActionListener {
+	private JPanel pTable;
 	private JScrollPane scrollPane;
 	private CustomerTable table;
 	private CustomerService service;
 	private List<Customer> lists;
+	private JPanel pBtns;
+	private JButton btnNewButton;
 	
 	public CustomerListPanel() {
 		service = new CustomerService();
@@ -30,15 +36,31 @@ public class CustomerListPanel extends JPanel {
 		setBackground(Color.WHITE);
 		setLayout(new BoxLayout(this, BoxLayout.Y_AXIS));
 		
-		panel = new JPanel();
-		add(panel);
-		panel.setLayout(new BorderLayout(0, 0));
+		pTable = new JPanel();
+		add(pTable);
+		pTable.setLayout(new BorderLayout(0, 0));
 		
 		scrollPane = new JScrollPane();
-		panel.add(scrollPane, BorderLayout.CENTER);
+		pTable.add(scrollPane, BorderLayout.CENTER);
 		
 		table = new CustomerTable();
 		table.setItems(lists);
 		scrollPane.setViewportView(table);
+		
+		pBtns = new JPanel();
+		add(pBtns);
+		
+		btnNewButton = new JButton("수정");
+		btnNewButton.addActionListener(this);
+		pBtns.add(btnNewButton);
+	}
+	public void actionPerformed(ActionEvent e) {
+		if (e.getSource() == btnNewButton) {
+			actionPerformedBtnNewButton(e);
+		}
+	}
+	protected void actionPerformedBtnNewButton(ActionEvent e) {
+		AddCustomerPanel2 ctmPanel = new AddCustomerPanel2();
+		ctmPanel.setVisible(true);
 	}
 }

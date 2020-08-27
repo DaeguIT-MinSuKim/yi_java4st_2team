@@ -91,7 +91,7 @@ public abstract class AbstractItemTable<T> extends JTable {
 	}
 	
 	public void addRow(Customer item) {
-		this.service.joinCusotmer(item);
+		this.service.insertCtm(item);
 		//lists.add(item);
 //		setItems();
 	}

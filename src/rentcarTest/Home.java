@@ -28,6 +28,7 @@ public class Home extends JFrame {
 	private JPanel CarListPane;
 	private JPanel MileagePane;
 	private JPanel PerformancePane;
+	private JPanel HomePane;
 	private JLabel lblRent;
 	private JLabel lblCustomerList;
 	private JLabel lblCar;
@@ -42,7 +43,6 @@ public class Home extends JFrame {
 	private JLabel lblSignOut;
 
 	public Home() {
-
 		initComponents();
 	}
 
@@ -55,25 +55,15 @@ public class Home extends JFrame {
 		contentPane.setBorder(new LineBorder(new Color(100, 149, 237)));
 		setContentPane(contentPane);
 		contentPane.setLayout(null);
-
 		// contentPane 안의 panel 선언
 		CustomerListPanel = new CustomerListPanel();
-		CarListPanel = new CarListPanel();
-		RentListPanel = new RentListPanel();
-		HomePanel = new HomePanel();
-
+		//HomePanel = new HomePanel();
 		// 사이드바 _1_로고
 		panemenu = new JPanel();
 		panemenu.setBackground(new Color(30, 144, 255));
 		panemenu.setBounds(0, 0, 236, 661);
 		contentPane.add(panemenu);
 		panemenu.setLayout(null);
-
-		lblLogo = new JLabel("Rent-Car");
-		lblLogo.setForeground(new Color(255, 255, 255));
-		lblLogo.setFont(new Font("인터파크고딕 M", Font.PLAIN, 30));
-		lblLogo.setBounds(33, 30, 160, 51);
-		panemenu.add(lblLogo);
 
 		// 사이드 바_2_고객관리
 		CustomerListPane = new JPanel();
@@ -82,8 +72,9 @@ public class Home extends JFrame {
 			@Override
 			public void mouseClicked(MouseEvent e) {
 				MenuClicked(CustomerListPanel);
-			}
+				HomePanel.setVisible(false);
 
+			}
 		});
 		CustomerListPane.setBackground(new Color(30, 144, 255));
 		CustomerListPane.setForeground(new Color(255, 255, 255));
@@ -100,6 +91,8 @@ public class Home extends JFrame {
 			@Override
 			public void mouseClicked(MouseEvent e) {
 				MenuClicked(CarListPanel);
+				HomePanel.setVisible(false);
+
 			}
 		});
 
@@ -118,6 +111,8 @@ public class Home extends JFrame {
 			@Override
 			public void mouseClicked(MouseEvent e) {
 				MenuClicked(RentListPanel);
+				HomePanel.setVisible(false);
+
 			}
 		});
 		RentListPane.setBackground(new Color(30, 144, 255));
@@ -135,6 +130,8 @@ public class Home extends JFrame {
 			@Override
 			public void mouseClicked(MouseEvent e) {
 				MenuClicked(MileagePane);
+				HomePanel.setVisible(false);
+
 			}
 
 		});
@@ -147,12 +144,13 @@ public class Home extends JFrame {
 		lblMileage.setForeground(new Color(255, 255, 255));
 		lblMileage.setFont(new Font("인터파크고딕 L", Font.PLAIN, 17));
 		MileagePane.add(lblMileage);
-        //사이드 바_6_성과현황
+		// 사이드 바_6_성과현황
 		PerformancePane = new JPanel();
 		PerformancePane.addMouseListener(new PanelButtonMouseAdaptor(PerformancePane) {
 			@Override
 			public void mouseClicked(MouseEvent e) {
 				MenuClicked(PerformancePane);
+				HomePanel.setVisible(false);
 			}
 
 		});
@@ -168,31 +166,49 @@ public class Home extends JFrame {
 		// 오른쪽 MainContentPane
 		MainContentPane = new JPanel();
 		MainContentPane.setBackground(new Color(255, 255, 255));
-		MainContentPane.setBounds(236, 10, 631, 60);
-
+		MainContentPane.setBounds(236, 0, 643, 661);
 		contentPane.add(MainContentPane);
-		
-		//페널 추가 
+
+		// 페널 추가
+		//MainContentPane.add(HomePanel);
 		MainContentPane.add(CustomerListPanel);
+		CarListPanel = new CarListPanel();
 		MainContentPane.add(CarListPanel);
+		RentListPanel = new RentListPanel();
 		MainContentPane.add(RentListPanel);
-//		MainContentPane.add(MileagePanel);
 //		MainContentPane.add(PerformancePane);
 //		 
 		MenuClicked(CustomerListPane);
 		MenuClicked(CarListPane);
-        //로그아웃 로고 - 클릭시 dispose();
+		// 로그아웃 로고 - 클릭시 dispose();
 		lblSignOut = new JLabel("");
 		lblSignOut.setBounds(172, 580, 94, 71);
 		lblSignOut.setIcon(new ImageIcon(img_logo));
 
 		panemenu.add(lblSignOut);
 
+		HomePane = new JPanel();
+		HomePane.addMouseListener(new PanelButtonMouseAdaptor(HomePane) {
+			@Override
+			public void mouseClicked(MouseEvent e) {
+				MenuClicked(HomePanel);
+			}
+		});
+		HomePane.setBounds(0, 29, 230, 60);
+		panemenu.add(HomePane);
+		HomePane.setBackground(new Color(30, 144, 255));
+		HomePane.setForeground(new Color(255, 255, 255));
+
+		lblLogo = new JLabel("Rent_Car");
+		HomePane.add(lblLogo);
+		lblLogo.setForeground(new Color(255, 255, 255));
+		lblLogo.setFont(new Font("인터파크고딕 M", Font.PLAIN, 30));
 	}
 
 	// 오른쪽 MainContentPane 클릭시 보이는 메뉴 컨트롤
 	public void MenuClicked(JPanel panel) {
 
+		//HomePanel.setVisible(true);
 		CarListPanel.setVisible(false);
 		RentListPanel.setVisible(false);
 		CustomerListPanel.setVisible(false);
@@ -201,6 +217,7 @@ public class Home extends JFrame {
 
 		panel.setVisible(true);
 	}
+
 	// 마우스 올렸을 떄 색이 변하는 사이드바
 	private class PanelButtonMouseAdaptor extends MouseAdapter {
 		JPanel panel;

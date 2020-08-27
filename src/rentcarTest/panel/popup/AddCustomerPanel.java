@@ -12,6 +12,10 @@ import java.awt.Component;
 import java.awt.Dimension;
 import java.awt.Font;
 import javax.swing.border.EmptyBorder;
+
+import rentcarTest.Dao.service.CustomerService;
+import rentcarTest.dto.Customer;
+
 import javax.swing.SwingConstants;
 import javax.swing.JButton;
 import java.awt.event.ActionListener;
@@ -30,6 +34,7 @@ public class AddCustomerPanel extends JPanel implements ActionListener {
 	private JPanel pBtns;
 	private JButton btnAdd;
 	private JButton btnCancel;
+	private CustomerService service;
 
 	public AddCustomerPanel() {
 		initComponents();
@@ -117,6 +122,14 @@ public class AddCustomerPanel extends JPanel implements ActionListener {
 		}
 	}
 	protected void actionPerformedBtnAdd(ActionEvent e) {
-		
+		int no = Integer.parseInt(tfNo.getText());
+		String name = tfName.getText();
+		String tel = tfTel.getText();
+		String address = tfAddress.getText();
+		String remark = tfRemark.getText();
+		int ctm_mlg = Integer.parseInt(tfMileage.getText());
+		Customer item = new Customer(no, name, tel, address, remark, ctm_mlg);
+		service.insertCtm(item);
+		System.out.println("왜!");
 	}
 }

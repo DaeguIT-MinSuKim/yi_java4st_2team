@@ -9,7 +9,7 @@ import rentcarTest.dto.Customer;
 public class CustomerService {
 	private CustomerDao dao = CustomerDaoImpl.getInstance();
 	
-	public void joinCusotmer(Customer item) {
+	public void insertCtm(Customer item) {
 		dao.insertCustomer(item);
 	}
 	
