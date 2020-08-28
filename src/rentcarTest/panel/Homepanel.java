@@ -12,6 +12,7 @@ import javax.swing.JLabel;
 import java.awt.Font;
 import java.awt.event.MouseListener;
 import java.awt.event.MouseEvent;
+import java.awt.Dimension;
 
 public class Homepanel extends JPanel {
 	private Image img_logo = new ImageIcon(Home.class.getResource("../res/person.png")).getImage().getScaledInstance(90,
@@ -28,17 +29,18 @@ public class Homepanel extends JPanel {
 		initComponents();
 	}
 	private void initComponents() {
-		setBackground(new Color(30, 144, 255));
+		setPreferredSize(new Dimension(650,661));
+		setBackground(Color.WHITE);
 		setLayout(null);
 		
 		lblPerson = new JLabel("");
-		lblPerson.setBounds(175, 76, 98, 92);
+		lblPerson.setBounds(275, 185, 98, 92);
 		lblPerson.setIcon(new ImageIcon(img_logo));
 		add(lblPerson);
 		
 		lblNewLabel = new JLabel("관리자님, 환영합니다.");
 		lblNewLabel.setFont(new Font("인터파크고딕 L", Font.BOLD, 15));
-		lblNewLabel.setBounds(154, 164, 183, 53);
+		lblNewLabel.setBounds(248, 287, 183, 53);
 		add(lblNewLabel);
 		
 		panel = new JPanel();
@@ -51,32 +53,26 @@ public class Homepanel extends JPanel {
 
 			@Override
 			public void mousePressed(MouseEvent e) {
-				// TODO Auto-generated method stub
 				
 			}
 
 			@Override
 			public void mouseReleased(MouseEvent e) {
-				// TODO Auto-generated method stub
 				
 			}
 
 			@Override
 			public void mouseEntered(MouseEvent e) {
-				// TODO Auto-generated method stub
-				
+			
 			}
 
 			@Override
 			public void mouseExited(MouseEvent e) {
-				// TODO Auto-generated method stub
 				
 			}
-
-	
 		});
-		panel.setBackground(new Color(30, 144, 255));
-		panel.setBounds(164, 207, 114, 39);
+		panel.setBackground(Color.WHITE);
+		panel.setBounds(270, 350, 114, 39);
 		add(panel);
 		
 		lbltodo = new JLabel("");

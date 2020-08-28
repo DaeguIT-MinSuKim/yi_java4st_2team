@@ -10,8 +10,6 @@ import javax.swing.ImageIcon;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
-import javax.swing.SwingUtilities;
-import javax.swing.UIManager;
 import javax.swing.border.LineBorder;
 
 import rentcarTest.panel.CarListPanel;
@@ -42,9 +40,10 @@ public class Home extends JFrame {
 	private JPanel CustomerListPanel;
 	private JPanel CarListPanel;
 	private JPanel RentListPanel;
+	private JPanel MileagePanel;
+
 	private JPanel HomePanel;
 	private JLabel lblSignOut;
-	private JPanel MileagePanel;
 
 	public Home() {
 		initComponents();
@@ -52,9 +51,6 @@ public class Home extends JFrame {
 
 	private void initComponents() {
 		setTitle("RENT-CAR Management Program");
-		setSize(700, 400);
-		setLocationRelativeTo(null);
-		setResizable(false);
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		setBounds(100, 100, 895, 700);
 		contentPane = new JPanel();
@@ -65,11 +61,11 @@ public class Home extends JFrame {
 		// contentPane 안의 panel 선언
 		CustomerListPanel = new CustomerListPanel();
 		MileagePanel = new MileagePanel();
-	   // HomePanel = new HomePanel();
+		HomePanel = new Homepanel();
 		// 사이드바 _1_로고
 		panemenu = new JPanel();
 		panemenu.setBackground(new Color(30, 144, 255));
-		panemenu.setBounds(0, 0, 239, 671);
+		panemenu.setBounds(0, 0, 236, 661);
 		contentPane.add(panemenu);
 		panemenu.setLayout(null);
 
@@ -137,10 +133,9 @@ public class Home extends JFrame {
 		MileagePane.addMouseListener(new PanelButtonMouseAdaptor(MileagePane) {
 			@Override
 			public void mouseClicked(MouseEvent e) {
-				MenuClicked(MileagePane);
+				MenuClicked(MileagePanel);
 				HomePanel.setVisible(false);
 			}
-
 		});
 		MileagePane.setBackground(new Color(30, 144, 255));
 		MileagePane.setForeground(new Color(255, 255, 255));
@@ -170,7 +165,35 @@ public class Home extends JFrame {
 		lblPerformance.setFont(new Font("인터파크고딕 L", Font.PLAIN, 17));
 		lblPerformance.setForeground(new Color(255, 255, 255));
 		PerformancePane.add(lblPerformance);
-		
+		// 오른쪽 MainContentPane
+		MainContentPane = new JPanel();
+		MainContentPane.setBackground(new Color(255, 255, 255));
+		MainContentPane.setBounds(236, 0, 643, 661);
+		contentPane.add(MainContentPane);
+
+		// 페널 추가
+		//MainContentPane.add(HomePanel);
+		MainContentPane.add(CustomerListPanel);
+		CarListPanel = new CarListPanel();
+		MainContentPane.add(CarListPanel);
+		RentListPanel = new RentListPanel();
+		MainContentPane.add(RentListPanel);
+		MileagePanel = new MileagePanel();
+		MainContentPane.add(MileagePanel);
+		HomePanel = new Homepanel();
+		MainContentPane.add(HomePanel);
+
+//		MainContentPane.add(PerformancePane);
+//		 
+		MenuClicked(CustomerListPane);
+		MenuClicked(CarListPane);
+		// 로그아웃 로고 - 클릭시 dispose();
+		lblSignOut = new JLabel("");
+		lblSignOut.setBounds(172, 580, 94, 71);
+		lblSignOut.setIcon(new ImageIcon(img_logo));
+
+		panemenu.add(lblSignOut);
+
 		HomePane = new JPanel();
 		HomePane.addMouseListener(new PanelButtonMouseAdaptor(HomePane) {
 			@Override
@@ -187,36 +210,6 @@ public class Home extends JFrame {
 		HomePane.add(lblLogo);
 		lblLogo.setForeground(new Color(255, 255, 255));
 		lblLogo.setFont(new Font("인터파크고딕 M", Font.PLAIN, 30));
-		
-		// 오른쪽 MainContentPane
-		MainContentPane = new JPanel();
-		MainContentPane.setBackground(new Color(255, 255, 255));
-		MainContentPane.setBounds(241, 0, 638, 683);
-		contentPane.add(MainContentPane);
-
-		// 페널 추가
-		// MainContentPane.add(HomePanel);
-		MainContentPane.add(CustomerListPanel);
-		CarListPanel = new CarListPanel();
-		MainContentPane.add(CarListPanel);
-		RentListPanel = new RentListPanel();
-		MainContentPane.add(RentListPanel);
-		HomePanel = new Homepanel();
-		MainContentPane.add(HomePanel);
-		//		MainContentPane.add(PerformancePane);
-//		 
-		MenuClicked(CustomerListPane);
-		MenuClicked(CarListPane);
-		MenuClicked(MileagePane);
-		MenuClicked(HomePane);
-		// 로그아웃 로고 - 클릭시 dispose();
-		lblSignOut = new JLabel("");
-		lblSignOut.setBounds(172, 580, 94, 71);
-		lblSignOut.setIcon(new ImageIcon(img_logo));
-
-		panemenu.add(lblSignOut);
-
-		
 	}
 
 	// 오른쪽 MainContentPane 클릭시 보이는 메뉴 컨트롤
