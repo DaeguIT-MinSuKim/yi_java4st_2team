@@ -60,3 +60,4 @@ SELECT LIST_CTM
 SELECT CTM_NO, CTM_NAME, TEL, ADDRESS, CTM_REMARK, CTM_MLG FROM CUSTOMER WHERE LIST_CTM = 1;
 UPDATE CAR SET CAR_NAME = '스타' , CAR_KIND = 'S' , FUEL = '휘발유' , DISTANCE = 999 , FARE = 350000 , SALE = 5 , CAR_REMARK = '티라노' WHERE CAR_NO = '38허4532';
 -----------------------------------------------------------------------------배성덕-----------------------------------------------------------------------------
+UPDATE CUSTOMER SET LIST_CTM = 1 WHERE CTM_NO =1;

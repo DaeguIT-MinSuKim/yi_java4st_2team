@@ -75,14 +75,17 @@ public class CustomerListPanel extends JPanel implements ActionListener, ItemLis
 		setLayout(new BoxLayout(this, BoxLayout.Y_AXIS));
 
 		panel = new JPanel();
+		panel.setBackground(new Color(255, 255, 255));
 		add(panel);
 
 		pTitle = new JPanel();
+		pTitle.setBackground(Color.WHITE);
 		add(pTitle);
 
 		pTitle.setLayout(new BorderLayout(0, 0));
 
 		lblTitle = new JLabel("고객 명단");
+		lblTitle.setBackground(new Color(255, 255, 255));
 		lblTitle.setFont(new Font("굴림", Font.BOLD, 30));
 		lblTitle.setHorizontalAlignment(SwingConstants.CENTER);
 		pTitle.add(lblTitle);
@@ -131,6 +134,7 @@ public class CustomerListPanel extends JPanel implements ActionListener, ItemLis
 		// scrollPane.setViewportView(table);
 
 		pBtns = new JPanel();
+		pBtns.setBackground(Color.WHITE);
 		add(pBtns);
 
 		btnAdd = new JButton("추가");

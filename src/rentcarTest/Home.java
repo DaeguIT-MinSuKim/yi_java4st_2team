@@ -63,7 +63,7 @@ public class Home extends JFrame {
 	private void initComponents() {
 		setTitle("RENT-CAR Management Program");
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-		setBounds(100, 100, 895, 700);
+		setBounds(100, 100, 1200, 752);
 		contentPane = new JPanel();
 		contentPane.setBackground(new Color(255, 255, 255));
 		contentPane.setBorder(new LineBorder(new Color(100, 149, 237)));
@@ -76,7 +76,7 @@ public class Home extends JFrame {
 		// 사이드바 _1_로고
 		panemenu = new JPanel();
 		panemenu.setBackground(new Color(30, 144, 255));
-		panemenu.setBounds(0, 0, 236, 661);
+		panemenu.setBounds(0, 0, 250, 713);
 		contentPane.add(panemenu);
 		panemenu.setLayout(null);
 
@@ -93,7 +93,7 @@ public class Home extends JFrame {
 		});
 		CustomerListPane.setBackground(new Color(30, 144, 255));
 		CustomerListPane.setForeground(new Color(255, 255, 255));
-		CustomerListPane.setBounds(0, 95, 230, 60);
+		CustomerListPane.setBounds(0, 95, 250, 60);
 		panemenu.add(CustomerListPane);
 		// 사이드 바_3_차량관리
 		CarListPane = new JPanel();
@@ -108,7 +108,7 @@ public class Home extends JFrame {
 
 		CarListPane.setBackground(new Color(30, 144, 255));
 		CarListPane.setForeground(new Color(255, 255, 255));
-		CarListPane.setBounds(0, 155, 230, 60);
+		CarListPane.setBounds(0, 155, 250, 60);
 		panemenu.add(CarListPane);
 		CarListPane.setLayout(new BorderLayout(0, 0));
 
@@ -129,7 +129,7 @@ public class Home extends JFrame {
 		});
 		RentListPane.setBackground(new Color(30, 144, 255));
 		RentListPane.setForeground(new Color(255, 255, 255));
-		RentListPane.setBounds(0, 215, 231, 60);
+		RentListPane.setBounds(0, 215, 250, 60);
 		panemenu.add(RentListPane);
 		RentListPane.setLayout(new BorderLayout(0, 0));
 
@@ -149,7 +149,7 @@ public class Home extends JFrame {
 		});
 		MileagePane.setBackground(new Color(30, 144, 255));
 		MileagePane.setForeground(new Color(255, 255, 255));
-		MileagePane.setBounds(0, 275, 231, 60);
+		MileagePane.setBounds(0, 275, 250, 60);
 		panemenu.add(MileagePane);
 		MileagePane.setLayout(new BorderLayout(0, 0));
 
@@ -170,7 +170,7 @@ public class Home extends JFrame {
 		});
 		PerformancePane.setBackground(new Color(30, 144, 255));
 		PerformancePane.setForeground(new Color(255, 255, 255));
-		PerformancePane.setBounds(0, 335, 231, 60);
+		PerformancePane.setBounds(0, 335, 250, 60);
 		panemenu.add(PerformancePane);
 		PerformancePane.setLayout(new BorderLayout(0, 0));
 
@@ -183,7 +183,7 @@ public class Home extends JFrame {
 		// 오른쪽 MainContentPane
 		MainContentPane = new JPanel();
 		MainContentPane.setBackground(new Color(255, 255, 255));
-		MainContentPane.setBounds(236, 0, 643, 661);
+		MainContentPane.setBounds(250, 0, 935, 713);
 		contentPane.add(MainContentPane);
 
 		// 페널 추가
@@ -223,7 +223,7 @@ public class Home extends JFrame {
 				MenuClicked(HomePanel);
 			}
 		});
-		HomePane.setBounds(0, 29, 230, 60);
+		HomePane.setBounds(0, 29, 250, 60);
 		panemenu.add(HomePane);
 		HomePane.setBackground(new Color(30, 144, 255));
 		HomePane.setForeground(new Color(255, 255, 255));
@@ -235,17 +235,17 @@ public class Home extends JFrame {
 		
 		lblWelcome = new JLabel("관리자님, 환영합니다.");
 		lblWelcome.setForeground(new Color(0, 0, 0));
-		lblWelcome.setBounds(29, 554, 183, 53);
+		lblWelcome.setBounds(32, 573, 183, 53);
 		panemenu.add(lblWelcome);
 		lblWelcome.setFont(new Font("인터파크고딕 L", Font.BOLD, 17));
 		
 		lblPerson = new JLabel("");
-		lblPerson.setBounds(85, 471, 77, 82);
+		lblPerson.setBounds(86, 493, 77, 82);
 		panemenu.add(lblPerson);
 		lblPerson.setIcon(new ImageIcon(img_person));
 		
 		paneTodo = new JPanel();
-		paneTodo.setBounds(62, 596, 114, 39);
+		paneTodo.setBounds(64, 651, 114, 39);
 		panemenu.add(paneTodo);
 		paneTodo.setBackground(new Color(30, 144, 255));
 		
