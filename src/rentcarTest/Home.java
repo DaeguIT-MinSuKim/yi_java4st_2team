@@ -17,6 +17,13 @@ import rentcarTest.panel.CustomerListPanel;
 import rentcarTest.panel.Homepanel;
 import rentcarTest.panel.MileagePanel;
 import rentcarTest.panel.RentListPanel;
+import javax.swing.BoxLayout;
+import java.awt.GridLayout;
+import java.awt.GridBagLayout;
+import java.awt.GridBagConstraints;
+import java.awt.FlowLayout;
+import java.awt.BorderLayout;
+import javax.swing.SwingConstants;
 
 public class Home extends JFrame {
 	private Image img_logo = new ImageIcon(Home.class.getResource("../res/logout.png")).getImage().getScaledInstance(40,
@@ -42,7 +49,7 @@ public class Home extends JFrame {
 	private JPanel RentListPanel;
 	private JPanel MileagePanel;
 
-	private JPanel HomePanel;
+	private JPanel HomePanel = new JPanel();
 	private JLabel lblSignOut;
 
 	public Home() {
@@ -84,11 +91,6 @@ public class Home extends JFrame {
 		CustomerListPane.setForeground(new Color(255, 255, 255));
 		CustomerListPane.setBounds(0, 95, 230, 60);
 		panemenu.add(CustomerListPane);
-
-		lblCustomerList = new JLabel("고객관리");
-		lblCustomerList.setFont(new Font("인터파크고딕 L", Font.PLAIN, 17));
-		lblCustomerList.setForeground(new Color(255, 255, 255));
-		CustomerListPane.add(lblCustomerList);
 		// 사이드 바_3_차량관리
 		CarListPane = new JPanel();
 		CarListPane.addMouseListener(new PanelButtonMouseAdaptor(CarListPane) {
@@ -104,8 +106,10 @@ public class Home extends JFrame {
 		CarListPane.setForeground(new Color(255, 255, 255));
 		CarListPane.setBounds(0, 155, 230, 60);
 		panemenu.add(CarListPane);
+		CarListPane.setLayout(new BorderLayout(0, 0));
 
 		lblCar = new JLabel("차량관리");
+		lblCar.setHorizontalAlignment(SwingConstants.CENTER);
 		lblCar.setFont(new Font("인터파크고딕 L", Font.PLAIN, 17));
 		lblCar.setForeground(new Color(255, 255, 255));
 		CarListPane.add(lblCar);
@@ -123,8 +127,10 @@ public class Home extends JFrame {
 		RentListPane.setForeground(new Color(255, 255, 255));
 		RentListPane.setBounds(0, 215, 231, 60);
 		panemenu.add(RentListPane);
+		RentListPane.setLayout(new BorderLayout(0, 0));
 
 		lblRent = new JLabel("대여관리");
+		lblRent.setHorizontalAlignment(SwingConstants.CENTER);
 		lblRent.setFont(new Font("인터파크고딕 L", Font.PLAIN, 17));
 		lblRent.setForeground(new Color(255, 255, 255));
 		RentListPane.add(lblRent);
@@ -141,8 +147,10 @@ public class Home extends JFrame {
 		MileagePane.setForeground(new Color(255, 255, 255));
 		MileagePane.setBounds(0, 275, 231, 60);
 		panemenu.add(MileagePane);
+		MileagePane.setLayout(new BorderLayout(0, 0));
 
 		lblMileage = new JLabel("마일리지");
+		lblMileage.setHorizontalAlignment(SwingConstants.CENTER);
 		lblMileage.setForeground(new Color(255, 255, 255));
 		lblMileage.setFont(new Font("인터파크고딕 L", Font.PLAIN, 17));
 		MileagePane.add(lblMileage);
@@ -160,8 +168,10 @@ public class Home extends JFrame {
 		PerformancePane.setForeground(new Color(255, 255, 255));
 		PerformancePane.setBounds(0, 335, 231, 60);
 		panemenu.add(PerformancePane);
+		PerformancePane.setLayout(new BorderLayout(0, 0));
 
 		lblPerformance = new JLabel("성과현황");
+		lblPerformance.setHorizontalAlignment(SwingConstants.CENTER);
 		lblPerformance.setFont(new Font("인터파크고딕 L", Font.PLAIN, 17));
 		lblPerformance.setForeground(new Color(255, 255, 255));
 		PerformancePane.add(lblPerformance);
@@ -186,6 +196,13 @@ public class Home extends JFrame {
 //		MainContentPane.add(PerformancePane);
 //		 
 		MenuClicked(CustomerListPane);
+				CustomerListPane.setLayout(new BorderLayout(0, 0));
+		
+				lblCustomerList = new JLabel("고객관리");
+				lblCustomerList.setHorizontalAlignment(SwingConstants.CENTER);
+				lblCustomerList.setFont(new Font("인터파크고딕 L", Font.PLAIN, 17));
+				lblCustomerList.setForeground(new Color(255, 255, 255));
+				CustomerListPane.add(lblCustomerList);
 		MenuClicked(CarListPane);
 		// 로그아웃 로고 - 클릭시 dispose();
 		lblSignOut = new JLabel("");

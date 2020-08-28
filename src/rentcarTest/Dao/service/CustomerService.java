@@ -17,7 +17,15 @@ public class CustomerService {
 		return dao.selectCustomerByAll();
 	}
 	
+	public List<Customer> showRentCustomers(){
+		return dao.selectCustomerByRent();
+	}
+	
 	public void updateCtm(Customer item) {
 		dao.updateCustomer(item);
+	}
+	
+	public int lastCtmNo() {
+		return dao.getLastCtm_no();
 	}
 }
