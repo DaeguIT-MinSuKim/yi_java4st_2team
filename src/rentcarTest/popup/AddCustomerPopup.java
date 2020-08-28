@@ -77,7 +77,6 @@ public class AddCustomerPopup extends JDialog implements ActionListener {
 		tfNo = new JTextField();
 		tfNo.setColumns(10);
 		tfNo.setEnabled(false);
-		tfNo.setText();
 		pContent.add(tfNo);
 		
 		JLabel lblName = new JLabel("고객명");
