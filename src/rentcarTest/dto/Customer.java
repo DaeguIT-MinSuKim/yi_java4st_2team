@@ -15,6 +15,14 @@ public class Customer {
 //	더 추가할 생성자? 매개변수 뭘로할지 피드백 주세요
 	public Customer() {}
 
+	public Customer(int no) {
+		this.no = no;
+	}
+
+	public Customer(String name) {
+		this.name = name;
+	}
+
 	public Customer(int no, String name, String tel, String address, String remark, int ctm_mlg) {
 		super();
 		this.no = no;
@@ -24,10 +32,6 @@ public class Customer {
 		this.remark = remark;
 		this.ctm_mlg = ctm_mlg;
 	}	
-
-	public Customer(int no) {
-		this.no = no;
-	}
 
 //	getter & setter & toString
 	public int getNo() {
@@ -80,7 +84,7 @@ public class Customer {
 
 	@Override
 	public String toString() {
-		return String.format("%s %s %s %s %s %s", no, name, tel, address, remark, ctm_mlg);
+		return String.format("%s", name);
 	}
 
 	//	고객번호가 기본키이기 때문에 hashcode & equals 고객번호(no)만 비교
