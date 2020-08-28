@@ -23,8 +23,8 @@ public class MileageTable extends AbstractItemTable<Mileage> {
 
 	@Override
 	void setWidthAndAlign() {
-		tableSetWidth(100, 200, 100, 100, 100, 100);
-		tableCellAlign(SwingConstants.CENTER, 0, 1, 2, 3, 4, 5);
+		tableSetWidth(100, 200, 100, 100, 100);
+		tableCellAlign(SwingConstants.CENTER, 0, 1, 2, 3, 4);
 
 	}
 }
