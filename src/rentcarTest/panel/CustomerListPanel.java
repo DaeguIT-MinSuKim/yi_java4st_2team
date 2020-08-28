@@ -164,7 +164,8 @@ public class CustomerListPanel extends JPanel implements ActionListener, ItemLis
 	
 	public void actionPerformed(ActionEvent e) {
 		if (e.getSource() == btnAdd) {
-			System.out.println("추가");
+			AddCustomerPopup ctmPopup = new AddCustomerPopup();
+			ctmPopup.setVisible(true);
 		}
 		if (e.getSource() == btnRent) {
 			System.out.println("대여");
@@ -172,8 +173,8 @@ public class CustomerListPanel extends JPanel implements ActionListener, ItemLis
 		// 우클릭 메뉴
 		if (e.getSource() instanceof JMenuItem) {
 			if (e.getActionCommand().equals("수정")) {
-				AddCustomerPopup ctmPopup = new AddCustomerPopup();
-				ctmPopup.setVisible(true);
+				EditCustomerPopup editPopup = new EditCustomerPopup();
+				editPopup.setVisible(true);
 			}
 			if (e.getActionCommand().equals("삭제")) {
 				System.out.println("삭제");

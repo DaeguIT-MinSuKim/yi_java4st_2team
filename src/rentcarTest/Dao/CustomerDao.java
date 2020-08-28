@@ -18,4 +18,6 @@ public interface CustomerDao {
 	int updateCustomer (Customer ctm);
 	
 	int deleteCustomer (Customer ctm);
+	
+	int getLastCtm_no();
 }
