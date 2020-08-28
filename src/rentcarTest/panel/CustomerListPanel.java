@@ -2,6 +2,7 @@ package rentcarTest.panel;
 
 import java.awt.BorderLayout;
 import java.awt.Color;
+import java.awt.Dimension;
 import java.awt.FlowLayout;
 import java.awt.Font;
 import java.awt.event.ActionEvent;
@@ -69,6 +70,7 @@ public class CustomerListPanel extends JPanel implements ActionListener, ItemLis
 	}
 
 	private void initComponents() {
+		setPreferredSize(new Dimension(650,661));
 		setBackground(Color.WHITE);
 		setLayout(new BoxLayout(this, BoxLayout.Y_AXIS));
 
