@@ -2,6 +2,7 @@ package rentcarTest.panel;
 
 import java.awt.BorderLayout;
 import java.awt.Color;
+import java.awt.Dimension;
 import java.awt.FlowLayout;
 import java.awt.Font;
 import java.awt.event.ActionEvent;
@@ -34,10 +35,11 @@ import rentcarTest.table.CustomerTable;
 public class CustomerListPanel extends JPanel implements ActionListener, ItemListener {
 	private JPanel pTable;
 	private JScrollPane scrollPane;
-	private CustomerTable table;
+	public CustomerTable table;
 	private CustomerService service;
-	private List<Customer> lists;
+	public List<Customer> lists;
 	private JPanel pBtns;
+	private JPanel panel;
 	private JPanel pTitle;
 	private JLabel lblTitle;
 	private JPanel pSearch;
@@ -50,89 +52,102 @@ public class CustomerListPanel extends JPanel implements ActionListener, ItemLis
 	private JComboBox<String> cmbCate;
 	private JTextField tfSearch;
 	private JButton btnSearch;
-	
+
+	private EditCustomerPopup editPopup;
+
 	public CustomerListPanel() {
 		service = new CustomerService();
 		lists = service.showCustomers();
-		
+		editPopup = new EditCustomerPopup();
+
 		initComponents();
-		
+
 		table.setItems(lists);
-		
+
 		CustomPopupMenu popMenu = new CustomPopupMenu(this);
 		table.setComponentPopupMenu(popMenu);
 		scrollPane.setViewportView(table);
 	}
-	
+
 	private void initComponents() {
+		setPreferredSize(new Dimension(650,661));
 		setBackground(Color.WHITE);
 		setLayout(new BoxLayout(this, BoxLayout.Y_AXIS));
-		
+
+		panel = new JPanel();
+		add(panel);
+
 		pTitle = new JPanel();
 		add(pTitle);
+
 		pTitle.setLayout(new BorderLayout(0, 0));
-		
+
 		lblTitle = new JLabel("고객 명단");
 		lblTitle.setFont(new Font("굴림", Font.BOLD, 30));
 		lblTitle.setHorizontalAlignment(SwingConstants.CENTER);
 		pTitle.add(lblTitle);
-		
+
 		pSearch = new JPanel();
 		add(pSearch);
 		pSearch.setLayout(new BoxLayout(pSearch, BoxLayout.X_AXIS));
-		
+
 		pSearch_check = new JPanel();
 		pSearch.add(pSearch_check);
 		pSearch_check.setLayout(new FlowLayout(FlowLayout.LEFT, 5, 5));
-		
+
 		chckbxRent = new JCheckBox("대여중");
 		chckbxRent.addItemListener(this);
 		pSearch_check.add(chckbxRent);
-		
+
 		chckbxBlackList = new JCheckBox("블랙리스트");
 		chckbxBlackList.addItemListener(this);
 		pSearch_check.add(chckbxBlackList);
-		
+
 		pSearch_button = new JPanel();
 		FlowLayout flowLayout = (FlowLayout) pSearch_button.getLayout();
 		flowLayout.setAlignment(FlowLayout.RIGHT);
 		pSearch.add(pSearch_button);
-		
+
 		cmbCate = new JComboBox<>();
 		setSearchCate();
 		pSearch_button.add(cmbCate);
-		
+
 		tfSearch = new JTextField();
 		pSearch_button.add(tfSearch);
 		tfSearch.setColumns(10);
-		
+
 		btnSearch = new JButton("검색");
 		btnSearch.addActionListener(this);
 		pSearch_button.add(btnSearch);
-		
+
 		pTable = new JPanel();
 		add(pTable);
 		pTable.setLayout(new BoxLayout(pTable, BoxLayout.Y_AXIS));
-		
+
 		scrollPane = new JScrollPane();
 		pTable.add(scrollPane);
-		
+
 		table = new CustomerTable();
-		//scrollPane.setViewportView(table);
-		
+		// scrollPane.setViewportView(table);
+
 		pBtns = new JPanel();
 		add(pBtns);
-		
+
 		btnAdd = new JButton("추가");
 		btnAdd.addActionListener(this);
 		pBtns.add(btnAdd);
-		
+
 		btnRent = new JButton("대여");
 		btnRent.addActionListener(this);
 		pBtns.add(btnRent);
-		
+
 	}
 
+	public void insertCtm(Customer item) {
+		lists.add(item);
+		System.out.println(item);
+		table.addRow(item);
+	}
 
 	@Override
 	public void itemStateChanged(ItemEvent e) {
@@ -144,7 +159,7 @@ public class CustomerListPanel extends JPanel implements ActionListener, ItemLis
 		}
 		
 	}
-	
+
 	// check_box - 대여중
 	private void selectSearchCheckedRent(ItemEvent e) {
 		if (e.getStateChange() == ItemEvent.SELECTED) {
@@ -169,23 +184,18 @@ public class CustomerListPanel extends JPanel implements ActionListener, ItemLis
 
 	// 검색 분류
 	private void setSearchCate() {
-		String[] items = {
-				"고객번호",
-				"성명",
-				"연락처",
-				"주소"
-				};
+		String[] items = { "고객번호", "성명", "연락처", "주소" };
 		DefaultComboBoxModel<String> model = new DefaultComboBoxModel<String>(items);
 		cmbCate.setModel(model);
 	}
-	
-	
+
 	public void actionPerformed(ActionEvent e) {
 		if (e.getSource() == btnSearch) {
 			actionPerformedBtnSearch(e);
 		}
 		if (e.getSource() == btnAdd) {
-			System.out.println("추가");
+			AddCustomerPopup ctmPopup = new AddCustomerPopup();
+			ctmPopup.setVisible(true);
 		}
 		if (e.getSource() == btnRent) {
 			System.out.println("대여");
@@ -193,11 +203,21 @@ public class CustomerListPanel extends JPanel implements ActionListener, ItemLis
 		// 우클릭 메뉴
 		if (e.getSource() instanceof JMenuItem) {
 			if (e.getActionCommand().equals("수정")) {
-				AddCustomerPopup ctmPopup = new AddCustomerPopup();
-				ctmPopup.setVisible(true);
+				int selIdx = table.getSelectedRow();
+				if (selIdx == -1) {
+					JOptionPane.showMessageDialog(null, "해당 항목을 선택하세요.");
+					return;
+				}
+				Customer selCtm = lists.get(selIdx);
+				editPopup.setItem(selCtm);
+				editPopup.setVisible(true);
 			}
 			if (e.getActionCommand().equals("삭제")) {
-				System.out.println("삭제");
+				int selIdx = table.getSelectedRow();
+				if (selIdx == -1) {
+					JOptionPane.showMessageDialog(null, "해당 항목을 선택하세요.");
+					return;
+				}
 			}
 			if (e.getActionCommand().equals("세부정보")) {
 				System.out.println("세부정보");
@@ -207,8 +227,7 @@ public class CustomerListPanel extends JPanel implements ActionListener, ItemLis
 			}
 		}
 	}
-	
-	
+
 	private class CustomPopupMenu extends JPopupMenu {
 		public CustomPopupMenu(ActionListener listener) {
 			JMenuItem updateMenu = new JMenuItem("수정");

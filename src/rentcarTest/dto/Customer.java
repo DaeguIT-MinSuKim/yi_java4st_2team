@@ -92,7 +92,7 @@ public class Customer {
 	public void setCtm_mlg(int ctm_mlg) {
 		this.ctm_mlg = ctm_mlg;
 	}
-
+	
 	public int getList_ctm() {
 		return list_ctm;
 	}
@@ -103,8 +103,8 @@ public class Customer {
 
 	@Override
 	public String toString() {
-		return String.format("Customer [no=%s, name=%s, tel=%s, address=%s, remark=%s, ctm_mlg=%s, list_ctm=%s]", no,
-				name, tel, address, remark, ctm_mlg, list_ctm);
+		return String.format("%s %s %s %s %s %s", no, name, tel,
+				address, remark, ctm_mlg);
 	}
 
 	//	고객번호가 기본키이기 때문에 hashcode & equals 고객번호(no)만 비교

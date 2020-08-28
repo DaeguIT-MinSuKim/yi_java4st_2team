@@ -172,5 +172,9 @@ public class CustomerDaoImpl implements CustomerDao {
 		int list_ctm = rs.getInt("LIST_CTM");
 		return new Customer(no, name, tel, address, remark, mlg, list_ctm);
 	}
-
+	
+	public int getLastCtm_no() {
+		List<Customer> list = selectCustomerByAll();
+		return list.get(list.size()-1).getNo()+1;
+	}
 }

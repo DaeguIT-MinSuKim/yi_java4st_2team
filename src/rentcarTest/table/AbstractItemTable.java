@@ -91,7 +91,6 @@ public abstract class AbstractItemTable<T> extends JTable {
 		
 	}
 	
-	
 	public Component prepareRenderer(TableCellRenderer renderer, int row, int column) {
 		Component c = super.prepareRenderer(renderer, row, column);
 		T t = lists.get(row);
@@ -115,7 +114,7 @@ public abstract class AbstractItemTable<T> extends JTable {
 		/*this.service.insertCtm(item);
 		lists.add(item);*/
 //		setItems();
-		
+		System.out.println("table: "+ item);
 	}
 
 	public void removeRow(Customer item) {
