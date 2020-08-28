@@ -24,7 +24,7 @@ public class CustomerDaoImpl implements CustomerDao {
 
 	@Override
 	public List<Customer> selectCustomerByAll() {
-		String sql = "SELECT CTM_NO, CTM_NAME, TEL, ADDRESS, CTM_REMARK, CTM_MLG FROM CUSTOMER ORDER BY CTM_NO";
+		String sql = "SELECT CTM_NO, CTM_NAME, TEL, ADDRESS, CTM_REMARK, CTM_MLG, LIST_CTM FROM CUSTOMER";
 		try (Connection con = JdbcUtil.getConnection();
 				PreparedStatement pstmt = con.prepareStatement(sql);
 				ResultSet rs = pstmt.executeQuery()) {
@@ -44,16 +44,16 @@ public class CustomerDaoImpl implements CustomerDao {
 
 	@Override
 	   public List<Customer> selectCustomerByFind(Customer ctm) {
-	      String sql = "SELECT CTM_NO, CTM_NAME, TEL, ADDRESS, CTM_MLG, CTM_REMARK " + 
+	      String sql = "SELECT CTM_NO, CTM_NAME, TEL, ADDRESS, CTM_MLG, CTM_REMARK, LIST_CTM " + 
 	            "  FROM CUSTOMER " + 
-	            " WHERE CTM_NO = ? OR CTM_NAME = ? OR TEL = ? OR ADDRESS = ?" +
+	            " WHERE CTM_NO = ? OR CTM_NAME LIKE '%' || ? || '%' OR TEL LIKE '%' || ? || '%' OR ADDRESS LIKE '%' || ? || '%'" +
 	            " ORDER BY CTM_NO";
 	      try (Connection con = JdbcUtil.getConnection();
 	            PreparedStatement pstmt = con.prepareStatement(sql)){
 	         pstmt.setInt(1, ctm.getNo());
-	         pstmt.setString(2, ctm.getName());
-	         pstmt.setString(3, ctm.getTel());
-	         pstmt.setString(4, ctm.getAddress());
+	         pstmt.setString(2, "%"+ ctm.getName() +"%");
+	         pstmt.setString(3, "%"+ ctm.getTel() +"%");
+	         pstmt.setString(4, "%"+ ctm.getAddress() +"%");
 	         try(ResultSet rs = pstmt.executeQuery()){
 	            if(rs.next()) {
 	               List<Customer> item_list = new ArrayList<>();
@@ -73,7 +73,7 @@ public class CustomerDaoImpl implements CustomerDao {
 
 	@Override
 	public List<Customer> selectCustomerByRent() {
-		String sql = "SELECT CTM_NO, CTM_NAME, TEL, ADDRESS, CTM_REMARK, CTM_MLG FROM CUSTOMER WHERE CTM_NO IN(SELECT R.CTM_NO FROM RENT r LEFT OUTER JOIN CUSTOMER c ON r.CTM_NO = c.CTM_NO WHERE IS_RENT=1) ORDER BY CTM_NO";
+		String sql = "SELECT CTM_NO, CTM_NAME, TEL, ADDRESS, CTM_REMARK, CTM_MLG, LIST_CTM FROM CUSTOMER WHERE CTM_NO IN(SELECT R.CTM_NO FROM RENT r LEFT OUTER JOIN CUSTOMER c ON r.CTM_NO = c.CTM_NO WHERE IS_RENT=1) ORDER BY CTM_NO";
 		try (Connection con = JdbcUtil.getConnection();
 				PreparedStatement pstmt = con.prepareStatement(sql);
 				ResultSet rs = pstmt.executeQuery()) {
@@ -92,7 +92,7 @@ public class CustomerDaoImpl implements CustomerDao {
 
 	  @Override
 	   public List<Customer> selectCustomerBlackList() {
-	      String sql="SELECT CTM_NO, CTM_NAME, TEL, ADDRESS, CTM_REMARK, CTM_MLG FROM CUSTOMER WHERE LIST_CTM = 1";
+	      String sql="SELECT CTM_NO, CTM_NAME, TEL, ADDRESS, CTM_REMARK, CTM_MLG, LIST_CTM FROM CUSTOMER WHERE LIST_CTM = 1";
 	      try(Connection con = JdbcUtil.getConnection(); 
 	         PreparedStatement pstmt = con.prepareStatement(sql);
 	         ResultSet rs = pstmt.executeQuery()) {
@@ -169,7 +169,8 @@ public class CustomerDaoImpl implements CustomerDao {
 		String address = rs.getString("ADDRESS");
 		String remark = rs.getString("CTM_REMARK");
 		int mlg = rs.getInt("CTM_MLG");
-		return new Customer(no, name, tel, address, remark, mlg);
+		int list_ctm = rs.getInt("LIST_CTM");
+		return new Customer(no, name, tel, address, remark, mlg, list_ctm);
 	}
 	
 	public int getLastCtm_no() {

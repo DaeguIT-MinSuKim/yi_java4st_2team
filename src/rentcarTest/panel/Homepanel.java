@@ -39,5 +39,6 @@ public class Homepanel extends JPanel {
 		pClock = new AnalogClockPanel();
 		pClock.setBounds(140, 201, 338, 300);
 		add(pClock);
+
 	}
 }
