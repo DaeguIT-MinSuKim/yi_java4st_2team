@@ -13,7 +13,8 @@ import javax.swing.JScrollPane;
 
 import rentcarTest.Dao.service.CustomerService;
 import rentcarTest.dto.Customer;
-import rentcarTest.panel.popup.AddCustomerPanel;
+import rentcarTest.popup.AddCustomerPopup;
+import rentcarTest.popup.EditCustomerPopup;
 import rentcarTest.table.CustomerTable;
 
 @SuppressWarnings("serial")
@@ -25,6 +26,7 @@ public class CustomerListPanel extends JPanel implements ActionListener {
 	private List<Customer> lists;
 	private JPanel pBtns;
 	private JButton btnNewButton;
+	private JButton btnNewButton_1;
 	
 	public CustomerListPanel() {
 		service = new CustomerService();
@@ -50,17 +52,28 @@ public class CustomerListPanel extends JPanel implements ActionListener {
 		pBtns = new JPanel();
 		add(pBtns);
 		
-		btnNewButton = new JButton("수정");
+		btnNewButton = new JButton("추가");
 		btnNewButton.addActionListener(this);
 		pBtns.add(btnNewButton);
+		
+		btnNewButton_1 = new JButton("수정");
+		btnNewButton_1.addActionListener(this);
+		pBtns.add(btnNewButton_1);
 	}
 	public void actionPerformed(ActionEvent e) {
+		if (e.getSource() == btnNewButton_1) {
+			actionPerformedBtnNewButton_1(e);
+		}
 		if (e.getSource() == btnNewButton) {
 			actionPerformedBtnNewButton(e);
 		}
 	}
 	protected void actionPerformedBtnNewButton(ActionEvent e) {
-		AddCustomerPanel ctmPanel = new AddCustomerPanel();
-		ctmPanel.setVisible(true);
+		AddCustomerPopup ctmPopup = new AddCustomerPopup();
+		ctmPopup.setVisible(true);
+	}
+	protected void actionPerformedBtnNewButton_1(ActionEvent e) {
+		EditCustomerPopup editPopup = new EditCustomerPopup();
+		editPopup.setVisible(true);
 	}
 }

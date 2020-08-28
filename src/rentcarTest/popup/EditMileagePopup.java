@@ -1,4 +1,4 @@
-package rentcarTest.panel.popup;
+package rentcarTest.popup;
 
 import javax.swing.JPanel;
 import javax.swing.JLabel;
@@ -6,9 +6,9 @@ import java.awt.GridLayout;
 import javax.swing.JTextField;
 import javax.swing.JButton;
 
-public class EditMileagePanel extends JPanel{
+public class EditMileagePopup extends JPanel{
 	
-	public EditMileagePanel() {
+	public EditMileagePopup() {
 		initComponents();
 	}
 	private void initComponents() {
