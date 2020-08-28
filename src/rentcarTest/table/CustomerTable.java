@@ -1,6 +1,10 @@
 package rentcarTest.table;
 
+import java.awt.Color;
+import java.awt.Component;
+
 import javax.swing.SwingConstants;
+import javax.swing.table.TableCellRenderer;
 
 import rentcarTest.dto.Customer;
 
@@ -15,13 +19,14 @@ public class CustomerTable extends AbstractItemTable<Customer> {
 	@Override
 	Object[] toArray(Customer item) {
 		return new Object[] {
-			item.getNo(),
+			String.format("%03d", item.getNo()),
 			item.getName(),
 			item.getTel(),
 			item.getAddress(),
-			item.getCtm_mlg(),
+			String.format("%,d P", item.getCtm_mlg()),
 			item.getRemark()};
 	}
+	
 
 	@Override
 	void setWidthAndAlign() {

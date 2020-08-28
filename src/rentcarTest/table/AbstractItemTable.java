@@ -1,5 +1,7 @@
 package rentcarTest.table;
 
+import java.awt.Color;
+import java.awt.Component;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -7,6 +9,7 @@ import javax.swing.JTable;
 import javax.swing.ListSelectionModel;
 import javax.swing.table.DefaultTableCellRenderer;
 import javax.swing.table.DefaultTableModel;
+import javax.swing.table.TableCellRenderer;
 import javax.swing.table.TableColumnModel;
 
 import rentcarTest.Dao.service.CustomerService;
@@ -16,7 +19,7 @@ import rentcarTest.dto.Customer;
 public abstract class AbstractItemTable<T> extends JTable {
 	public CustomModel model;
 	private CustomerService service;
-	private List<T> lists;
+	protected List<T> lists;
 
 	public AbstractItemTable() {
 		initComponents();
@@ -27,6 +30,7 @@ public abstract class AbstractItemTable<T> extends JTable {
 	}
 
 	void loadData(List<T> itemList) {
+		this.lists = itemList;
 		model = new CustomModel(getRows(itemList), getColName());
 		setModel(model);
 	}
@@ -81,19 +85,37 @@ public abstract class AbstractItemTable<T> extends JTable {
 	}
 	
 	public void setItems(List<T> itemList) {
-		
-		/*this.lists = itemList;
-		System.out.println(lists);*/
 		loadData(itemList);
 		
 		setWidthAndAlign();
 		
 	}
 	
+	
+	public Component prepareRenderer(TableCellRenderer renderer, int row, int column) {
+		Component c = super.prepareRenderer(renderer, row, column);
+		T t = lists.get(row);
+		
+		if (t instanceof Customer) {
+			Customer ctm = (Customer) t;
+			if (ctm.getList_ctm() == 1) {
+				c.setBackground(new Color(107, 107, 107));
+				c.setForeground(new Color(255, 255, 255));
+			} else {
+				c.setBackground(new Color(255,255,255));
+				c.setForeground(new Color(0, 0, 0));
+			}
+		}
+		
+		super.prepareRenderer(renderer, row, column);
+		return c;
+	}
+	
 	public void addRow(Customer item) {
-		this.service.insertCtm(item);
-		//lists.add(item);
+		/*this.service.insertCtm(item);
+		lists.add(item);*/
 //		setItems();
+		
 	}
 
 	public void removeRow(Customer item) {

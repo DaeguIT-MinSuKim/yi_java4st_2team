@@ -10,6 +10,7 @@ public class Customer {
 	private String address;	//주소
 	private String remark;	//고객비고
 	private int ctm_mlg;	//고객마일리지
+	private int list_ctm;	//블랙리스트
 	
 //	생성자
 //	더 추가할 생성자? 매개변수 뭘로할지 피드백 주세요
@@ -31,9 +32,19 @@ public class Customer {
 		this.address = address;
 		this.remark = remark;
 		this.ctm_mlg = ctm_mlg;
-	}	
+	}
 
-//	getter & setter & toString
+	public Customer(int no, String name, String tel, String address, String remark, int ctm_mlg, int list_ctm) {
+		this.no = no;
+		this.name = name;
+		this.tel = tel;
+		this.address = address;
+		this.remark = remark;
+		this.ctm_mlg = ctm_mlg;
+		this.list_ctm = list_ctm;
+	}
+
+	//	getter & setter & toString
 	public int getNo() {
 		return no;
 	}
@@ -82,9 +93,18 @@ public class Customer {
 		this.ctm_mlg = ctm_mlg;
 	}
 
+	public int getList_ctm() {
+		return list_ctm;
+	}
+
+	public void setList_ctm(int list_ctm) {
+		this.list_ctm = list_ctm;
+	}
+
 	@Override
 	public String toString() {
-		return String.format("%s", name);
+		return String.format("Customer [no=%s, name=%s, tel=%s, address=%s, remark=%s, ctm_mlg=%s, list_ctm=%s]", no,
+				name, tel, address, remark, ctm_mlg, list_ctm);
 	}
 
 	//	고객번호가 기본키이기 때문에 hashcode & equals 고객번호(no)만 비교

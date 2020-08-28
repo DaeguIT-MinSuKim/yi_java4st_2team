@@ -52,6 +52,9 @@ DELETE FROM RENT WHERE RENT_NO = 7;
  
 SELECT *
   FROM RENT;
+ 
+SELECT LIST_CTM 
+  FROM CUSTOMER;
 
 -----------------------------------------------------------------------------김보현-----------------------------------------------------------------------------
 SELECT CTM_NO, CTM_NAME, TEL, ADDRESS, CTM_REMARK, CTM_MLG FROM CUSTOMER WHERE LIST_CTM = 1;

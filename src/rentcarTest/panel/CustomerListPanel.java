@@ -17,6 +17,7 @@ import javax.swing.JCheckBox;
 import javax.swing.JComboBox;
 import javax.swing.JLabel;
 import javax.swing.JMenuItem;
+import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JPopupMenu;
 import javax.swing.JScrollPane;
@@ -89,6 +90,7 @@ public class CustomerListPanel extends JPanel implements ActionListener, ItemLis
 		pSearch_check.add(chckbxRent);
 		
 		chckbxBlackList = new JCheckBox("블랙리스트");
+		chckbxBlackList.addItemListener(this);
 		pSearch_check.add(chckbxBlackList);
 		
 		pSearch_button = new JPanel();
@@ -105,6 +107,7 @@ public class CustomerListPanel extends JPanel implements ActionListener, ItemLis
 		tfSearch.setColumns(10);
 		
 		btnSearch = new JButton("검색");
+		btnSearch.addActionListener(this);
 		pSearch_button.add(btnSearch);
 		
 		pTable = new JPanel();
@@ -136,16 +139,31 @@ public class CustomerListPanel extends JPanel implements ActionListener, ItemLis
 		if (e.getSource() == chckbxRent) {
 			selectSearchCheckedRent(e);
 		}
+		if (e.getSource() == chckbxBlackList) {
+			selectSearchCheckedBlackList(e);
+		}
 		
 	}
 	
 	// check_box - 대여중
 	private void selectSearchCheckedRent(ItemEvent e) {
 		if (e.getStateChange() == ItemEvent.SELECTED) {
-
-			System.out.println("테스트");	
+			lists = service.showRentCustomers();
+			table.setItems(lists);
 		} else {
-			System.out.println("테스트2");
+			lists = service.showCustomers();
+			table.setItems(lists);
+		}
+	}
+	
+	// check_box - 블랙리스트
+	private void selectSearchCheckedBlackList(ItemEvent e) {
+		if (e.getStateChange() == ItemEvent.SELECTED) {
+			lists = service.showBlackListCustomers();
+			table.setItems(lists);
+		} else {
+			lists = service.showCustomers();
+			table.setItems(lists);
 		}
 	}
 
@@ -163,6 +181,9 @@ public class CustomerListPanel extends JPanel implements ActionListener, ItemLis
 	
 	
 	public void actionPerformed(ActionEvent e) {
+		if (e.getSource() == btnSearch) {
+			actionPerformedBtnSearch(e);
+		}
 		if (e.getSource() == btnAdd) {
 			System.out.println("추가");
 		}
@@ -202,6 +223,36 @@ public class CustomerListPanel extends JPanel implements ActionListener, ItemLis
 			JMenuItem mileageMenu = new JMenuItem("마일리지");
 			mileageMenu.addActionListener(listener);
 			add(mileageMenu);
+		}
+	}
+	
+	protected void actionPerformedBtnSearch(ActionEvent e) {
+		List<Customer> ctmList = null;
+		String searchText = tfSearch.getText().trim();
+		Customer ctmListFind = new Customer();
+		
+		Object cmbCateText = cmbCate.getSelectedItem();
+		if (searchText.equals("")) {
+			JOptionPane.showMessageDialog(null, "검색할 내용을 입력해주세요.");
+		} else {
+			if (cmbCateText.equals("고객번호")) {
+				ctmListFind.setNo(Integer.parseInt(searchText));
+				ctmList = service.findCustomers(ctmListFind);
+			}
+			if (cmbCateText.equals("연락처")) {
+				ctmListFind.setTel(searchText);
+				ctmList = service.findCustomers(ctmListFind);
+			}
+			if (cmbCateText.equals("성명")) {
+				ctmListFind.setName(searchText);
+				ctmList = service.findCustomers(ctmListFind);
+			}
+			if (cmbCateText.equals("주소")) {
+				ctmListFind.setAddress(searchText);
+				ctmList = service.findCustomers(ctmListFind);
+			}
+			table.setItems(ctmList);
+			
 		}
 	}
 }
