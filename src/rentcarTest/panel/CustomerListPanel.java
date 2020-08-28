@@ -16,6 +16,8 @@ import rentcarTest.dto.Customer;
 import rentcarTest.popup.AddCustomerPopup;
 import rentcarTest.popup.EditCustomerPopup;
 import rentcarTest.table.CustomerTable;
+import javax.swing.JLabel;
+import java.awt.Font;
 
 @SuppressWarnings("serial")
 public class CustomerListPanel extends JPanel implements ActionListener {
@@ -27,6 +29,8 @@ public class CustomerListPanel extends JPanel implements ActionListener {
 	private JPanel pBtns;
 	private JButton btnNewButton;
 	private JButton btnNewButton_1;
+	private JPanel panel;
+	private JLabel lblNewLabel;
 	
 	public CustomerListPanel() {
 		service = new CustomerService();
@@ -37,6 +41,13 @@ public class CustomerListPanel extends JPanel implements ActionListener {
 	private void initComponents() {
 		setBackground(Color.WHITE);
 		setLayout(new BoxLayout(this, BoxLayout.Y_AXIS));
+		
+		panel = new JPanel();
+		add(panel);
+		
+		lblNewLabel = new JLabel("고객 관리");
+		lblNewLabel.setFont(new Font("인터파크고딕 L", Font.PLAIN, 18));
+		panel.add(lblNewLabel);
 		
 		pTable = new JPanel();
 		add(pTable);

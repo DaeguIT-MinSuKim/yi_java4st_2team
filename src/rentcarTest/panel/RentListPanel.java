@@ -20,6 +20,7 @@ public class RentListPanel extends JPanel{
 		lblNewLabel.setBackground(Color.WHITE);
 		lblNewLabel.setFont(new Font("인터파크고딕 L", Font.PLAIN, 20));
 		add(lblNewLabel, BorderLayout.CENTER);
+		
 	}
 
 }
