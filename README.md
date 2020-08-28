@@ -15,5 +15,5 @@ By Find <daoimpl>
 김보현 - 차량추가, 차량대여<swing>
 BlackList, Update <daoimpl>
 
-배성덕 - 마일리지, 성과현황, 메인구현<swing>
+배성덕 - 마일리지, 성과현황, 디자인구현<swing>
 By Rent, Insert <daoimpl>
