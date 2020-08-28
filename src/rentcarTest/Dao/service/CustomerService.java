@@ -20,4 +20,8 @@ public class CustomerService {
 	public void updateCtm(Customer item) {
 		dao.updateCustomer(item);
 	}
+	
+	public int lastCtmNo() {
+		return dao.getLastCtm_no();
+	}
 }
