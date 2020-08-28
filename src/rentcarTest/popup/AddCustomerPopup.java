@@ -1,40 +1,44 @@
-package rentcarTest.panel.popup;
+package rentcarTest.popup;
 
 import java.awt.BorderLayout;
+import java.awt.Component;
+import java.awt.FlowLayout;
 import java.awt.Font;
 import java.awt.GridLayout;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
 
-import javax.swing.BoxLayout;
 import javax.swing.JButton;
 import javax.swing.JDialog;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.JTextField;
 import javax.swing.SwingConstants;
+import javax.swing.border.EmptyBorder;
 
 import rentcarTest.Dao.service.CustomerService;
 import rentcarTest.dto.Customer;
 
-public class AddCustomerPanel extends JDialog implements ActionListener {
+import javax.swing.BoxLayout;
+import java.awt.event.ActionListener;
+import java.awt.event.ActionEvent;
+
+public class AddCustomerPopup extends JDialog implements ActionListener {
 	private JPanel pBtns;
 	private JButton btnAdd;
 	private JButton btnCancel;
-	private CustomerService service;
+	private CustomerService service = new CustomerService();
 	private JPanel pContent;
 	private JTextField tfNo;
 	private JTextField tfName;
 	private JTextField tfTel;
 	private JTextField tfAddress;
-	private JTextField tfMileage;
+	private JTextField tfMlg;
 	private JTextField tfRemark;
-	private JLabel lblName_1;
+	private JLabel lblDialog;
 	
 	
 	public static void main(String[] args) {
 		try {
-			AddCustomerPanel dialog = new AddCustomerPanel();
+			AddCustomerPopup dialog = new AddCustomerPopup();
 			dialog.setDefaultCloseOperation(JDialog.DISPOSE_ON_CLOSE);
 			dialog.setVisible(true);
 		} catch (Exception e) {
@@ -42,7 +46,7 @@ public class AddCustomerPanel extends JDialog implements ActionListener {
 		}
 	}
 
-	public AddCustomerPanel() {
+	public AddCustomerPopup() {
 		initComponents();
 	}
 	private void initComponents() {
@@ -102,9 +106,9 @@ public class AddCustomerPanel extends JDialog implements ActionListener {
 		lblMileage.setHorizontalAlignment(SwingConstants.RIGHT);
 		pContent.add(lblMileage);
 		
-		tfMileage = new JTextField();
-		tfMileage.setColumns(10);
-		pContent.add(tfMileage);
+		tfMlg = new JTextField();
+		tfMlg.setColumns(10);
+		pContent.add(tfMlg);
 		
 		JLabel lblRemark = new JLabel("비고");
 		lblRemark.setHorizontalAlignment(SwingConstants.RIGHT);
@@ -114,10 +118,10 @@ public class AddCustomerPanel extends JDialog implements ActionListener {
 		tfRemark.setColumns(10);
 		pContent.add(tfRemark);
 		
-		lblName_1 = new JLabel("고객 추가");
-		lblName_1.setFont(new Font("굴림", Font.BOLD, 20));
-		lblName_1.setHorizontalAlignment(SwingConstants.CENTER);
-		getContentPane().add(lblName_1, BorderLayout.NORTH);
+		lblDialog = new JLabel("고객 추가");
+		lblDialog.setFont(new Font("굴림", Font.BOLD, 20));
+		lblDialog.setHorizontalAlignment(SwingConstants.CENTER);
+		getContentPane().add(lblDialog, BorderLayout.NORTH);
 	}
 
 	public void actionPerformed(ActionEvent e) {
@@ -135,11 +139,11 @@ public class AddCustomerPanel extends JDialog implements ActionListener {
 		String tel = tfTel.getText().trim();
 		String address = tfAddress.getText().trim();
 		String remark = tfRemark.getText().trim();
-		int ctm_mlg = Integer.parseInt(tfMileage.getText().trim());
+		int ctm_mlg = Integer.parseInt(tfMlg.getText().trim());
 		Customer item = new Customer(no, name, tel, address, remark, ctm_mlg);
 		service.insertCtm(item);
 	}
 	protected void actionPerformedBtnCancel(ActionEvent e) {
-		AddCustomerPanel.this.dispose();
+		AddCustomerPopup.this.dispose();
 	}
 }

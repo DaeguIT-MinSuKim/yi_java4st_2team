@@ -15,6 +15,7 @@ import javax.swing.border.LineBorder;
 import rentcarTest.panel.CarListPanel;
 import rentcarTest.panel.CustomerListPanel;
 import rentcarTest.panel.HomePanel;
+import rentcarTest.panel.MileagePanel;
 import rentcarTest.panel.RentListPanel;
 import javax.swing.BoxLayout;
 import java.awt.GridLayout;
@@ -46,6 +47,8 @@ public class Home extends JFrame {
 	private JPanel CustomerListPanel;
 	private JPanel CarListPanel;
 	private JPanel RentListPanel;
+	private JPanel MileagePanel;
+
 	private JPanel HomePanel;
 	private JLabel lblSignOut;
 
@@ -64,6 +67,7 @@ public class Home extends JFrame {
 		contentPane.setLayout(null);
 		// contentPane 안의 panel 선언
 		CustomerListPanel = new CustomerListPanel();
+		MileagePanel = new MileagePanel();
 		//HomePanel = new HomePanel();
 		// 사이드바 _1_로고
 		panemenu = new JPanel();
@@ -135,11 +139,9 @@ public class Home extends JFrame {
 		MileagePane.addMouseListener(new PanelButtonMouseAdaptor(MileagePane) {
 			@Override
 			public void mouseClicked(MouseEvent e) {
-				MenuClicked(MileagePane);
+				MenuClicked(MileagePanel);
 				HomePanel.setVisible(false);
-
 			}
-
 		});
 		MileagePane.setBackground(new Color(30, 144, 255));
 		MileagePane.setForeground(new Color(255, 255, 255));
@@ -186,6 +188,9 @@ public class Home extends JFrame {
 		MainContentPane.add(CarListPanel);
 		RentListPanel = new RentListPanel();
 		MainContentPane.add(RentListPanel);
+		MileagePanel = new MileagePanel();
+		MainContentPane.add(MileagePanel);
+
 //		MainContentPane.add(PerformancePane);
 //		 
 		MenuClicked(CustomerListPane);
@@ -229,7 +234,7 @@ public class Home extends JFrame {
 		CarListPanel.setVisible(false);
 		RentListPanel.setVisible(false);
 		CustomerListPanel.setVisible(false);
-//		MileageListPanel.setVisible(false);
+		MileagePanel.setVisible(false);
 //		PerformancePanel.setVisible(false);
 
 		panel.setVisible(true);

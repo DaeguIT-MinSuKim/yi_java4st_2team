@@ -15,7 +15,8 @@ import javax.swing.JScrollPane;
 
 import rentcarTest.Dao.service.CustomerService;
 import rentcarTest.dto.Customer;
-import rentcarTest.panel.popup.AddCustomerPanel;
+import rentcarTest.popup.AddCustomerPopup;
+import rentcarTest.popup.EditCustomerPopup;
 import rentcarTest.table.CustomerTable;
 
 @SuppressWarnings("serial")
@@ -78,8 +79,12 @@ public class CustomerListPanel extends JPanel implements ActionListener {
 	
 	// 수정
 	protected void actionPerformedBtnNewButton(ActionEvent e) {
-		AddCustomerPanel ctmPanel = new AddCustomerPanel();
-		ctmPanel.setVisible(true);
+		AddCustomerPopup ctmPopup = new AddCustomerPopup();
+		ctmPopup.setVisible(true);
+	}
+	protected void actionPerformedBtnNewButton_1(ActionEvent e) {
+		EditCustomerPopup editPopup = new EditCustomerPopup();
+		editPopup.setVisible(true);
 	}
 	
 	
