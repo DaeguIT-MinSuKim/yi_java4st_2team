@@ -142,6 +142,7 @@ public class AddCustomerPopup extends JDialog implements ActionListener {
 		int ctm_mlg = Integer.parseInt(tfMlg.getText().trim());
 		Customer item = new Customer(no, name, tel, address, remark, ctm_mlg);
 		service.insertCtm(item);
+		AddCustomerPopup.this.dispose();
 	}
 	protected void actionPerformedBtnCancel(ActionEvent e) {
 		AddCustomerPopup.this.dispose();

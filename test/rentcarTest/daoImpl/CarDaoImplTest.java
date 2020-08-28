@@ -44,7 +44,7 @@ public class CarDaoImplTest {
 	@Test
 	public void test04SelectCarByFind() {
 		System.out.printf("%s()%n", "test04SelectCarByFind");
-		Car car_find = new Car("소렌토");
+		Car car_find = new Car("38허4532");
 		List<Car> car = dao.selectCarByFind(car_find);
 		Assert.assertNotNull(car);
 		car.stream().forEach(System.out::println);
@@ -72,9 +72,9 @@ public class CarDaoImplTest {
 
 	@Test
 	public void test02UpdateCar() {
-		System.out.printf("%s()%n","test02UpdateCustomer()");
 		Car updateCar = new Car("99구9999", "람보르기니", new Kind("M"), "휘발유", 999, 99999, 1, "구구구구구");
 		int res = dao.updateCar(updateCar);
+		System.out.printf("%s()%n","test02UpdateCustomer() : " + updateCar);
 		Assert.assertEquals(1, res);
 	}
 

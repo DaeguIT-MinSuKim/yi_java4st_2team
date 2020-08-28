@@ -53,8 +53,8 @@ public class CarDaoImpl implements CarDao {
 		String sql = "SELECT CAR_NO, CAR_NAME, CAR_KIND, FUEL, DISTANCE, FARE, SALE, CAR_REMARK "
 				+ "FROM CAR WHERE CAR_NO = ?";
 		try (Connection con = JdbcUtil.getConnection(); PreparedStatement pstmt = con.prepareStatement(sql)) {
+			pstmt.setString(1, car.getCarNo());
 			try (ResultSet rs = pstmt.executeQuery()) {
-				pstmt.setString(1, car.getCarNo());
 
 				if (rs.next()) {
 					List<Car> list = new ArrayList<>();
@@ -112,7 +112,7 @@ public class CarDaoImpl implements CarDao {
 	
 	@Override
 	public int updateCar(Car car) {
-		String sql = "UPDATE CAR SET CAR_NAME = ? , CAR_KIND = ? , FUEL = ? , DISTANCE = ? , FARE = ? , SALE = ? , CAR_REMARK = ? FROM CAR WHERE CAR_NO = ?  ";
+		String sql = "UPDATE CAR SET CAR_NAME = ? , CAR_KIND = ? , FUEL = ? , DISTANCE = ? , FARE = ? , SALE = ? , CAR_REMARK = ? WHERE CAR_NO = ?  ";
 
 		try (Connection con = JdbcUtil.getConnection();
 			PreparedStatement pstmt = con.prepareStatement(sql.toString())) {
@@ -123,6 +123,7 @@ public class CarDaoImpl implements CarDao {
 			pstmt.setInt(5, car.getFare());
 			pstmt.setInt(6, car.getSale());
 			pstmt.setString(7, car.getCarRemark());
+			pstmt.setString(8, car.getCarNo());
 
 			return pstmt.executeUpdate();
 
