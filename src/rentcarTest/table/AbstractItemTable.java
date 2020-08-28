@@ -110,10 +110,8 @@ public abstract class AbstractItemTable<T> extends JTable {
 		return c;
 	}
 	
-	public void addRow(Customer item) {
-		/*this.service.insertCtm(item);
-		lists.add(item);*/
-//		setItems();
+	public void addRow(T item) {
+		model.addRow(toArray(item));
 		System.out.println("table: "+ item);
 	}
 

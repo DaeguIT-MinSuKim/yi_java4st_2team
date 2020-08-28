@@ -36,8 +36,8 @@ public class CustomerListPanel extends JPanel implements ActionListener, ItemLis
 	private JPanel pTable;
 	private JScrollPane scrollPane;
 	public CustomerTable table;
-	private CustomerService service;
-	public List<Customer> lists;
+	private CustomerService service = new CustomerService();
+	public List<Customer> lists = service.showCustomers();
 	private JPanel pBtns;
 	private JPanel panel;
 	private JPanel pTitle;
@@ -56,8 +56,6 @@ public class CustomerListPanel extends JPanel implements ActionListener, ItemLis
 	private EditCustomerPopup editPopup;
 
 	public CustomerListPanel() {
-		service = new CustomerService();
-		lists = service.showCustomers();
 		editPopup = new EditCustomerPopup();
 
 		initComponents();
@@ -148,9 +146,9 @@ public class CustomerListPanel extends JPanel implements ActionListener, ItemLis
 	}
 
 	public void insertCtm(Customer item) {
-		lists.add(item);
-		System.out.println(item);
-		table.addRow(item);
+		lists = service.showCustomers();
+		System.out.println(lists);
+		table.setItems(lists);
 	}
 
 	@Override
