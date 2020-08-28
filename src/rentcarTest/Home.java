@@ -255,6 +255,7 @@ public class Home extends JFrame {
 		paneTodo.add(lbltodo);
 		
 		lblNewLabel = new JLabel("스케쥴러");
+		lblNewLabel.setForeground(new Color(0, 0, 0));
 		lblNewLabel.setFont(new Font("인터파크고딕 L", Font.PLAIN, 17));
 		paneTodo.add(lblNewLabel);
 	}

@@ -114,12 +114,10 @@ public class EditMileagePopup extends JDialog implements ActionListener {
 	}
 
 	private void actionPerformedBtnAdd(ActionEvent e) {
-		// TODO Auto-generated method stub
 
 	}
 
 	private void actionPerformedBtnDeduct(ActionEvent e) {
-		// TODO Auto-generated method stub
 
 	}
 
