@@ -49,7 +49,7 @@ public class Home extends JFrame {
 	private JPanel RentListPanel;
 	private JPanel MileagePanel;
 
-	private JPanel HomePanel;
+	private JPanel HomePanel = new JPanel();
 	private JLabel lblSignOut;
 
 	public Home() {

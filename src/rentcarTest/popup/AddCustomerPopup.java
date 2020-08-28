@@ -35,17 +35,6 @@ public class AddCustomerPopup extends JDialog implements ActionListener {
 	private JTextField tfRemark;
 	private JLabel lblDialog;
 	
-	
-	public static void main(String[] args) {
-		try {
-			AddCustomerPopup dialog = new AddCustomerPopup();
-			dialog.setDefaultCloseOperation(JDialog.DISPOSE_ON_CLOSE);
-			dialog.setVisible(true);
-		} catch (Exception e) {
-			e.printStackTrace();
-		}
-	}
-
 	public AddCustomerPopup() {
 		initComponents();
 	}
