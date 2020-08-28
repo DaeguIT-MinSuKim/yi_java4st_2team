@@ -76,6 +76,8 @@ public class AddCustomerPopup extends JDialog implements ActionListener {
 		
 		tfNo = new JTextField();
 		tfNo.setColumns(10);
+		tfNo.setEnabled(false);
+		tfNo.setText();
 		pContent.add(tfNo);
 		
 		JLabel lblName = new JLabel("고객명");
@@ -142,6 +144,7 @@ public class AddCustomerPopup extends JDialog implements ActionListener {
 		int ctm_mlg = Integer.parseInt(tfMlg.getText().trim());
 		Customer item = new Customer(no, name, tel, address, remark, ctm_mlg);
 		service.insertCtm(item);
+		AddCustomerPopup.this.dispose();
 	}
 	protected void actionPerformedBtnCancel(ActionEvent e) {
 		AddCustomerPopup.this.dispose();

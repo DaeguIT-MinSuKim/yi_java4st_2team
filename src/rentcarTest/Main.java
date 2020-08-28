@@ -6,7 +6,7 @@ public class Main {
 		EventQueue.invokeLater(new Runnable() {
 			public void run() {
 				try {
-					//Login frame = new Login();
+//					Login frame = new Login();
 					Home frame = new Home();
 					frame.setVisible(true);
 				} catch (Exception e) {

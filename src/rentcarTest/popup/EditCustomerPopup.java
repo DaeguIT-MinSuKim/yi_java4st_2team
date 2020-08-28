@@ -34,20 +34,7 @@ public class EditCustomerPopup extends JDialog implements ActionListener {
 	private JButton btnEdit;
 
 	private CustomerService service = new CustomerService();
-	
-	public static void main(String[] args) {
-		try {
-			EditCustomerPopup dialog = new EditCustomerPopup();
-			dialog.setDefaultCloseOperation(JDialog.DISPOSE_ON_CLOSE);
-			dialog.setVisible(true);
-		} catch (Exception e) {
-			e.printStackTrace();
-		}
-	}
 
-	/**
-	 * Create the dialog.
-	 */
 	public EditCustomerPopup() {
 		initComponents();
 	}
@@ -148,7 +135,7 @@ public class EditCustomerPopup extends JDialog implements ActionListener {
 				getRootPane().setDefaultButton(btnEdit);
 			}
 			{
-				btnCancel = new JButton("닫기");
+				btnCancel = new JButton("취소");
 				btnCancel.addActionListener(this);
 				btnCancel.setActionCommand("Cancel");
 				pBtns.add(btnCancel);
@@ -173,6 +160,7 @@ public class EditCustomerPopup extends JDialog implements ActionListener {
 		int ctm_mlg = Integer.parseInt(tfMlg.getText().trim());
 		Customer item = new Customer(no, name, tel, address, remark, ctm_mlg);
 		service.updateCtm(item);
+		EditCustomerPopup.this.dispose();
 	}
 	protected void actionPerformedBtnCancel(ActionEvent e) {
 		EditCustomerPopup.this.dispose();
