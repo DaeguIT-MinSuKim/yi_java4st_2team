@@ -90,10 +90,12 @@ public abstract class AbstractItemTable<T> extends JTable {
 		
 	}
 	
-	public void addRow(Customer item) {
-		this.service.insertCtm(item);
-		//lists.add(item);
+	public void addRow(T item) {
+//		this.service.insertCtm(item);
+//		lists.add(item);
 //		setItems();
+		System.out.println("table: "+ item);
+		model.addRow(toArray(item));
 	}
 
 	public void removeRow(Customer item) {

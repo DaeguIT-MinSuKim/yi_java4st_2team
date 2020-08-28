@@ -35,9 +35,9 @@ import rentcarTest.table.CustomerTable;
 public class CustomerListPanel extends JPanel implements ActionListener, ItemListener {
 	private JPanel pTable;
 	private JScrollPane scrollPane;
-	private CustomerTable table;
+	public CustomerTable table;
 	private CustomerService service;
-	private List<Customer> lists;
+	public List<Customer> lists;
 	private JPanel pBtns;
 	private JPanel pTitle;
 	private JLabel lblTitle;
@@ -135,7 +135,12 @@ public class CustomerListPanel extends JPanel implements ActionListener, ItemLis
 		
 	}
 
-
+	public void insertCtm(Customer item) {
+		lists.add(item);
+		System.out.println(item);
+		table.addRow(item);
+	}
+	
 	@Override
 	public void itemStateChanged(ItemEvent e) {
 		if (e.getSource() == chckbxRent) {

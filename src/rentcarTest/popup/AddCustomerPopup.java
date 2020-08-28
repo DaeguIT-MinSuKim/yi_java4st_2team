@@ -16,6 +16,7 @@ import javax.swing.border.EmptyBorder;
 
 import rentcarTest.Dao.service.CustomerService;
 import rentcarTest.dto.Customer;
+import rentcarTest.panel.CustomerListPanel;
 
 import javax.swing.BoxLayout;
 import java.awt.event.ActionListener;
@@ -25,7 +26,6 @@ public class AddCustomerPopup extends JDialog implements ActionListener {
 	private JPanel pBtns;
 	private JButton btnAdd;
 	private JButton btnCancel;
-	private CustomerService service = new CustomerService();
 	private JPanel pContent;
 	private JTextField tfNo;
 	private JTextField tfName;
@@ -34,6 +34,9 @@ public class AddCustomerPopup extends JDialog implements ActionListener {
 	private JTextField tfMlg;
 	private JTextField tfRemark;
 	private JLabel lblDialog;
+	
+	private CustomerService service = new CustomerService();
+	private CustomerListPanel ctmList = new CustomerListPanel();
 	
 	public AddCustomerPopup() {
 		initComponents();
@@ -133,6 +136,7 @@ public class AddCustomerPopup extends JDialog implements ActionListener {
 		int ctm_mlg = Integer.parseInt(tfMlg.getText().trim());
 		Customer item = new Customer(no, name, tel, address, remark, ctm_mlg);
 		service.insertCtm(item);
+		ctmList.insertCtm(item);
 		AddCustomerPopup.this.dispose();
 	}
 	protected void actionPerformedBtnCancel(ActionEvent e) {
