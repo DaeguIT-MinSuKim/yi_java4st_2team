@@ -1,4 +1,4 @@
-# 프로젝트 팀 동자승 _ 렌트카 관리 시스템
+# 프로젝트 팀 동자승 _ 렌트카 관리 
 
 Java swing Window Builder로 UI를 구현하고
 JDBC 를 사용하여 DB에 연결하였습니다. 
