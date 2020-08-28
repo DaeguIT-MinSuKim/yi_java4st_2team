@@ -1,4 +1,4 @@
-package rentcarTest.panel.popup;
+package rentcarTest.popup;
 
 import javax.swing.JPanel;
 import java.awt.Color;
@@ -26,7 +26,7 @@ import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
 import java.awt.SystemColor;
 
-public class AddCarPanel2 extends JPanel implements ActionListener {
+public class AddCarPopup2 extends JPanel implements ActionListener {
 	private JLabel lblTitle;
 	private JPanel pAdd;
 	private JLabel lblCarKind;
@@ -52,7 +52,7 @@ public class AddCarPanel2 extends JPanel implements ActionListener {
 	/**
 	 * Create the panel.
 	 */
-	public AddCarPanel2() {
+	public AddCarPopup2() {
 		
 		initComponents();
 	}

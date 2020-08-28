@@ -1,4 +1,4 @@
-package rentcarTest.panel.popup;
+package rentcarTest.popup;
 
 import java.awt.Color;
 import java.awt.Component;
@@ -19,7 +19,7 @@ import javax.swing.SwingConstants;
 import rentcarTest.Dao.Impl.CarDaoImpl;
 import rentcarTest.dto.Car;
 
-public class CarRentPanel2 extends JPanel implements ActionListener {
+public class CarRentPopup2 extends JPanel implements ActionListener {
 	private JLabel lblTitle;
 	private JPanel pContent;
 	private JLabel lblCode;
@@ -57,7 +57,7 @@ public class CarRentPanel2 extends JPanel implements ActionListener {
 	/**
 	 * Create the panel.
 	 */
-	public CarRentPanel2() {
+	public CarRentPopup2() {
 
 		initComponents();
 	}

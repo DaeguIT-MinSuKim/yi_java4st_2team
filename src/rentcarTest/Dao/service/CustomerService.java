@@ -10,11 +10,14 @@ public class CustomerService {
 	private CustomerDao dao = CustomerDaoImpl.getInstance();
 	
 	public void insertCtm(Customer item) {
-		System.out.println("?");
 		dao.insertCustomer(item);
 	}
 	
 	public List<Customer> showCustomers(){
 		return dao.selectCustomerByAll();
+	}
+	
+	public void updateCtm(Customer item) {
+		dao.updateCustomer(item);
 	}
 }
