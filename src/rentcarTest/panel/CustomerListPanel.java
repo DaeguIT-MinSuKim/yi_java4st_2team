@@ -17,11 +17,13 @@ import javax.swing.JCheckBox;
 import javax.swing.JComboBox;
 import javax.swing.JLabel;
 import javax.swing.JMenuItem;
+import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JPopupMenu;
 import javax.swing.JScrollPane;
 import javax.swing.JTextField;
 import javax.swing.SwingConstants;
+import javax.swing.text.DefaultEditorKit.CutAction;
 
 import rentcarTest.Dao.service.CustomerService;
 import rentcarTest.dto.Customer;
@@ -50,9 +52,12 @@ public class CustomerListPanel extends JPanel implements ActionListener, ItemLis
 	private JTextField tfSearch;
 	private JButton btnSearch;
 	
+	private EditCustomerPopup editPopup;
+	
 	public CustomerListPanel() {
 		service = new CustomerService();
 		lists = service.showCustomers();
+		editPopup = new EditCustomerPopup();
 		
 		initComponents();
 		
@@ -173,11 +178,21 @@ public class CustomerListPanel extends JPanel implements ActionListener, ItemLis
 		// 우클릭 메뉴
 		if (e.getSource() instanceof JMenuItem) {
 			if (e.getActionCommand().equals("수정")) {
-				EditCustomerPopup editPopup = new EditCustomerPopup();
-				editPopup.setVisible(true);
+				int selIdx = table.getSelectedRow();
+		        if (selIdx == -1) {
+		            JOptionPane.showMessageDialog(null, "해당 항목을 선택하세요.");
+		            return;
+		        }
+		        Customer selCtm = lists.get(selIdx);
+		        editPopup.setItem(selCtm);
+		        editPopup.setVisible(true);
 			}
 			if (e.getActionCommand().equals("삭제")) {
-				System.out.println("삭제");
+				int selIdx = table.getSelectedRow();
+		        if (selIdx == -1) {
+		            JOptionPane.showMessageDialog(null, "해당 항목을 선택하세요.");
+		            return;
+		        }
 			}
 			if (e.getActionCommand().equals("세부정보")) {
 				System.out.println("세부정보");
