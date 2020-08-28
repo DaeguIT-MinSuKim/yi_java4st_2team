@@ -8,13 +8,13 @@ import rentcarTest.dto.Mileage;
 
 public class MileageService {
 	private MileageDao dao = MileageDaoImpl.getInstance();
-	
+
 	public void insertMile(Mileage mlg) {
 		System.out.println("Inserting Mileage..");
 		dao.insertMileage(mlg);
 	}
-	
-	public List<Mileage> showMileage(){
+
+	public List<Mileage> showMileage() {
 		return dao.selectMileageByAll();
 	}
 }

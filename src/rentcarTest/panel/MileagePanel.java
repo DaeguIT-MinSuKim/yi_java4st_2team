@@ -1,8 +1,6 @@
 package rentcarTest.panel;
 
 import java.awt.BorderLayout;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
 import java.util.List;
 
 import javax.swing.BoxLayout;
@@ -12,12 +10,10 @@ import javax.swing.JScrollPane;
 
 import rentcarTest.Dao.service.MileageService;
 import rentcarTest.dto.Mileage;
-import rentcarTest.panel.popup.AddCustomerPanel;
-import rentcarTest.table.CustomerTable;
 import rentcarTest.table.MileageTable;
 
 @SuppressWarnings("serial")
-public class MileagePanel extends JPanel{
+public class MileagePanel extends JPanel {
 
 	private MileageService service;
 	private List<Mileage> lists;
@@ -30,6 +26,7 @@ public class MileagePanel extends JPanel{
 	public MileagePanel() {
 		initComponents();
 	}
+
 	private void initComponents() {
 		service = new MileageService();
 		lists = service.showMileage();
@@ -42,17 +39,17 @@ public class MileagePanel extends JPanel{
 		pTable = new JPanel();
 		add(pTable);
 		pTable.setLayout(new BorderLayout(0, 0));
-		
+
 		scrollPane = new JScrollPane();
 		pTable.add(scrollPane, BorderLayout.CENTER);
-		
+
 		table = new MileageTable();
 		table.setItems(lists);
 		scrollPane.setViewportView(table);
-		
+
 		pBtns = new JPanel();
 		add(pBtns);
-		
+
 		btnEdit = new JButton("추가 및 차감");
 		pBtns.add(btnEdit);
 	}
