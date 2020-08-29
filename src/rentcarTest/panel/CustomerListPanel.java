@@ -54,14 +54,13 @@ public class CustomerListPanel extends JPanel implements ActionListener, ItemLis
 	private JButton btnSearch;
 
 	private EditCustomerPopup editPopup;
+	private JButton btnNewButton;
 
 	public CustomerListPanel() {
 		editPopup = new EditCustomerPopup();
 
 		initComponents();
-
-		table.setItems(lists);
-
+		
 		CustomPopupMenu popMenu = new CustomPopupMenu(this);
 		table.setComponentPopupMenu(popMenu);
 		scrollPane.setViewportView(table);
@@ -131,7 +130,7 @@ public class CustomerListPanel extends JPanel implements ActionListener, ItemLis
 		pTable.add(scrollPane);
 
 		table = new CustomerTable();
-		// scrollPane.setViewportView(table);
+		table.setItems(lists);
 
 		pBtns = new JPanel();
 		pBtns.setBackground(Color.WHITE);
@@ -144,18 +143,18 @@ public class CustomerListPanel extends JPanel implements ActionListener, ItemLis
 		btnRent = new JButton("대여");
 		btnRent.addActionListener(this);
 		pBtns.add(btnRent);
+		
+		btnNewButton = new JButton("New button");
+		btnNewButton.addActionListener(this);
+		pBtns.add(btnNewButton);
 
 	}
 	
-//	public Customer getselectedCustomer() {
-//		int idx = table.getSelectedRow();
-//		return lists.get(idx);
-//	}
-	
-	
 	public void insertCtm(Customer item) {
+		service = new CustomerService();
 		lists = service.showCustomers();
-		System.out.println(lists);
+		System.out.println("insert item : " + item);
+		System.out.println("insert lists : " + lists);
 		table.setItems(lists);
 	}
 	
@@ -209,6 +208,9 @@ public class CustomerListPanel extends JPanel implements ActionListener, ItemLis
 	}
 
 	public void actionPerformed(ActionEvent e) {
+		if (e.getSource() == btnNewButton) {
+			actionPerformedBtnNewButton(e);
+		}
 		if (e.getSource() == btnSearch) {
 			actionPerformedBtnSearch(e);
 		}
@@ -303,5 +305,8 @@ public class CustomerListPanel extends JPanel implements ActionListener, ItemLis
 			table.setItems(ctmList);
 			
 		}
+	}
+	protected void actionPerformedBtnNewButton(ActionEvent e) {
+		table.setItems(lists);
 	}
 }

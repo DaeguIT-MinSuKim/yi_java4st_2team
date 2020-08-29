@@ -112,7 +112,6 @@ public abstract class AbstractItemTable<T> extends JTable {
 	
 	public void addRow(T item) {
 		model.addRow(toArray(item));
-		System.out.println("table: "+ item);
 	}
 
 	public void removeRow(int idx) {
