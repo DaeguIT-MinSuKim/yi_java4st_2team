@@ -139,6 +139,7 @@ public class AddCustomerPopup extends JDialog implements ActionListener {
 		ctmList.insertCtm(item);
 		AddCustomerPopup.this.dispose();
 	}
+	
 	protected void actionPerformedBtnCancel(ActionEvent e) {
 		AddCustomerPopup.this.dispose();
 	}

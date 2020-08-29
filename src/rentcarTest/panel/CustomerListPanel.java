@@ -52,12 +52,11 @@ public class CustomerListPanel extends JPanel implements ActionListener, ItemLis
 	private JTextField tfSearch;
 	private JButton btnSearch;
 	
-	private EditCustomerPopup editPopup;
-	
+	private EditCustomerPopup editPopup = new EditCustomerPopup();
+
 	public CustomerListPanel() {
 		service = new CustomerService();
 		lists = service.showCustomers();
-		editPopup = new EditCustomerPopup();
 		
 		initComponents();
 		
@@ -66,6 +65,8 @@ public class CustomerListPanel extends JPanel implements ActionListener, ItemLis
 		CustomPopupMenu popMenu = new CustomPopupMenu(this);
 		table.setComponentPopupMenu(popMenu);
 		scrollPane.setViewportView(table);
+
+		editPopup = new EditCustomerPopup();
 	}
 	
 	private void initComponents() {
@@ -134,11 +135,25 @@ public class CustomerListPanel extends JPanel implements ActionListener, ItemLis
 		pBtns.add(btnRent);
 		
 	}
-
+	
+//	public Customer getselectedCustomer() {
+//		int idx = table.getSelectedRow();
+//		return lists.get(idx);
+//	}
+	
+	
 	public void insertCtm(Customer item) {
 		lists.add(item);
-		System.out.println(item);
 		table.addRow(item);
+	}
+	
+	public void updateCtm(int idx, Customer item) {
+		System.out.println(idx);
+		System.out.println(item);
+		
+		table.updateRow(idx, item);
+		lists.set(idx, item);
+		table.setItems(lists);
 	}
 	
 	@Override
@@ -189,7 +204,9 @@ public class CustomerListPanel extends JPanel implements ActionListener, ItemLis
 		            return;
 		        }
 		        Customer selCtm = lists.get(selIdx);
+		        System.out.println(selIdx);
 		        editPopup.setItem(selCtm);
+		        editPopup.setSelIdx(selIdx);
 		        editPopup.setVisible(true);
 			}
 			if (e.getActionCommand().equals("삭제")) {
@@ -200,7 +217,16 @@ public class CustomerListPanel extends JPanel implements ActionListener, ItemLis
 		        }
 			}
 			if (e.getActionCommand().equals("세부정보")) {
-				System.out.println("세부정보");
+				int selIdx = table.getSelectedRow();
+		        if (selIdx == -1) {
+		            JOptionPane.showMessageDialog(null, "해당 항목을 선택하세요.");
+		            return;
+		        }
+		        Customer selCtm = lists.get(selIdx);
+		        editPopup.setItem(selCtm);
+		        editPopup.setDetail();
+		        editPopup.setSelIdx(selIdx);
+		        editPopup.setVisible(true);
 			}
 			if (e.getActionCommand().equals("마일리지")) {
 				System.out.println("마일리지");
