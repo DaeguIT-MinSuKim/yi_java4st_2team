@@ -10,6 +10,7 @@ import javax.swing.border.EmptyBorder;
 
 import rentcarTest.Dao.service.CustomerService;
 import rentcarTest.dto.Customer;
+import rentcarTest.panel.CustomerListPanel;
 
 import javax.swing.JLabel;
 import java.awt.Font;
@@ -32,9 +33,12 @@ public class EditCustomerPopup extends JDialog implements ActionListener {
 	private JTextField tfMlg;
 	private JTextField tfRemark;
 	private JButton btnCancel;
-	private JButton btnEdit;
+	private int selIdx;
 
 	private CustomerService service = new CustomerService();
+	private CustomerListPanel ctmList;
+	private JLabel lblDialog;
+	private JButton btnEdit;
 
 	public EditCustomerPopup() {
 		initComponents();
@@ -44,7 +48,7 @@ public class EditCustomerPopup extends JDialog implements ActionListener {
 		setBounds(100, 100, 900, 600);
 		getContentPane().setLayout(new BoxLayout(getContentPane(), BoxLayout.Y_AXIS));
 
-		JLabel lblDialog = new JLabel("고객 수정");
+		lblDialog = new JLabel("고객 수정");
 		lblDialog.setHorizontalAlignment(SwingConstants.CENTER);
 		lblDialog.setFont(new Font("맑은 고딕", Font.BOLD, 30));
 		getContentPane().add(lblDialog);
@@ -117,16 +121,26 @@ public class EditCustomerPopup extends JDialog implements ActionListener {
 
 		btnEdit = new JButton("확인");
 		btnEdit.addActionListener(this);
-		btnEdit.setActionCommand("OK");
 		pBtns.add(btnEdit);
-		getRootPane().setDefaultButton(btnEdit);
 
 		btnCancel = new JButton("취소");
 		btnCancel.addActionListener(this);
 		btnCancel.setActionCommand("Cancel");
 		pBtns.add(btnCancel);
+
 	}
-	
+
+	public void setDetail() {
+		tfName.setEnabled(false);
+		tfTel.setEnabled(false);
+		tfAddress.setEnabled(false);
+		tfMlg.setEnabled(false);
+		tfRemark.setEnabled(false);
+		btnEdit.setText("수정");
+		btnCancel.setText("닫기");
+		lblDialog.setText("고객 세부 정보");
+	}
+
 	public void setItem(Customer ctm) {
 		tfNo.setText(String.valueOf(ctm.getNo()));
 		tfName.setText(ctm.getName());
@@ -135,17 +149,39 @@ public class EditCustomerPopup extends JDialog implements ActionListener {
 		tfMlg.setText(String.valueOf(ctm.getCtm_mlg()));
 		tfRemark.setText(ctm.getRemark());
 	}
+	
+	public void setSelIdx(int selIdx) {
+		this.selIdx = selIdx;
+	}
 
 	public void actionPerformed(ActionEvent e) {
 		if (e.getSource() == btnEdit) {
-			actionPerformedBtnEdit(e);
+			if (e.getActionCommand().equals("확인")) {
+				actionPerformedBtnEdit(e);
+			} else {
+				actionPerformedBtnDetail(e);
+			}
 		}
 		if (e.getSource() == btnCancel) {
 			actionPerformedBtnCancel(e);
 		}
 	}
 
+	private void actionPerformedBtnDetail(ActionEvent e) {
+		tfName.setEnabled(true);
+		tfTel.setEnabled(true);
+		tfAddress.setEnabled(true);
+		tfMlg.setEnabled(true);
+		tfRemark.setEnabled(true);
+		
+		btnEdit.setText("확인");
+		btnCancel.setText("취소");
+		lblDialog.setText("고객 수정");
+	}
+
 	protected void actionPerformedBtnEdit(ActionEvent e) {
+		ctmList = new CustomerListPanel();
+		
 		int no = Integer.parseInt(tfNo.getText().trim());
 		String name = tfName.getText().trim();
 		String tel = tfTel.getText().trim();
@@ -153,7 +189,9 @@ public class EditCustomerPopup extends JDialog implements ActionListener {
 		String remark = tfRemark.getText().trim();
 		int ctm_mlg = Integer.parseInt(tfMlg.getText().trim());
 		Customer item = new Customer(no, name, tel, address, remark, ctm_mlg);
+		
 		service.updateCtm(item);
+		ctmList.updateCtm(selIdx, item);
 		EditCustomerPopup.this.dispose();
 	}
 
