@@ -147,6 +147,11 @@ public class CarListPanel  extends JPanel implements ActionListener, ItemListene
 	}
 	
 
+	public void insertCar(Car item) {
+		service = new CarService();
+		
+	}
+	
 	// 검색 분류
 	private void setSearchCate() {
 		String[] items = { "소형", "중형", "승합차", "버스", "지프" };

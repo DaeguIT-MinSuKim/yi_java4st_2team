@@ -48,6 +48,8 @@ public class CarDaoImpl implements CarDao {
 		return new Car(no, name, carKind, fuel, distance, fare, sale, carRemark);
 	}
 
+	
+	
 	@Override
 	public List<Car> selectCarByFind(Car car) {
 		String sql = "SELECT CAR_NO, CAR_NAME, k.CAR_KIND, k.KIND_NAME, FUEL, DISTANCE, FARE, SALE, CAR_REMARK \r\n" + 
@@ -76,6 +78,23 @@ public class CarDaoImpl implements CarDao {
 	public List<Car> selectCarByRent() {
 		String sql = "SELECT CAR_NO, CAR_NAME, k.CAR_KIND, k.KIND_NAME, FUEL, DISTANCE, FARE, SALE, CAR_REMARK FROM CAR c LEFT OUTER JOIN KIND k ON c.CAR_KIND = k.CAR_KIND "
 				+ "WHERE CAR_NO IN (SELECT R.CAR_NO FROM RENT R LEFT OUTER JOIN CAR C ON R.CAR_NO = C.CAR_NO WHERE IS_RENT=1)";
+		try (Connection con = JdbcUtil.getConnection();
+				PreparedStatement pstmt = con.prepareStatement(sql);
+				ResultSet rs = pstmt.executeQuery()) {
+			if (rs.next()) {
+				List<Car> list = new ArrayList<Car>();
+				do {
+					list.add(getCar(rs));
+				} while (rs.next());
+				return list;
+			}
+		} catch (SQLException e) {
+			throw new RuntimeException(e);
+		}
+		return null;
+	}
+	public List<Car> selectCarByKind() {
+		String sql = "SELECT DISTINCT KIND_NAME FROM KIND k LEFT OUTER JOIN CAR c ON c.car_kind = k.CAR_KIND";
 		try (Connection con = JdbcUtil.getConnection();
 				PreparedStatement pstmt = con.prepareStatement(sql);
 				ResultSet rs = pstmt.executeQuery()) {

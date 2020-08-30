@@ -25,5 +25,9 @@ public class CarService {
 		return dao.deleteCar(item);
 		
 	}
+	
+	public int insertCar(Car item) {
+		return dao.insertCar(item);
+	}
 
 }

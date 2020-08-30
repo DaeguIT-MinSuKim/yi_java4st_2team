@@ -38,7 +38,7 @@ FROM RENT r LEFT OUTER JOIN CAR c ON r.CAR_NO = c.CAR_NO;
 DELETE FROM RENT WHERE RENT_NO = 1;
 
 -- rentLookupCarKind
-SELECT c.CAR_KIND, SUM(RENT_TIME * FARE * (100 - SALE) / 100) 
+SELECT c.CAR_KIND, SUM(RENT_TIME *FARE * (100 - SALE) / 100) 
 FROM RENT r LEFT OUTER JOIN CAR c ON r.CAR_NO = c.CAR_NO
 GROUP BY C.CAR_KIND
 HAVING SUM(RENT_TIME * FARE * (100 - SALE) / 100) > 0;
@@ -90,5 +90,9 @@ SELECT CAR_NO, CAR_NAME, k.CAR_KIND, k.KIND_NAME, FUEL, DISTANCE, FARE, SALE, CA
 -----------------------------------------------------------------------------김보현-----------------------------------------------------------------------------
 SELECT CTM_NO, CTM_NAME, TEL, ADDRESS, CTM_REMARK, CTM_MLG FROM CUSTOMER WHERE LIST_CTM = 1;
 UPDATE CAR SET CAR_NAME = '스타' , CAR_KIND = 'S' , FUEL = '휘발유' , DISTANCE = 999 , FARE = 350000 , SALE = 5 , CAR_REMARK = '티라노' WHERE CAR_NO = '38허4532';
+SELECT DISTINCT KIND_NAME  FROM KIND k LEFT OUTER JOIN CAR c ON c.car_kind = k.CAR_KIND;
+
 -----------------------------------------------------------------------------배성덕-----------------------------------------------------------------------------
 UPDATE CUSTOMER SET LIST_CTM = 1 WHERE CTM_NO =1;
+
+SELECT * FROM CAR;
