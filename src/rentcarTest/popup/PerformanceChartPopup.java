@@ -30,4 +30,6 @@ public class PerformanceChartPopup extends JDialog {
 		getContentPane().add(contentPanel, BorderLayout.CENTER);
 	}
 
+	
+	
 }
