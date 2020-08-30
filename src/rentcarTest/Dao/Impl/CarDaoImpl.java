@@ -19,7 +19,7 @@ public class CarDaoImpl implements CarDao {
 
 	@Override
 	public List<Car> selectCarByAll() {
-		String sql = "SELECT CAR_NO, CAR_NAME, CAR_KIND, FUEL, DISTANCE, FARE, SALE, CAR_REMARK FROM CAR";
+		String sql = "SELECT CAR_NO, CAR_NAME, k.CAR_KIND, k.KIND_NAME, FUEL, DISTANCE, FARE, SALE, CAR_REMARK FROM CAR c LEFT OUTER JOIN KIND k ON c.CAR_KIND = k.CAR_KIND";
 		try (Connection con = JdbcUtil.getConnection();
 				PreparedStatement pstmt = con.prepareStatement(sql);
 				ResultSet rs = pstmt.executeQuery()) {
@@ -39,7 +39,7 @@ public class CarDaoImpl implements CarDao {
 	private Car getCar(ResultSet rs) throws SQLException {
 		String no = rs.getString("CAR_NO");
 		String name = rs.getNString("CAR_NAME");
-		Kind carKind = new Kind(rs.getString("CAR_KIND"));
+		Kind carKind = new Kind(rs.getString("CAR_KIND"), rs.getString("KIND_NAME"));
 		String fuel = rs.getString("FUEL");
 		int distance = rs.getInt("DISTANCE");
 		int fare = rs.getInt("FARE");
@@ -50,10 +50,12 @@ public class CarDaoImpl implements CarDao {
 
 	@Override
 	public List<Car> selectCarByFind(Car car) {
-		String sql = "SELECT CAR_NO, CAR_NAME, CAR_KIND, FUEL, DISTANCE, FARE, SALE, CAR_REMARK "
-				+ "FROM CAR WHERE CAR_NO = ?";
+		String sql = "SELECT CAR_NO, CAR_NAME, k.CAR_KIND, k.KIND_NAME, FUEL, DISTANCE, FARE, SALE, CAR_REMARK \r\n" + 
+				"  FROM CAR c LEFT OUTER JOIN KIND k ON c.CAR_KIND = k.CAR_KIND\r\n" + 
+				" WHERE k.KIND_NAME = ? AND CAR_NAME = ?";
 		try (Connection con = JdbcUtil.getConnection(); PreparedStatement pstmt = con.prepareStatement(sql)) {
-			pstmt.setString(1, car.getCarNo());
+			pstmt.setString(1, car.getCarKind().getKind_name());
+			pstmt.setString(2, car.getCarName());
 			try (ResultSet rs = pstmt.executeQuery()) {
 
 				if (rs.next()) {
@@ -72,7 +74,7 @@ public class CarDaoImpl implements CarDao {
 
 	@Override
 	public List<Car> selectCarByRent() {
-		String sql = "SELECT CAR_NO, CAR_NAME, CAR_KIND, FUEL, DISTANCE, FARE, SALE, CAR_REMARK FROM CAR "
+		String sql = "SELECT CAR_NO, CAR_NAME, k.CAR_KIND, k.KIND_NAME, FUEL, DISTANCE, FARE, SALE, CAR_REMARK FROM CAR c LEFT OUTER JOIN KIND k ON c.CAR_KIND = k.CAR_KIND "
 				+ "WHERE CAR_NO IN (SELECT R.CAR_NO FROM RENT R LEFT OUTER JOIN CAR C ON R.CAR_NO = C.CAR_NO WHERE IS_RENT=1)";
 		try (Connection con = JdbcUtil.getConnection();
 				PreparedStatement pstmt = con.prepareStatement(sql);
