@@ -241,6 +241,11 @@ public class CustomerListPanel extends JPanel implements ActionListener, ItemLis
 					JOptionPane.showMessageDialog(null, "해당 항목을 선택하세요.");
 					return;
 				}
+				Customer deleteCtm = lists.get(selIdx);
+				service.deleteCtm(deleteCtm);
+				lists.remove(selIdx);
+				table.removeRow(selIdx);
+				
 			}
 			if (e.getActionCommand().equals("세부정보")) {
 				int selIdx = table.getSelectedRow();

@@ -36,4 +36,8 @@ public class CustomerService {
 	public int lastCtmNo() {
 		return dao.getLastCtm_no();
 	}
+	
+	public int deleteCtm(Customer item) {
+		return dao.deleteCustomer(item);
+	}
 }
