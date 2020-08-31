@@ -29,6 +29,10 @@ public class CustomerService {
 		return dao.selectCustomerBlackList();
 	}
 	
+	public List<Customer> selectCustomerToday(){
+		return dao. selectCustomerToday();
+	}
+	
 	public void updateCtm(Customer item) {
 		dao.updateCustomer(item);
 	}

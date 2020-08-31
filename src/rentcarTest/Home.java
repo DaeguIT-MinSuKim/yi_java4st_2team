@@ -6,6 +6,7 @@ import java.awt.Font;
 import java.awt.Image;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
+import java.util.Calendar;
 
 import javax.swing.ImageIcon;
 import javax.swing.JFrame;
@@ -23,10 +24,10 @@ import rentcarTest.panel.RentListPanel;
 public class Home extends JFrame {
 	private Image img_logo = new ImageIcon(Home.class.getResource("../res/logout.png")).getImage().getScaledInstance(40,
 			40, Image.SCALE_SMOOTH);
-	private Image img_person = new ImageIcon(Home.class.getResource("../res/person.png")).getImage().getScaledInstance(70,
-			70, Image.SCALE_SMOOTH);
+	private Image img_person = new ImageIcon(Home.class.getResource("../res/person.png")).getImage()
+			.getScaledInstance(70, 70, Image.SCALE_SMOOTH);
 	private Image img_todo = new ImageIcon(Home.class.getResource("../res/things.png")).getImage().getScaledInstance(25,
-			25, Image.SCALE_SMOOTH);	
+			25, Image.SCALE_SMOOTH);
 	private JPanel contentPane;
 	private JPanel panemenu;
 	private JPanel RentListPane;
@@ -55,6 +56,13 @@ public class Home extends JFrame {
 	private JPanel paneTodo;
 	private JLabel lbltodo;
 	private JLabel lblNewLabel;
+	private JLabel lblNewLabel_1;
+	private int ThisMonth;
+	private int ThisDate;
+	private String Month;
+	private String Date;
+	Calendar today = Calendar.getInstance();
+
 
 	public Home() {
 		initComponents();
@@ -114,7 +122,7 @@ public class Home extends JFrame {
 
 		lblCar = new JLabel("차량관리");
 		lblCar.setHorizontalAlignment(SwingConstants.CENTER);
-		lblCar.setFont(new Font("인터파크고딕 L", Font.PLAIN, 17));
+		lblCar.setFont(new Font("S-CORE DREAM", Font.PLAIN, 17));
 		lblCar.setForeground(new Color(255, 255, 255));
 		CarListPane.add(lblCar);
 		// 사이드 바_4_대여관리
@@ -179,15 +187,20 @@ public class Home extends JFrame {
 		lblPerformance.setFont(new Font("인터파크고딕 L", Font.PLAIN, 17));
 		lblPerformance.setForeground(new Color(255, 255, 255));
 		PerformancePane.add(lblPerformance);
+
+		ThisMonth = today.get(Calendar.MONTH) + 1;
+		ThisDate = today.get(Calendar.DATE);
+		Month = Integer.toString(ThisMonth);
+		Date = Integer.toString(ThisDate);
 		
 		// 오른쪽 MainContentPane
 		MainContentPane = new JPanel();
 		MainContentPane.setBackground(new Color(255, 255, 255));
-		MainContentPane.setBounds(250, 0, 935, 713);
+		MainContentPane.setBounds(246, -12, 939, 725);
 		contentPane.add(MainContentPane);
 
 		// 페널 추가
-		//MainContentPane.add(HomePanel);
+		// MainContentPane.add(HomePanel);
 		MainContentPane.add(CustomerListPanel);
 		CarListPanel = new CarListPanel();
 		MainContentPane.add(CarListPanel);
@@ -201,21 +214,21 @@ public class Home extends JFrame {
 //		MainContentPane.add(PerformancePane);
 //		 
 		MenuClicked(CustomerListPane);
-				CustomerListPane.setLayout(new BorderLayout(0, 0));
-		
-				lblCustomerList = new JLabel("고객관리");
-				lblCustomerList.setHorizontalAlignment(SwingConstants.CENTER);
-				lblCustomerList.setFont(new Font("인터파크고딕 L", Font.PLAIN, 17));
-				lblCustomerList.setForeground(new Color(255, 255, 255));
-				CustomerListPane.add(lblCustomerList);
+		CustomerListPane.setLayout(new BorderLayout(0, 0));
+
+		lblCustomerList = new JLabel("고객관리");
+		lblCustomerList.setHorizontalAlignment(SwingConstants.CENTER);
+		lblCustomerList.setFont(new Font("에스코어 드림 4", Font.PLAIN, 17));
+		lblCustomerList.setForeground(new Color(255, 255, 255));
+		CustomerListPane.add(lblCustomerList);
 		MenuClicked(CarListPane);
 		// 로그아웃 로고 - 클릭시 dispose();
-		//lblSignOut = new JLabel("");
-		//lblSignOut.setBounds(181, 580, 49, 71);
-		//lblSignOut.setIcon(new ImageIcon(img_logo));
+		// lblSignOut = new JLabel("");
+		// lblSignOut.setBounds(181, 580, 49, 71);
+		// lblSignOut.setIcon(new ImageIcon(img_logo));
 
-		//panemenu.add(lblSignOut);
-		
+		// panemenu.add(lblSignOut);
+
 		HomePane = new JPanel();
 		HomePane.addMouseListener(new PanelButtonMouseAdaptor(HomePane) {
 			@Override
@@ -232,32 +245,39 @@ public class Home extends JFrame {
 		HomePane.add(lblLogo);
 		lblLogo.setForeground(new Color(255, 255, 255));
 		lblLogo.setFont(new Font("인터파크고딕 M", Font.PLAIN, 30));
-		
+
 		lblWelcome = new JLabel("관리자님, 환영합니다.");
 		lblWelcome.setForeground(new Color(0, 0, 0));
-		lblWelcome.setBounds(32, 573, 183, 53);
+		lblWelcome.setBounds(55, 573, 183, 53);
 		panemenu.add(lblWelcome);
 		lblWelcome.setFont(new Font("인터파크고딕 L", Font.BOLD, 17));
-		
+
 		lblPerson = new JLabel("");
-		lblPerson.setBounds(86, 493, 77, 82);
+		lblPerson.setBounds(95, 495, 77, 82);
 		panemenu.add(lblPerson);
 		lblPerson.setIcon(new ImageIcon(img_person));
-		
+
 		paneTodo = new JPanel();
 		paneTodo.setBounds(64, 651, 114, 39);
 		panemenu.add(paneTodo);
 		paneTodo.setBackground(new Color(30, 144, 255));
-		
+
 		lbltodo = new JLabel("");
 		paneTodo.add(lbltodo);
 		lbltodo.setIcon(new ImageIcon(img_todo));
 		paneTodo.add(lbltodo);
-		
+
 		lblNewLabel = new JLabel("스케쥴러");
 		lblNewLabel.setForeground(new Color(0, 0, 0));
 		lblNewLabel.setFont(new Font("인터파크고딕 L", Font.PLAIN, 17));
 		paneTodo.add(lblNewLabel);
+		
+				lblNewLabel_1 = new JLabel(Month + "/" + Date /* + Hour + "시 " + Minute +"분 " */);
+				lblNewLabel_1.setBounds(104, 416, 146, 123);
+				panemenu.add(lblNewLabel_1);
+				lblNewLabel_1.setFont(new Font("인터파크고딕 M", Font.PLAIN, 20));
+	
+		
 	}
 
 	// 오른쪽 MainContentPane 클릭시 보이는 메뉴 컨트롤

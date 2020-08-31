@@ -35,19 +35,21 @@ public class CustomerDaoImplTest {
 	}
 
 	@Test
-	public void test04SelectCustomerByFind() {
-		System.out.printf("%s()%n", "test04SelectCustomerByFind");
-	      Customer ctm_search = new Customer(1);
-	      ctm_search.setNo(5);
-	      ctm_search.setName("김창");
-	      ctm_search.setTel("010-6975");
-	      ctm_search.setAddress("지구");
-	      
-	      List<Customer> ctm = dao.selectCustomerByFind(ctm_search);
+	/*
+	 * public void test04SelectCustomerByFind() { System.out.printf("%s()%n",
+	 * "test04SelectCustomerByFind"); Customer ctm_search = new Customer(1);
+	 * ctm_search.setNo(5); ctm_search.setName("김창"); ctm_search.setTel("010-6975");
+	 * ctm_search.setAddress("지구");
+	 * 
+	 * List<Customer> ctm = dao.selectCustomerByFind(ctm_search);
+	 * Assert.assertNotNull(ctm); ctm.stream().forEach(System.out::println); }
+	 */
+	public void Select08CustomerToday() {
+		System.out.printf("%s()%n", "test04CustomerToday");
+	    List<Customer> ctm = dao.selectCustomerToday();
 	      Assert.assertNotNull(ctm);
 	      ctm.stream().forEach(System.out::println);
 }
-
 
 	public void test06SelectCustomerByRent() {
 		System.out.println("testSelectCustomerByRent");

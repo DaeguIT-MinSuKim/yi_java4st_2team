@@ -5,6 +5,7 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
+import java.util.Calendar;
 import java.util.List;
 
 import rentcarTest.Dao.CustomerDao;
@@ -13,6 +14,7 @@ import rentcarTest.dto.Customer;
 
 public class CustomerDaoImpl implements CustomerDao {
 	private static final CustomerDaoImpl instance = new CustomerDaoImpl();
+	Calendar today = Calendar.getInstance();
 
 	private CustomerDaoImpl() {
 		System.out.println("메소드 실행");
@@ -89,6 +91,31 @@ public class CustomerDaoImpl implements CustomerDao {
 		}
 		return null;
 	}
+	
+	@Override
+	public List<Customer> selectCustomerToday() {
+		String sql = "SELECT CTM_NO, CTM_NAME, TEL, ADDRESS, CTM_REMARK, CTM_MLG FROM CUSTOMER C NATURAL JOIN RENT R" 
+				+ " WHERE RENT_DATE = '?-?-?' ";
+	      try (Connection con = JdbcUtil.getConnection();
+	            PreparedStatement pstmt = con.prepareStatement(sql)){
+	         pstmt.setInt(1, today.get(Calendar.YEAR));
+	         pstmt.setInt(2, today.get(Calendar.MONTH));
+	         pstmt.setInt(3, today.get(Calendar.DATE));
+	         try(ResultSet rs = pstmt.executeQuery()){
+	            if(rs.next()) {
+	               List<Customer> item_list = new ArrayList<>();
+	               do {
+	                  item_list.add(getCustomer(rs));
+	               } while (rs.next());
+	               return item_list;
+	            }
+	         }
+	      } catch (SQLException e) {
+	         throw new RuntimeException(e);
+	      }
+	      return null;
+	}
+	
 
 	  @Override
 	   public List<Customer> selectCustomerBlackList() {
