@@ -13,7 +13,7 @@ public class RentService {
 		return dao.selectRentByAll();
 	}
 	
-	public int lookup(String kind) {
+	public long lookup(String kind) {
 		return dao.rentLookupCarKind(kind);
 	}
 }

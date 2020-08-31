@@ -216,6 +216,8 @@ public class CustomerListPanel extends JPanel implements ActionListener, ItemLis
 		}
 		if (e.getSource() == btnAdd) {
 			AddCustomerPopup ctmPopup = new AddCustomerPopup();
+			ctmPopup.setCtmList(this);
+			
 			ctmPopup.setVisible(true);
 		}
 		if (e.getSource() == btnRent) {

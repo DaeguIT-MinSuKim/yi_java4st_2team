@@ -17,5 +17,5 @@ public interface RentDao {
 
 	int updateRent (Rent rent);
 	
-	int rentLookupCarKind(String kind);
+	long rentLookupCarKind(String kind);
 }

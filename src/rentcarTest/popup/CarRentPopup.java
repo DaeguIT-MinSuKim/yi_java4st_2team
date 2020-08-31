@@ -1,5 +1,8 @@
 package rentcarTest.popup;
 
+import java.awt.Color;
+import java.awt.Font;
+import java.awt.GridLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.ItemEvent;
@@ -7,29 +10,22 @@ import java.awt.event.ItemListener;
 import java.util.Calendar;
 import java.util.Date;
 
-import javax.swing.JDialog;
 import javax.swing.BoxLayout;
 import javax.swing.DefaultComboBoxModel;
+import javax.swing.JButton;
+import javax.swing.JCheckBox;
+import javax.swing.JComboBox;
+import javax.swing.JDialog;
 import javax.swing.JLabel;
-import java.awt.Font;
 import javax.swing.JPanel;
 import javax.swing.JSpinner;
-
-import java.awt.GridLayout;
+import javax.swing.JTextField;
+import javax.swing.SpinnerDateModel;
 import javax.swing.SwingConstants;
 
-import rentcarTest.conn.JdbcUtil;
 import rentcarTest.dto.Car;
 import rentcarTest.dto.Customer;
 import rentcarTest.dto.Kind;
-import rentcarTest.panel.CalendarDataManager;
-
-import javax.swing.JTextField;
-import javax.swing.SpinnerDateModel;
-import javax.swing.JComboBox;
-import java.awt.Color;
-import javax.swing.JButton;
-import javax.swing.JCheckBox;
 
 public class CarRentPopup extends JDialog implements ActionListener, ItemListener{
 	private JTextField tfCode;
@@ -300,6 +296,15 @@ public class CarRentPopup extends JDialog implements ActionListener, ItemListene
 		String carName = tfCarName.getText().trim();
 		String mileage = tfMileage.getText().trim();
 		
+		
+	}
+
+
+	@Override
+	public void itemStateChanged(ItemEvent e) {
+		if (e.getSource() == chkDriver) {
+			System.out.println("운전기사");
+		}
 		
 	}
 

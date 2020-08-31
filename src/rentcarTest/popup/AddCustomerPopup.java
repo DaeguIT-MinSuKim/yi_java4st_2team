@@ -36,8 +36,13 @@ public class AddCustomerPopup extends JDialog implements ActionListener {
 	private JLabel lblDialog;
 	
 	private CustomerService service = new CustomerService();
-	private CustomerListPanel ctmList = new CustomerListPanel();
+	private CustomerListPanel ctmList;
 	
+	
+	
+	public void setCtmList(CustomerListPanel ctmList) {
+		this.ctmList = ctmList;
+	}
 	public AddCustomerPopup() {
 		initComponents();
 	}
