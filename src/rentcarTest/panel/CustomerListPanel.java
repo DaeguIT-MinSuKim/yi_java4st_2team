@@ -36,8 +36,8 @@ public class CustomerListPanel extends JPanel implements ActionListener, ItemLis
 	private JPanel pTable;
 	private JScrollPane scrollPane;
 	public CustomerTable table;
-	private CustomerService service;
-	public List<Customer> lists;
+	private CustomerService service = new CustomerService();
+	public List<Customer> lists = service.showCustomers();
 	private JPanel pBtns;
 	private JPanel panel;
 	private JPanel pTitle;
@@ -54,19 +54,18 @@ public class CustomerListPanel extends JPanel implements ActionListener, ItemLis
 	private JButton btnSearch;
 
 	private EditCustomerPopup editPopup;
+	private JButton btnNewButton;
 
 	public CustomerListPanel() {
-		service = new CustomerService();
-		lists = service.showCustomers();
 		editPopup = new EditCustomerPopup();
 
 		initComponents();
-
-		table.setItems(lists);
-
+		
 		CustomPopupMenu popMenu = new CustomPopupMenu(this);
 		table.setComponentPopupMenu(popMenu);
 		scrollPane.setViewportView(table);
+
+		editPopup = new EditCustomerPopup();
 	}
 
 	private void initComponents() {
@@ -131,7 +130,7 @@ public class CustomerListPanel extends JPanel implements ActionListener, ItemLis
 		pTable.add(scrollPane);
 
 		table = new CustomerTable();
-		// scrollPane.setViewportView(table);
+		table.setItems(lists);
 
 		pBtns = new JPanel();
 		pBtns.setBackground(Color.WHITE);
@@ -144,15 +143,30 @@ public class CustomerListPanel extends JPanel implements ActionListener, ItemLis
 		btnRent = new JButton("대여");
 		btnRent.addActionListener(this);
 		pBtns.add(btnRent);
+		
+		btnNewButton = new JButton("New button");
+		btnNewButton.addActionListener(this);
+		pBtns.add(btnNewButton);
 
 	}
-
+	
 	public void insertCtm(Customer item) {
-		lists.add(item);
-		System.out.println(item);
-		table.addRow(item);
+		service = new CustomerService();
+		lists = service.showCustomers();
+		System.out.println("insert item : " + item);
+		System.out.println("insert lists : " + lists);
+		table.setItems(lists);
 	}
-
+	
+	public void updateCtm(int idx, Customer item) {
+		System.out.println(idx);
+		System.out.println(item);
+		
+		table.updateRow(idx, item);
+		lists.set(idx, item);
+		table.setItems(lists);
+	}
+	
 	@Override
 	public void itemStateChanged(ItemEvent e) {
 		if (e.getSource() == chckbxRent) {
@@ -194,6 +208,9 @@ public class CustomerListPanel extends JPanel implements ActionListener, ItemLis
 	}
 
 	public void actionPerformed(ActionEvent e) {
+		if (e.getSource() == btnNewButton) {
+			actionPerformedBtnNewButton(e);
+		}
 		if (e.getSource() == btnSearch) {
 			actionPerformedBtnSearch(e);
 		}
@@ -208,13 +225,15 @@ public class CustomerListPanel extends JPanel implements ActionListener, ItemLis
 		if (e.getSource() instanceof JMenuItem) {
 			if (e.getActionCommand().equals("수정")) {
 				int selIdx = table.getSelectedRow();
-				if (selIdx == -1) {
-					JOptionPane.showMessageDialog(null, "해당 항목을 선택하세요.");
-					return;
-				}
-				Customer selCtm = lists.get(selIdx);
-				editPopup.setItem(selCtm);
-				editPopup.setVisible(true);
+		        if (selIdx == -1) {
+		            JOptionPane.showMessageDialog(null, "해당 항목을 선택하세요.");
+		            return;
+		        }
+		        Customer selCtm = lists.get(selIdx);
+		        System.out.println(selIdx);
+		        editPopup.setItem(selCtm);
+		        editPopup.setSelIdx(selIdx);
+		        editPopup.setVisible(true);
 			}
 			if (e.getActionCommand().equals("삭제")) {
 				int selIdx = table.getSelectedRow();
@@ -222,9 +241,23 @@ public class CustomerListPanel extends JPanel implements ActionListener, ItemLis
 					JOptionPane.showMessageDialog(null, "해당 항목을 선택하세요.");
 					return;
 				}
+				Customer deleteCtm = lists.get(selIdx);
+				service.deleteCtm(deleteCtm);
+				lists.remove(selIdx);
+				table.removeRow(selIdx);
+				
 			}
 			if (e.getActionCommand().equals("세부정보")) {
-				System.out.println("세부정보");
+				int selIdx = table.getSelectedRow();
+		        if (selIdx == -1) {
+		            JOptionPane.showMessageDialog(null, "해당 항목을 선택하세요.");
+		            return;
+		        }
+		        Customer selCtm = lists.get(selIdx);
+		        editPopup.setItem(selCtm);
+		        editPopup.setDetail();
+		        editPopup.setSelIdx(selIdx);
+		        editPopup.setVisible(true);
 			}
 			if (e.getActionCommand().equals("마일리지")) {
 				System.out.println("마일리지");
@@ -277,5 +310,8 @@ public class CustomerListPanel extends JPanel implements ActionListener, ItemLis
 			table.setItems(ctmList);
 			
 		}
+	}
+	protected void actionPerformedBtnNewButton(ActionEvent e) {
+		table.setItems(lists);
 	}
 }

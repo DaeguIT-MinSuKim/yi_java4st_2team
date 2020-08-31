@@ -110,21 +110,21 @@ public abstract class AbstractItemTable<T> extends JTable {
 		return c;
 	}
 	
-	public void addRow(Customer item) {
-		/*this.service.insertCtm(item);
-		lists.add(item);*/
-//		setItems();
-		System.out.println("table: "+ item);
+	public void addRow(T item) {
+		model.addRow(toArray(item));
 	}
 
-	public void removeRow(Customer item) {
-		// TODO Auto-generated method stub
-		
+	public void removeRow(int idx) {
+		model.removeRow(idx);
 	}
 
-	public void updateRow(Customer item) {
-		// TODO Auto-generated method stub
-		
+	public void updateRow(int idx, T updateItem) {
+		System.out.println("table");
+		System.out.println(idx);
+		System.out.println(updateItem);
+		model.removeRow(idx);
+		//model.up
+		model.insertRow(idx, toArray(updateItem));
 	}
 
 }
