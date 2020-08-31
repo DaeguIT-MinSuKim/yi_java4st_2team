@@ -16,6 +16,7 @@ import javax.swing.border.EmptyBorder;
 
 import rentcarTest.Dao.service.CustomerService;
 import rentcarTest.dto.Customer;
+import rentcarTest.panel.CustomerListPanel;
 
 import javax.swing.BoxLayout;
 import java.awt.event.ActionListener;
@@ -25,7 +26,6 @@ public class AddCustomerPopup extends JDialog implements ActionListener {
 	private JPanel pBtns;
 	private JButton btnAdd;
 	private JButton btnCancel;
-	private CustomerService service = new CustomerService();
 	private JPanel pContent;
 	private JTextField tfNo;
 	private JTextField tfName;
@@ -35,17 +35,14 @@ public class AddCustomerPopup extends JDialog implements ActionListener {
 	private JTextField tfRemark;
 	private JLabel lblDialog;
 	
+	private CustomerService service = new CustomerService();
+	private CustomerListPanel ctmList;
 	
-	public static void main(String[] args) {
-		try {
-			AddCustomerPopup dialog = new AddCustomerPopup();
-			dialog.setDefaultCloseOperation(JDialog.DISPOSE_ON_CLOSE);
-			dialog.setVisible(true);
-		} catch (Exception e) {
-			e.printStackTrace();
-		}
+	
+	
+	public void setCtmList(CustomerListPanel ctmList) {
+		this.ctmList = ctmList;
 	}
-
 	public AddCustomerPopup() {
 		initComponents();
 	}
@@ -77,6 +74,7 @@ public class AddCustomerPopup extends JDialog implements ActionListener {
 		tfNo = new JTextField();
 		tfNo.setColumns(10);
 		tfNo.setEnabled(false);
+		tfNo.setText(Integer.toString(service.lastCtmNo()));
 		pContent.add(tfNo);
 		
 		JLabel lblName = new JLabel("고객명");
@@ -143,8 +141,10 @@ public class AddCustomerPopup extends JDialog implements ActionListener {
 		int ctm_mlg = Integer.parseInt(tfMlg.getText().trim());
 		Customer item = new Customer(no, name, tel, address, remark, ctm_mlg);
 		service.insertCtm(item);
+		ctmList.insertCtm(item);
 		AddCustomerPopup.this.dispose();
 	}
+	
 	protected void actionPerformedBtnCancel(ActionEvent e) {
 		AddCustomerPopup.this.dispose();
 	}

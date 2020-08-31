@@ -24,7 +24,7 @@ public class CustomerDaoImpl implements CustomerDao {
 
 	@Override
 	public List<Customer> selectCustomerByAll() {
-		String sql = "SELECT CTM_NO, CTM_NAME, TEL, ADDRESS, CTM_REMARK, CTM_MLG, LIST_CTM FROM CUSTOMER";
+		String sql = "SELECT CTM_NO, CTM_NAME, TEL, ADDRESS, CTM_REMARK, CTM_MLG, LIST_CTM FROM CUSTOMER ORDER BY CTM_NO";
 		try (Connection con = JdbcUtil.getConnection();
 				PreparedStatement pstmt = con.prepareStatement(sql);
 				ResultSet rs = pstmt.executeQuery()) {
@@ -172,5 +172,9 @@ public class CustomerDaoImpl implements CustomerDao {
 		int list_ctm = rs.getInt("LIST_CTM");
 		return new Customer(no, name, tel, address, remark, mlg, list_ctm);
 	}
-
+	
+	public int getLastCtm_no() {
+		List<Customer> list = selectCustomerByAll();
+		return list.get(list.size()-1).getNo()+1;
+	}
 }

@@ -32,4 +32,12 @@ public class CustomerService {
 	public void updateCtm(Customer item) {
 		dao.updateCustomer(item);
 	}
+	
+	public int lastCtmNo() {
+		return dao.getLastCtm_no();
+	}
+	
+	public int deleteCtm(Customer item) {
+		return dao.deleteCustomer(item);
+	}
 }
