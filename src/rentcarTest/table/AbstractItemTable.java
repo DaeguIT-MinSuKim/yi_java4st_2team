@@ -119,11 +119,7 @@ public abstract class AbstractItemTable<T> extends JTable {
 	}
 
 	public void updateRow(int idx, T updateItem) {
-		System.out.println("table");
-		System.out.println(idx);
-		System.out.println(updateItem);
 		model.removeRow(idx);
-		//model.up
 		model.insertRow(idx, toArray(updateItem));
 	}
 
