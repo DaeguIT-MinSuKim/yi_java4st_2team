@@ -66,6 +66,7 @@ public class RentListPanel extends JPanel implements ActionListener{
 		pTitle.setLayout(new BorderLayout(0, 0));
 		
 		JLabel lblNewLabel = new JLabel("대여 기록");
+		lblNewLabel.setHorizontalAlignment(SwingConstants.CENTER);
 		lblNewLabel.setFont(new Font("굴림", Font.PLAIN, 30));
 		pTitle.add(lblNewLabel, BorderLayout.CENTER);
 		
