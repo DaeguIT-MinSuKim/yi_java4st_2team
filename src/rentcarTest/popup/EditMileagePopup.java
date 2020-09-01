@@ -18,6 +18,8 @@ import rentcarTest.Dao.service.CustomerService;
 import rentcarTest.Dao.service.MileageService;
 import rentcarTest.dto.Mileage;
 import rentcarTest.panel.MileagePanel;
+import javax.swing.JCheckBox;
+import java.awt.FlowLayout;
 
 public class EditMileagePopup extends JDialog implements ActionListener {
 
@@ -62,6 +64,11 @@ public class EditMileagePopup extends JDialog implements ActionListener {
 		btnCancel.addActionListener(this);
 		pBtns.add(btnCancel);
 
+		lblDialog = new JLabel("마일리지 관리");
+		lblDialog.setFont(new Font("굴림", Font.BOLD, 20));
+		lblDialog.setHorizontalAlignment(SwingConstants.CENTER);
+		getContentPane().add(lblDialog, BorderLayout.NORTH);
+
 		pContent = new JPanel();
 		getContentPane().add(pContent);
 		pContent.setLayout(new GridLayout(0, 2, 20, 10));
@@ -99,11 +106,6 @@ public class EditMileagePopup extends JDialog implements ActionListener {
 		tfRemark = new JTextField();
 		tfRemark.setColumns(10);
 		pContent.add(tfRemark);
-
-		lblDialog = new JLabel("마일리지 관리");
-		lblDialog.setFont(new Font("굴림", Font.BOLD, 20));
-		lblDialog.setHorizontalAlignment(SwingConstants.CENTER);
-		getContentPane().add(lblDialog, BorderLayout.NORTH);
 
 	}
 
@@ -147,5 +149,9 @@ public class EditMileagePopup extends JDialog implements ActionListener {
 
 	private void actionPerformedBtnCancel(ActionEvent e) {
 		EditMileagePopup.this.dispose();
+	}
+
+	public void setMileList(MileagePanel mList) {
+		this.mList = mList;
 	}
 }

@@ -76,10 +76,10 @@ public class MileagePanel extends JPanel implements ActionListener {
 
 	public void actionPerformed(ActionEvent e) {
 		if (e.getSource() == btnEdit) {
-
+			EditMileagePopup milePopup = new EditMileagePopup();
+			milePopup.setMileList(this);
+			milePopup.setVisible(true);
 		}
-		EditMileagePopup milePopup = new EditMileagePopup();
-		milePopup.setVisible(true);
 	}
 
 	public void insertMile(Mileage item) {

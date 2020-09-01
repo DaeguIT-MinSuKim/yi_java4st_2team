@@ -177,7 +177,7 @@ public class CustomerListPanel extends JPanel implements ActionListener, ItemLis
 			lists = service.showCustomers();
 			table.setItems(lists);
 		}
-	}
+	} 
 	
 	// check_box - 블랙리스트
 	private void selectSearchCheckedBlackList(ItemEvent e) {

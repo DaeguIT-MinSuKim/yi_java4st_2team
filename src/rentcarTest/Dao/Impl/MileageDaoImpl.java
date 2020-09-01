@@ -9,7 +9,6 @@ import java.util.List;
 
 import rentcarTest.Dao.MileageDao;
 import rentcarTest.conn.JdbcUtil;
-import rentcarTest.dto.Customer;
 import rentcarTest.dto.Mileage;
 
 public class MileageDaoImpl implements MileageDao {
