@@ -17,6 +17,7 @@ import javax.swing.border.LineBorder;
 
 import rentcarTest.panel.CarListPanel;
 import rentcarTest.panel.CustomerListPanel;
+import rentcarTest.panel.Homepanel;
 import rentcarTest.panel.MileagePanel;
 import rentcarTest.panel.RentListPanel;
 
@@ -47,8 +48,7 @@ public class Home extends JFrame {
 	private JPanel CarListPanel;
 	private JPanel RentListPanel;
 	private JPanel MileagePanel;
-
-	private JPanel HomePanel = new JPanel();
+	private JPanel HomePanel;
 	private JLabel lblSignOut;
 	private JLabel lblPerson;
 	private JLabel lblWelcome;
@@ -207,7 +207,7 @@ public class Home extends JFrame {
 		MainContentPane.add(RentListPanel);
 		MileagePanel = new MileagePanel();
 		MainContentPane.add(MileagePanel);
-		//HomePanel = new Homepanel();
+		HomePanel = new Homepanel();
 		MainContentPane.add(HomePanel);
 
 //		MainContentPane.add(PerformancePane);
