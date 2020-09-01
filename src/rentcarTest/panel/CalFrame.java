@@ -70,7 +70,7 @@ public class CalFrame extends CalendarDataManager {
 	public CalFrame() {
 
 		mainFrame = new JFrame(title);
-		mainFrame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+		mainFrame.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
 		mainFrame.setSize(700, 400);
 		mainFrame.setLocationRelativeTo(null);
 		mainFrame.setResizable(false);
