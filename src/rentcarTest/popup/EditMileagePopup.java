@@ -31,13 +31,13 @@ public class EditMileagePopup extends JDialog implements ActionListener {
 	private JTextField tfMileage;
 	private JTextField tfRemark;
 	private JLabel lblDialog;
-	private int mlg_kind=0;
+	private int mlg_kind = 0;
 	private int point;
-	
+
 	private MileageService Mservice = new MileageService();
 	private CustomerService Cservice = new CustomerService();
 	private MileagePanel mList = new MileagePanel();
-	
+
 	public EditMileagePopup() {
 		initComponents();
 	}
@@ -72,8 +72,8 @@ public class EditMileagePopup extends JDialog implements ActionListener {
 
 		tfNo = new JTextField();
 		tfNo.setColumns(10);
-		//tfNo.setEnabled(false);
-		//	tfNo.setText(Cservice.findCustomers()); 고객명 검색 impl d
+		// tfNo.setEnabled(false);
+		// tfNo.setText(Cservice.findCustomers()); 고객명 검색 impl d
 		pContent.add(tfNo);
 
 		JLabel lblName = new JLabel("고객명");
@@ -104,7 +104,7 @@ public class EditMileagePopup extends JDialog implements ActionListener {
 		lblDialog.setFont(new Font("굴림", Font.BOLD, 20));
 		lblDialog.setHorizontalAlignment(SwingConstants.CENTER);
 		getContentPane().add(lblDialog, BorderLayout.NORTH);
-		
+
 	}
 
 	@Override
@@ -114,11 +114,11 @@ public class EditMileagePopup extends JDialog implements ActionListener {
 		}
 		if (e.getSource() == btnDeduct) {
 			actionPerformedBtnDeduct(e);
-			mlg_kind=0;
+			mlg_kind = 0;
 		}
 		if (e.getSource() == btnAdd) {
 			actionPerformedBtnAdd(e);
-			mlg_kind=1;
+			mlg_kind = 1;
 		}
 	}
 
@@ -127,9 +127,11 @@ public class EditMileagePopup extends JDialog implements ActionListener {
 		int ctm_no = Integer.parseInt(tfNo.getText().trim());
 		int point = Integer.parseInt(tfMileage.getText().trim());
 		String mlg_remark = tfRemark.getText().trim();
-		Mileage item = new Mileage(mlg_no, ctm_no, mlg_kind, point,mlg_remark);
+		Mileage item = new Mileage(mlg_no, ctm_no, mlg_kind, point, mlg_remark);
 		Mservice.insertMile(item);
 		mList.insertMile(item);
+		EditMileagePopup.this.dispose();
+
 	}
 
 	private void actionPerformedBtnDeduct(ActionEvent e) {
@@ -137,9 +139,10 @@ public class EditMileagePopup extends JDialog implements ActionListener {
 		int ctm_no = Integer.parseInt(tfNo.getText().trim());
 		int point = Integer.parseInt(tfMileage.getText().trim());
 		String mlg_remark = tfRemark.getText().trim();
-		Mileage item = new Mileage(mlg_no, ctm_no, mlg_kind,point,mlg_remark);
+		Mileage item = new Mileage(mlg_no, ctm_no, mlg_kind, point, mlg_remark);
 		Mservice.insertMile(item);
 		mList.insertMile(item);
+		EditMileagePopup.this.dispose();
 	}
 
 	private void actionPerformedBtnCancel(ActionEvent e) {

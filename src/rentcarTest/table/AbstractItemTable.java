@@ -84,9 +84,7 @@ public abstract class AbstractItemTable<T> extends JTable {
 
 	public void setItems(List<T> itemList) {
 		loadData(itemList);
-
 		setWidthAndAlign();
-
 	}
 
 	public Component prepareRenderer(TableCellRenderer renderer, int row, int column) {
@@ -118,7 +116,6 @@ public abstract class AbstractItemTable<T> extends JTable {
 
 	public void updateRow(int idx, T updateItem) {
 		model.removeRow(idx);
-
 		// model.up
 		model.insertRow(idx, toArray(updateItem));
 	}

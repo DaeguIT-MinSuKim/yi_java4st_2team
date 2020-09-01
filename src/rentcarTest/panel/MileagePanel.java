@@ -11,10 +11,7 @@ import java.util.List;
 import javax.swing.BoxLayout;
 import javax.swing.JButton;
 import javax.swing.JLabel;
-import javax.swing.JMenuItem;
-import javax.swing.JOptionPane;
 import javax.swing.JPanel;
-import javax.swing.JPopupMenu;
 import javax.swing.JScrollPane;
 
 import rentcarTest.Dao.service.MileageService;
@@ -77,16 +74,17 @@ public class MileagePanel extends JPanel implements ActionListener {
 		pBtns.add(btnEdit);
 	}
 
-	public void actionPerformed(ActionEvent e) { 
+	public void actionPerformed(ActionEvent e) {
 		if (e.getSource() == btnEdit) {
-	
+
 		}
-	 EditMileagePopup milePopup = new EditMileagePopup();
-	 milePopup.setVisible(true); 
-	 }
+		EditMileagePopup milePopup = new EditMileagePopup();
+		milePopup.setVisible(true);
+	}
 
 	public void insertMile(Mileage item) {
-		// TODO Auto-generated method stub
-
+		service = new MileageService();
+		lists = service.showMileage();
+		table.setItems(lists);
 	}
 }
