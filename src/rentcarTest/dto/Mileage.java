@@ -7,7 +7,7 @@ public class Mileage {
 	private int mlg_kind;		// 마일리지 분류 (+ , - 체크사항)
 	private int point;			// 마일리지
 	private String mlg_remark; 	// 마일리지비고
-	private String mlg_skind;
+	private String mlg_skind; //마일리지 차감 및 추가를 String 타입으로 보이게 함
 	
 //	생성자
 //	더 추가할 생성자? 매개변수 뭘로할지 피드백 주세요

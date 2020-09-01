@@ -16,6 +16,8 @@ import javax.swing.SwingConstants;
 
 import rentcarTest.Dao.service.CustomerService;
 import rentcarTest.Dao.service.MileageService;
+import rentcarTest.Dao.service.TransactionService;
+import rentcarTest.dto.Customer;
 import rentcarTest.dto.Mileage;
 import rentcarTest.panel.MileagePanel;
 import javax.swing.JCheckBox;
@@ -38,7 +40,9 @@ public class EditMileagePopup extends JDialog implements ActionListener {
 
 	private MileageService Mservice = new MileageService();
 	private CustomerService Cservice = new CustomerService();
+	private TransactionService MCservice = new TransactionService();
 	private MileagePanel mList = new MileagePanel();
+	private Customer citem;
 
 	public EditMileagePopup() {
 		initComponents();
@@ -129,9 +133,10 @@ public class EditMileagePopup extends JDialog implements ActionListener {
 		int ctm_no = Integer.parseInt(tfNo.getText().trim());
 		int point = Integer.parseInt(tfMileage.getText().trim());
 		String mlg_remark = tfRemark.getText().trim();
-		Mileage item = new Mileage(mlg_no, ctm_no, mlg_kind, point, mlg_remark);
-		Mservice.insertMile(item);
-		mList.insertMile(item);
+		Mileage mitem = new Mileage(mlg_no, ctm_no, mlg_kind, point, mlg_remark);
+		Cservice.findCustomers(citem);
+		MCservice.transAddMileAndCustomer(mitem, citem);
+		mList.insertMile(mitem);
 		EditMileagePopup.this.dispose();
 
 	}
