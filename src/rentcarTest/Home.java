@@ -67,6 +67,7 @@ public class Home extends JFrame{
 
 	public Home() {
 		initComponents();
+		setResizable(false);
 	}
 
 	private void initComponents() {
@@ -86,7 +87,7 @@ public class Home extends JFrame{
 		// 사이드바 _1_로고
 		panemenu = new JPanel();
 		panemenu.setBackground(new Color(30, 144, 255));
-		panemenu.setBounds(0, 0, 260, 713);
+		panemenu.setBounds(0, 0, 260, 723);
 		contentPane.add(panemenu);
 		panemenu.setLayout(null);
 
@@ -198,7 +199,7 @@ public class Home extends JFrame{
 		// 오른쪽 MainContentPane
 		MainContentPane = new JPanel();
 		MainContentPane.setBackground(new Color(255, 255, 255));
-		MainContentPane.setBounds(252, -12, 933, 725);
+		MainContentPane.setBounds(252, -12, 942, 735);
 		contentPane.add(MainContentPane);
 
 		// 페널 추가
@@ -315,12 +316,12 @@ public class Home extends JFrame{
 
 		@Override
 		public void mouseReleased(MouseEvent e) {
-			panel.setBackground(new Color(30, 144, 255));
+			panel.setBackground(new Color(135, 206, 250));
 		}
 
 		@Override
 		public void mouseEntered(MouseEvent e) {
-			panel.setBackground(new Color(220, 220, 220));
+			panel.setBackground(new Color(135, 206, 250));
 		}
 
 		@Override

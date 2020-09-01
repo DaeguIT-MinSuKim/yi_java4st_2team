@@ -47,7 +47,7 @@ public class RentListPanel extends JPanel implements ActionListener{
 	private List<Rent> rentFindList;
 	
 	public RentListPanel() {
-		setPreferredSize(new Dimension(650, 650));
+		setPreferredSize(new Dimension(870, 650));
 		service = new RentService();
 		lists = service.showRents();
 		

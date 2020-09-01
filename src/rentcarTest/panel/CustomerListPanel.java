@@ -68,7 +68,7 @@ public class CustomerListPanel extends JPanel implements ActionListener, ItemLis
 	}
 
 	private void initComponents() {
-		setPreferredSize(new Dimension(650, 661));
+		setPreferredSize(new Dimension(870, 661));
 		setBackground(Color.WHITE);
 		setLayout(new BoxLayout(this, BoxLayout.Y_AXIS));
 
