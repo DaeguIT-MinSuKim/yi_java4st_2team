@@ -55,6 +55,7 @@ public class CustomerListPanel extends JPanel implements ActionListener, ItemLis
 
 	private EditCustomerPopup editPopup;
 	private JButton btnNewButton;
+	private List<Customer> ctmFindList;
 
 	public CustomerListPanel() {
 		editPopup = new EditCustomerPopup();
@@ -202,7 +203,7 @@ public class CustomerListPanel extends JPanel implements ActionListener, ItemLis
 
 	// 검색 분류
 	private void setSearchCate() {
-		String[] items = { "고객번호", "성명", "연락처", "주소" };
+		String[] items = {"검색", "고객번호", "성명", "연락처", "주소" };
 		DefaultComboBoxModel<String> model = new DefaultComboBoxModel<String>(items);
 		cmbCate.setModel(model);
 	}
@@ -285,33 +286,35 @@ public class CustomerListPanel extends JPanel implements ActionListener, ItemLis
 	}
 	
 	protected void actionPerformedBtnSearch(ActionEvent e) {
-		List<Customer> ctmList = null;
+		ctmFindList = null;
 		String searchText = tfSearch.getText().trim();
 		Customer ctmListFind = new Customer();
 		
 		Object cmbCateText = cmbCate.getSelectedItem();
-		if (searchText.equals("")) {
+		if (cmbCateText.equals("검색")) {
+			ctmFindList = service.showCustomers();
+		} else if (searchText.equals("")) {
 			JOptionPane.showMessageDialog(null, "검색할 내용을 입력해주세요.");
 		} else {
 			if (cmbCateText.equals("고객번호")) {
 				ctmListFind.setNo(Integer.parseInt(searchText));
-				ctmList = service.findCustomers(ctmListFind);
+				ctmFindList = service.findCustomers(ctmListFind);
 			}
 			if (cmbCateText.equals("연락처")) {
 				ctmListFind.setTel(searchText);
-				ctmList = service.findCustomers(ctmListFind);
+				ctmFindList = service.findCustomers(ctmListFind);
 			}
 			if (cmbCateText.equals("성명")) {
 				ctmListFind.setName(searchText);
-				ctmList = service.findCustomers(ctmListFind);
+				ctmFindList = service.findCustomers(ctmListFind);
 			}
 			if (cmbCateText.equals("주소")) {
 				ctmListFind.setAddress(searchText);
-				ctmList = service.findCustomers(ctmListFind);
+				ctmFindList = service.findCustomers(ctmListFind);
 			}
-			table.setItems(ctmList);
 			
 		}
+		table.setItems(ctmFindList);
 	}
 	protected void actionPerformedBtnNewButton(ActionEvent e) {
 		table.setItems(lists);

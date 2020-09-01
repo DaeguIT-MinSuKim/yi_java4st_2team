@@ -154,7 +154,7 @@ public class CarListPanel  extends JPanel implements ActionListener, ItemListene
 	
 	// 검색 분류
 	private void setSearchCate() {
-		String[] items = { "소형", "중형", "승합차", "버스", "지프" };
+		String[] items = {"검색", "소형", "중형", "승합차", "버스", "지프" };
 		DefaultComboBoxModel<String> model = new DefaultComboBoxModel<String>(items);
 		cmbCate.setModel(model);
 	}
@@ -192,33 +192,41 @@ public class CarListPanel  extends JPanel implements ActionListener, ItemListene
 		Car carListFind = new Car();
 		
 		Object cmbCateText = cmbCate.getSelectedItem();
-		if (searchText.equals("")) {
+
+		if (cmbCateText.equals("검색")) {
+			ctmList = service.showCars();
+		} else if (searchText.equals("")) {
 			JOptionPane.showMessageDialog(null, "검색할 내용을 입력해주세요.");
 		} else {
 			if (cmbCateText.equals("소형")) {
-				carListFind.setCarKind(new Kind("소형"));
+				carListFind.setCarKind(new Kind("S", "소형"));
 				carListFind.setCarName(searchText);
+				System.out.println(carListFind);
 				ctmList = service.findCars(carListFind);
 			}
 			if (cmbCateText.equals("중형")) {
+				carListFind.setCarKind(new Kind("M", "중형"));
 				carListFind.setCarName(searchText);
 				ctmList = service.findCars(carListFind);
 			}
 			if (cmbCateText.equals("승합차")) {
+				carListFind.setCarKind(new Kind("H", "승합차"));
 				carListFind.setCarName(searchText);
 				ctmList = service.findCars(carListFind);
 			}
 			if (cmbCateText.equals("버스")) {
+				carListFind.setCarKind(new Kind("B", "버스"));
 				carListFind.setCarName(searchText);
 				ctmList = service.findCars(carListFind);
 			}
 			if (cmbCateText.equals("지프")) {
+				carListFind.setCarKind(new Kind("J", "지프"));
 				carListFind.setCarName(searchText);
 				ctmList = service.findCars(carListFind);
 			}
-			table.setItems(ctmList);
 			
 		}
+		table.setItems(ctmList);
 	}
 	
 	

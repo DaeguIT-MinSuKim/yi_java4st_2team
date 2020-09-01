@@ -16,7 +16,6 @@ import javax.swing.border.LineBorder;
 
 import rentcarTest.panel.CarListPanel;
 import rentcarTest.panel.CustomerListPanel;
-import rentcarTest.panel.Homepanel;
 import rentcarTest.panel.MileagePanel;
 import rentcarTest.panel.RentListPanel;
 
@@ -72,7 +71,7 @@ public class Home extends JFrame {
 		// contentPane 안의 panel 선언
 		CustomerListPanel = new CustomerListPanel();
 		MileagePanel = new MileagePanel();
-		HomePanel = new Homepanel();
+		//HomePanel = new Homepanel();
 		// 사이드바 _1_로고
 		panemenu = new JPanel();
 		panemenu.setBackground(new Color(30, 144, 255));
@@ -195,7 +194,7 @@ public class Home extends JFrame {
 		MainContentPane.add(RentListPanel);
 		MileagePanel = new MileagePanel();
 		MainContentPane.add(MileagePanel);
-		HomePanel = new Homepanel();
+		//HomePanel = new Homepanel();
 		MainContentPane.add(HomePanel);
 
 //		MainContentPane.add(PerformancePane);

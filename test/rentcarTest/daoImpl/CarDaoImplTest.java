@@ -44,13 +44,13 @@ public class CarDaoImplTest {
 	@Test
 	public void test04SelectCarByFind() {
 		System.out.printf("%s()%n", "test04SelectCarByFind");
-		Car car_find = new Car("38허4532");
+		Car car_find = new Car();
+		car_find.setCarKind(new Kind("", "승합차"));
+		car_find.setCarName("스타렉");
+		System.out.println(car_find);
 		List<Car> car = dao.selectCarByFind(car_find);
 		Assert.assertNotNull(car);
 		car.stream().forEach(System.out::println);
-		
-		
-		
 	}
 
 	@Test
@@ -61,7 +61,6 @@ public class CarDaoImplTest {
 		list.stream().forEach(System.out::println);
 	}
 
-	@Test
 	public void test01InsertCar() {
 		System.out.printf("%s()%n","testInsertCar");
 		Car newCar = new Car("99구9999", "마티즈", new Kind("S"), "휘발유", 999, 35000, 5, "구구구");
@@ -70,7 +69,6 @@ public class CarDaoImplTest {
 	}
 
 
-	@Test
 	public void test02UpdateCar() {
 		Car updateCar = new Car("99구9999", "람보르기니", new Kind("M"), "휘발유", 999, 99999, 1, "구구구구구");
 		int res = dao.updateCar(updateCar);
@@ -78,7 +76,6 @@ public class CarDaoImplTest {
 		Assert.assertEquals(1, res);
 	}
 
-	@Test
 	public void test03DeleteCar() {
 		System.out.println("test03DeleteCustomer()");
 		Car deleteCar = new Car("99구9999");
