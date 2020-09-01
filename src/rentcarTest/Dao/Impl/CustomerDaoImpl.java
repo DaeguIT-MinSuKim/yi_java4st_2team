@@ -48,7 +48,7 @@ public class CustomerDaoImpl implements CustomerDao {
 	   public List<Customer> selectCustomerByFind(Customer ctm) {
 	      String sql = "SELECT CTM_NO, CTM_NAME, TEL, ADDRESS, CTM_MLG, CTM_REMARK, LIST_CTM " + 
 	            "  FROM CUSTOMER " + 
-	            " WHERE CTM_NO = ? OR CTM_NAME LIKE '%' || ? || '%' OR TEL LIKE '%' || ? || '%' OR ADDRESS LIKE '%' || ? || '%'" +
+	            " WHERE CTM_NO = ? OR CTM_NAME LIKE ? OR TEL LIKE ? OR ADDRESS LIKE ?" +
 	            " ORDER BY CTM_NO";
 	      try (Connection con = JdbcUtil.getConnection();
 	            PreparedStatement pstmt = con.prepareStatement(sql)){
