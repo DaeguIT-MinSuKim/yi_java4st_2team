@@ -11,19 +11,24 @@ import javax.swing.JButton;
 import javax.swing.JCheckBox;
 import javax.swing.JComboBox;
 import javax.swing.JLabel;
+import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 import javax.swing.JTextField;
 
 import rentcarTest.Dao.service.RentService;
+import rentcarTest.dto.Car;
+import rentcarTest.dto.Kind;
 import rentcarTest.dto.Rent;
 import rentcarTest.table.RentTable;
 import java.awt.Dimension;
 import java.awt.Font;
 import javax.swing.SwingConstants;
+import java.awt.event.ActionListener;
+import java.awt.event.ActionEvent;
 
-public class RentListPanel extends JPanel{
-	private JTextField textField;
+public class RentListPanel extends JPanel implements ActionListener{
+	private JTextField tfSearch;
 	private RentTable table;
 	
 	private RentService service;
@@ -39,6 +44,7 @@ public class RentListPanel extends JPanel{
 	private JPanel pBtns;
 	private JButton btnUpdate;
 	private JButton btnRent;
+	private List<Rent> rentFindList;
 	
 	public RentListPanel() {
 		setPreferredSize(new Dimension(650, 650));
@@ -83,11 +89,12 @@ public class RentListPanel extends JPanel{
 		setSearchCate();
 		pSearch_button.add(cmbCate);
 		
-		textField = new JTextField();
-		textField.setColumns(10);
-		pSearch_button.add(textField);
+		tfSearch = new JTextField();
+		tfSearch.setColumns(10);
+		pSearch_button.add(tfSearch);
 		
 		btnSearch = new JButton("검색");
+		btnSearch.addActionListener(this);
 		pSearch_button.add(btnSearch);
 		
 		pTable = new JPanel();
@@ -118,4 +125,27 @@ public class RentListPanel extends JPanel{
 		cmbCate.setModel(model);
 	}
 
+	public void actionPerformed(ActionEvent e) {
+		if (e.getSource() == btnSearch) {
+			actionPerformedBtnSearch(e);
+		}
+	}
+	protected void actionPerformedBtnSearch(ActionEvent e) {
+		rentFindList = null;
+		String searchText = tfSearch.getText().trim();
+		Rent rentListFind = new Rent();
+		
+		Object cmbCateText = cmbCate.getSelectedItem();
+		
+		if (cmbCateText.equals("검색")) {
+		} else if (searchText.equals("")) {
+			JOptionPane.showMessageDialog(null, "검색할 내용을 입력해주세요.");
+		} else {
+			if (cmbCateText.equals("차번호")) {
+				rentListFind.setCar_no(new Car(searchText));
+				rentFindList = service.findRents(rentListFind);
+			}
+		}
+		table.setItems(rentFindList);
+	}
 }
