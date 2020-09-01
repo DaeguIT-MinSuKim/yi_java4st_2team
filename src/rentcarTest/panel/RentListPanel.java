@@ -18,6 +18,9 @@ import javax.swing.JTextField;
 import rentcarTest.Dao.service.RentService;
 import rentcarTest.dto.Rent;
 import rentcarTest.table.RentTable;
+import java.awt.Dimension;
+import java.awt.Font;
+import javax.swing.SwingConstants;
 
 public class RentListPanel extends JPanel{
 	private JTextField textField;
@@ -38,6 +41,7 @@ public class RentListPanel extends JPanel{
 	private JButton btnRent;
 	
 	public RentListPanel() {
+		setPreferredSize(new Dimension(650, 650));
 		service = new RentService();
 		lists = service.showRents();
 		
@@ -51,11 +55,13 @@ public class RentListPanel extends JPanel{
 		setLayout(new BoxLayout(this, BoxLayout.Y_AXIS));
 		
 		JPanel pTitle = new JPanel();
+		pTitle.setBackground(new Color(255, 255, 255));
 		add(pTitle);
 		pTitle.setLayout(new BorderLayout(0, 0));
 		
 		JLabel lblNewLabel = new JLabel("대여 기록");
-		pTitle.add(lblNewLabel);
+		lblNewLabel.setFont(new Font("굴림", Font.PLAIN, 30));
+		pTitle.add(lblNewLabel, BorderLayout.CENTER);
 		
 		pSearch = new JPanel();
 		add(pSearch);

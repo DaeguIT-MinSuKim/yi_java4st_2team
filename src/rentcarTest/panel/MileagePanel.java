@@ -3,10 +3,14 @@ package rentcarTest.panel;
 import java.awt.BorderLayout;
 import java.awt.Color;
 import java.awt.Dimension;
+import java.awt.Font;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 import java.util.List;
 
 import javax.swing.BoxLayout;
 import javax.swing.JButton;
+import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 
@@ -14,16 +18,12 @@ import rentcarTest.Dao.service.MileageService;
 import rentcarTest.dto.Mileage;
 import rentcarTest.popup.EditMileagePopup;
 import rentcarTest.table.MileageTable;
-import java.awt.event.ActionListener;
-import java.awt.event.ActionEvent;
-import javax.swing.JLabel;
-import java.awt.Font;
 
 @SuppressWarnings("serial")
 public class MileagePanel extends JPanel implements ActionListener {
 
-	private MileageService service;
-	private List<Mileage> lists;
+	private MileageService service = new MileageService();
+	private List<Mileage> lists = service.showMileage();
 	private JPanel pTable;
 	private JScrollPane scrollPane;
 	private MileageTable table;
@@ -33,22 +33,23 @@ public class MileagePanel extends JPanel implements ActionListener {
 	private JLabel lblTitle;
 
 	public MileagePanel() {
-		service = new MileageService();
-		lists = service.showMileage();
+
 		initcomponents();
+
+		scrollPane.setViewportView(table);
 	}
 
 	private void initcomponents() {
-		setPreferredSize(new Dimension(650,661));
+		setPreferredSize(new Dimension(650, 661));
 		setBackground(Color.WHITE);
 		setLayout(new BoxLayout(this, BoxLayout.Y_AXIS));
-		
+
 		pTitle = new JPanel();
 		pTitle.setBackground(Color.WHITE);
 		pTitle.setPreferredSize(new Dimension(50, 100));
 		add(pTitle);
 		pTitle.setLayout(new BoxLayout(pTitle, BoxLayout.X_AXIS));
-		
+
 		lblTitle = new JLabel("마일리지");
 		lblTitle.setFont(new Font("굴림", Font.BOLD, 30));
 		pTitle.add(lblTitle);
@@ -72,10 +73,18 @@ public class MileagePanel extends JPanel implements ActionListener {
 		btnEdit.addActionListener(this);
 		pBtns.add(btnEdit);
 	}
+
 	public void actionPerformed(ActionEvent e) {
 		if (e.getSource() == btnEdit) {
 			EditMileagePopup milePopup = new EditMileagePopup();
+			milePopup.setMileList(this);
 			milePopup.setVisible(true);
 		}
+	}
+
+	public void insertMile(Mileage item) {
+		service = new MileageService();
+		lists = service.showMileage();
+		table.setItems(lists);
 	}
 }

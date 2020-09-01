@@ -39,7 +39,6 @@ public class CustomerListPanel extends JPanel implements ActionListener, ItemLis
 	private CustomerService service = new CustomerService();
 	public List<Customer> lists = service.showCustomers();
 	private JPanel pBtns;
-	private JPanel panel;
 	private JPanel pTitle;
 	private JLabel lblTitle;
 	private JPanel pSearch;
@@ -47,7 +46,6 @@ public class CustomerListPanel extends JPanel implements ActionListener, ItemLis
 	private JButton btnRent;
 	private JPanel pSearch_check;
 	private JPanel pSearch_button;
-	private JCheckBox chckbxRent;
 	private JCheckBox chckbxBlackList;
 	private JComboBox<String> cmbCate;
 	private JTextField tfSearch;
@@ -61,7 +59,7 @@ public class CustomerListPanel extends JPanel implements ActionListener, ItemLis
 		editPopup = new EditCustomerPopup();
 
 		initComponents();
-		
+
 		CustomPopupMenu popMenu = new CustomPopupMenu(this);
 		table.setComponentPopupMenu(popMenu);
 		scrollPane.setViewportView(table);
@@ -70,15 +68,12 @@ public class CustomerListPanel extends JPanel implements ActionListener, ItemLis
 	}
 
 	private void initComponents() {
-		setPreferredSize(new Dimension(650,661));
+		setPreferredSize(new Dimension(650, 661));
 		setBackground(Color.WHITE);
 		setLayout(new BoxLayout(this, BoxLayout.Y_AXIS));
 
-		panel = new JPanel();
-		panel.setBackground(new Color(255, 255, 255));
-		add(panel);
-
 		pTitle = new JPanel();
+		pTitle.setPreferredSize(new Dimension(50, 50));
 		pTitle.setBackground(Color.WHITE);
 		add(pTitle);
 
@@ -97,10 +92,6 @@ public class CustomerListPanel extends JPanel implements ActionListener, ItemLis
 		pSearch_check = new JPanel();
 		pSearch.add(pSearch_check);
 		pSearch_check.setLayout(new FlowLayout(FlowLayout.LEFT, 5, 5));
-
-		chckbxRent = new JCheckBox("대여중");
-		chckbxRent.addItemListener(this);
-		pSearch_check.add(chckbxRent);
 
 		chckbxBlackList = new JCheckBox("블랙리스트");
 		chckbxBlackList.addItemListener(this);
@@ -144,52 +135,29 @@ public class CustomerListPanel extends JPanel implements ActionListener, ItemLis
 		btnRent = new JButton("대여");
 		btnRent.addActionListener(this);
 		pBtns.add(btnRent);
-		
-		btnNewButton = new JButton("New button");
-		btnNewButton.addActionListener(this);
-		pBtns.add(btnNewButton);
 
 	}
-	
+
 	public void insertCtm(Customer item) {
 		service = new CustomerService();
 		lists = service.showCustomers();
-		System.out.println("insert item : " + item);
-		System.out.println("insert lists : " + lists);
 		table.setItems(lists);
 	}
-	
+
 	public void updateCtm(int idx, Customer item) {
-		System.out.println(idx);
-		System.out.println(item);
-		
 		table.updateRow(idx, item);
 		lists.set(idx, item);
 		table.setItems(lists);
 	}
-	
+
 	@Override
 	public void itemStateChanged(ItemEvent e) {
-		if (e.getSource() == chckbxRent) {
-			selectSearchCheckedRent(e);
-		}
 		if (e.getSource() == chckbxBlackList) {
 			selectSearchCheckedBlackList(e);
 		}
-		
+
 	}
 
-	// check_box - 대여중
-	private void selectSearchCheckedRent(ItemEvent e) {
-		if (e.getStateChange() == ItemEvent.SELECTED) {
-			lists = service.showRentCustomers();
-			table.setItems(lists);
-		} else {
-			lists = service.showCustomers();
-			table.setItems(lists);
-		}
-	}
-	
 	// check_box - 블랙리스트
 	private void selectSearchCheckedBlackList(ItemEvent e) {
 		if (e.getStateChange() == ItemEvent.SELECTED) {
@@ -209,16 +177,12 @@ public class CustomerListPanel extends JPanel implements ActionListener, ItemLis
 	}
 
 	public void actionPerformed(ActionEvent e) {
-		if (e.getSource() == btnNewButton) {
-			actionPerformedBtnNewButton(e);
-		}
 		if (e.getSource() == btnSearch) {
 			actionPerformedBtnSearch(e);
 		}
 		if (e.getSource() == btnAdd) {
 			AddCustomerPopup ctmPopup = new AddCustomerPopup();
 			ctmPopup.setCtmList(this);
-			
 			ctmPopup.setVisible(true);
 		}
 		if (e.getSource() == btnRent) {
@@ -228,15 +192,15 @@ public class CustomerListPanel extends JPanel implements ActionListener, ItemLis
 		if (e.getSource() instanceof JMenuItem) {
 			if (e.getActionCommand().equals("수정")) {
 				int selIdx = table.getSelectedRow();
-		        if (selIdx == -1) {
-		            JOptionPane.showMessageDialog(null, "해당 항목을 선택하세요.");
-		            return;
-		        }
-		        Customer selCtm = lists.get(selIdx);
-		        System.out.println(selIdx);
-		        editPopup.setItem(selCtm);
-		        editPopup.setSelIdx(selIdx);
-		        editPopup.setVisible(true);
+				if (selIdx == -1) {
+					JOptionPane.showMessageDialog(null, "해당 항목을 선택하세요.");
+					return;
+				}
+				Customer selCtm = lists.get(selIdx);
+				editPopup.setSelIdx(selIdx);
+				editPopup.setCtmList(this);
+				editPopup.setItem(selCtm);
+				editPopup.setVisible(true);
 			}
 			if (e.getActionCommand().equals("삭제")) {
 				int selIdx = table.getSelectedRow();
@@ -248,19 +212,20 @@ public class CustomerListPanel extends JPanel implements ActionListener, ItemLis
 				service.deleteCtm(deleteCtm);
 				lists.remove(selIdx);
 				table.removeRow(selIdx);
-				
+
 			}
 			if (e.getActionCommand().equals("세부정보")) {
 				int selIdx = table.getSelectedRow();
-		        if (selIdx == -1) {
-		            JOptionPane.showMessageDialog(null, "해당 항목을 선택하세요.");
-		            return;
-		        }
-		        Customer selCtm = lists.get(selIdx);
-		        editPopup.setItem(selCtm);
-		        editPopup.setDetail();
-		        editPopup.setSelIdx(selIdx);
-		        editPopup.setVisible(true);
+				if (selIdx == -1) {
+					JOptionPane.showMessageDialog(null, "해당 항목을 선택하세요.");
+					return;
+				}
+				Customer selCtm = lists.get(selIdx);
+				editPopup.setItem(selCtm);
+				editPopup.setDetail();
+				editPopup.setSelIdx(selIdx);
+				editPopup.setCtmList(this);
+				editPopup.setVisible(true);
 			}
 			if (e.getActionCommand().equals("마일리지")) {
 				System.out.println("마일리지");
@@ -284,12 +249,12 @@ public class CustomerListPanel extends JPanel implements ActionListener, ItemLis
 			add(mileageMenu);
 		}
 	}
-	
+
 	protected void actionPerformedBtnSearch(ActionEvent e) {
 		ctmFindList = null;
 		String searchText = tfSearch.getText().trim();
 		Customer ctmListFind = new Customer();
-		
+
 		Object cmbCateText = cmbCate.getSelectedItem();
 		if (cmbCateText.equals("검색")) {
 			ctmFindList = service.showCustomers();
@@ -312,11 +277,7 @@ public class CustomerListPanel extends JPanel implements ActionListener, ItemLis
 				ctmListFind.setAddress(searchText);
 				ctmFindList = service.findCustomers(ctmListFind);
 			}
-			
 		}
 		table.setItems(ctmFindList);
-	}
-	protected void actionPerformedBtnNewButton(ActionEvent e) {
-		table.setItems(lists);
 	}
 }

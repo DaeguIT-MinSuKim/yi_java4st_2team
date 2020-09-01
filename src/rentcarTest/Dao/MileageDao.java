@@ -10,4 +10,8 @@ public interface MileageDao {
 	int insertMileage(Mileage mlg);
 
 	List<Mileage> selectMileageByNo(Mileage mlg);
+
+	int getLastMlg_no();
+
+	int deleteMileage(Mileage deleteMlg);
 	}

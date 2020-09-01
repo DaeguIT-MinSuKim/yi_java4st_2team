@@ -40,6 +40,14 @@ public class EditCustomerPopup extends JDialog implements ActionListener {
 	private JLabel lblDialog;
 	private JButton btnEdit;
 
+	public void setSelIdx(int selIdx) {
+		this.selIdx = selIdx;
+	}
+
+	public void setCtmList(CustomerListPanel ctmList) {
+		this.ctmList = ctmList;
+	}
+	
 	public EditCustomerPopup() {
 		initComponents();
 	}
@@ -150,9 +158,6 @@ public class EditCustomerPopup extends JDialog implements ActionListener {
 		tfRemark.setText(ctm.getRemark());
 	}
 	
-	public void setSelIdx(int selIdx) {
-		this.selIdx = selIdx;
-	}
 
 	public void actionPerformed(ActionEvent e) {
 		if (e.getSource() == btnEdit) {
@@ -180,8 +185,6 @@ public class EditCustomerPopup extends JDialog implements ActionListener {
 	}
 
 	protected void actionPerformedBtnEdit(ActionEvent e) {
-		ctmList = new CustomerListPanel();
-		
 		int no = Integer.parseInt(tfNo.getText().trim());
 		String name = tfName.getText().trim();
 		String tel = tfTel.getText().trim();

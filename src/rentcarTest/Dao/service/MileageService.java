@@ -10,11 +10,18 @@ public class MileageService {
 	private MileageDao dao = MileageDaoImpl.getInstance();
 
 	public void insertMile(Mileage mlg) {
-		System.out.println("Inserting Mileage..");
 		dao.insertMileage(mlg);
 	}
 
 	public List<Mileage> showMileage() {
 		return dao.selectMileageByAll();
+	}
+
+	public int lastMlgNo() {
+		return dao.getLastMlg_no();
+	}
+
+	public int deleteMlg(Mileage deleteMlg) {
+		return dao.deleteMileage(deleteMlg);
 	}
 }
