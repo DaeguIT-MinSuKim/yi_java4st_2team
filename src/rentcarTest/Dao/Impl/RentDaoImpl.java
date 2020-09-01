@@ -195,7 +195,7 @@ public class RentDaoImpl implements RentDao {
 	}
 
 	@Override
-	public int rentLookupCarKind(String kind) {
+	public long rentLookupCarKind(String kind) {
 		String sql = "SELECT SUM(RENT_TIME * FARE * (100 - SALE) / 100) AS 최종요금 "
 				+ "FROM RENT r LEFT OUTER JOIN CAR c ON r.CAR_NO = c.CAR_NO " + "WHERE CAR_KIND = ? "
 				+ "GROUP BY C.CAR_KIND";

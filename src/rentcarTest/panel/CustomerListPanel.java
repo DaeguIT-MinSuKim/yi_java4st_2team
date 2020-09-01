@@ -54,7 +54,6 @@ public class CustomerListPanel extends JPanel implements ActionListener, ItemLis
 	private JButton btnSearch;
 
 	private EditCustomerPopup editPopup;
-	private JButton btnNewButton;
 
 	public CustomerListPanel() {
 		editPopup = new EditCustomerPopup();
@@ -143,25 +142,16 @@ public class CustomerListPanel extends JPanel implements ActionListener, ItemLis
 		btnRent = new JButton("대여");
 		btnRent.addActionListener(this);
 		pBtns.add(btnRent);
-		
-		btnNewButton = new JButton("New button");
-		btnNewButton.addActionListener(this);
-		pBtns.add(btnNewButton);
 
 	}
 	
 	public void insertCtm(Customer item) {
 		service = new CustomerService();
 		lists = service.showCustomers();
-		System.out.println("insert item : " + item);
-		System.out.println("insert lists : " + lists);
 		table.setItems(lists);
 	}
 	
 	public void updateCtm(int idx, Customer item) {
-		System.out.println(idx);
-		System.out.println(item);
-		
 		table.updateRow(idx, item);
 		lists.set(idx, item);
 		table.setItems(lists);
@@ -208,14 +198,12 @@ public class CustomerListPanel extends JPanel implements ActionListener, ItemLis
 	}
 
 	public void actionPerformed(ActionEvent e) {
-		if (e.getSource() == btnNewButton) {
-			actionPerformedBtnNewButton(e);
-		}
 		if (e.getSource() == btnSearch) {
 			actionPerformedBtnSearch(e);
 		}
 		if (e.getSource() == btnAdd) {
 			AddCustomerPopup ctmPopup = new AddCustomerPopup();
+			ctmPopup.setCtmList(this);
 			ctmPopup.setVisible(true);
 		}
 		if (e.getSource() == btnRent) {
@@ -230,9 +218,9 @@ public class CustomerListPanel extends JPanel implements ActionListener, ItemLis
 		            return;
 		        }
 		        Customer selCtm = lists.get(selIdx);
-		        System.out.println(selIdx);
-		        editPopup.setItem(selCtm);
 		        editPopup.setSelIdx(selIdx);
+		        editPopup.setCtmList(this);
+		        editPopup.setItem(selCtm);
 		        editPopup.setVisible(true);
 			}
 			if (e.getActionCommand().equals("삭제")) {
@@ -257,6 +245,7 @@ public class CustomerListPanel extends JPanel implements ActionListener, ItemLis
 		        editPopup.setItem(selCtm);
 		        editPopup.setDetail();
 		        editPopup.setSelIdx(selIdx);
+		        editPopup.setCtmList(this);
 		        editPopup.setVisible(true);
 			}
 			if (e.getActionCommand().equals("마일리지")) {
@@ -307,11 +296,6 @@ public class CustomerListPanel extends JPanel implements ActionListener, ItemLis
 				ctmListFind.setAddress(searchText);
 				ctmList = service.findCustomers(ctmListFind);
 			}
-			table.setItems(ctmList);
-			
 		}
-	}
-	protected void actionPerformedBtnNewButton(ActionEvent e) {
-		table.setItems(lists);
 	}
 }
