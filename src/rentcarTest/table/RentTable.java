@@ -19,7 +19,7 @@ public class RentTable extends AbstractItemTable<Rent>  {
 			item.getCtm_no().getName(),
 			item.getCtm_no().getTel(),
 			String.format("%s ~ %s", item.getRent_date(), item.getReturn_date()),
-			item.getIs_driver(),
+			item.getSIs_driver(),
 			item.getRent_remark()
 		};
 	}
