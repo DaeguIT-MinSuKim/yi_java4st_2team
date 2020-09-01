@@ -86,7 +86,7 @@ public class Home extends JFrame{
 		// 사이드바 _1_로고
 		panemenu = new JPanel();
 		panemenu.setBackground(new Color(30, 144, 255));
-		panemenu.setBounds(0, 0, 250, 713);
+		panemenu.setBounds(0, 0, 260, 713);
 		contentPane.add(panemenu);
 		panemenu.setLayout(null);
 
@@ -198,7 +198,7 @@ public class Home extends JFrame{
 		// 오른쪽 MainContentPane
 		MainContentPane = new JPanel();
 		MainContentPane.setBackground(new Color(255, 255, 255));
-		MainContentPane.setBounds(246, -12, 939, 725);
+		MainContentPane.setBounds(252, -12, 933, 725);
 		contentPane.add(MainContentPane);
 
 		// 페널 추가
