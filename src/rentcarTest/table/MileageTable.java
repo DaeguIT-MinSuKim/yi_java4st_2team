@@ -7,23 +7,18 @@ import rentcarTest.dto.Mileage;
 public class MileageTable extends AbstractItemTable<Mileage> {
 	@Override
 	Object[] getColName() {
-		return new String[] { "고객번호", "성명", "연락처", "마일리지", "비고" };
+		return new String[] { "마일리지번호", "고객번호", "마일리지 타입", "마일리지", "비고" };
 	}
 
 	@Override
 	Object[] toArray(Mileage item) {
-		return new Object[] {
-			item.getMlg_no(),
-			item.getCtm_no(),
-			item.getMlg_kind(),
-			item.getPoint(),
-			item.getMlg_remark()
-		};
+		return new Object[] { item.getMlg_no(), item.getCtm_no(), item.getMlg_kind() , item.getPoint(),
+				item.getMlg_remark() };
 	}
 
 	@Override
 	void setWidthAndAlign() {
-		tableSetWidth(100, 200, 100, 100, 100);
+		tableSetWidth(50,50, 100, 100, 100);
 		tableCellAlign(SwingConstants.CENTER, 0, 1, 2, 3, 4);
 
 	}

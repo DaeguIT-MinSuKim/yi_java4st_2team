@@ -60,12 +60,7 @@ public class PerformanceChartPopup extends JDialog implements ActionListener {
 		btnChart.addActionListener(this);
 		pBtns.add(btnChart);
 		pBtns.add(btnCancel);
-		
-		
 	}
-
-	
-	
 	public void actionPerformed(ActionEvent e) {
 		if (e.getSource() == btnChart) {
 			actionPerformedBtnChart(e);

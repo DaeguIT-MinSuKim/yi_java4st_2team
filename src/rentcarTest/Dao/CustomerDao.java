@@ -20,4 +20,6 @@ public interface CustomerDao {
 	int deleteCustomer (Customer ctm);
 	
 	int getLastCtm_no();
+
+	List<Customer> selectCustomerToday();
 }

@@ -5,12 +5,15 @@ import java.util.List;
 import org.junit.After;
 import org.junit.Assert;
 import org.junit.Before;
+import org.junit.FixMethodOrder;
 import org.junit.Test;
+import org.junit.runners.MethodSorters;
 
 import rentcarTest.Dao.MileageDao;
 import rentcarTest.Dao.Impl.MileageDaoImpl;
 import rentcarTest.dto.Mileage;
 
+@FixMethodOrder(MethodSorters.NAME_ASCENDING)
 public class MileageDaoImplTest {
 	private MileageDao dao;
 
@@ -25,13 +28,13 @@ public class MileageDaoImplTest {
 	}
 
 	@Test
-	public void test02SelectMileageByAll() {
+	public void test04SelectMileageByAll() {
 		System.out.println("testSelectMileageByAll()");
 		List<Mileage> list = dao.selectMileageByAll();
 		Assert.assertNotNull(list);
 		list.stream().forEach(System.out::println);
 	}
-
+		
 	@Test
 	public void test03SelectMileageByNo() {
 		System.out.println("test03SelectRentByNo()");
@@ -45,9 +48,17 @@ public class MileageDaoImplTest {
 	@Test
 	public void test01InsertMileageDao() {
 		System.out.printf("%s()%n", "testInsertMileageDao()");
-		Mileage newMile = new Mileage(9, 8, 2, 8000, "첫 가입");
+		Mileage newMile = new Mileage(10, 8, 1, 8000, "첫 가입");
 		int res = dao.insertMileage(newMile);
 		Assert.assertEquals(1, res);
+	}
+	
+	@Test
+	public void test02deleteMileageDao() {
+		System.out.printf("%s()%n", "testDeleteMileageDao()");
+		Mileage deleteMlg= new Mileage(10);
+		int res = dao.deleteMileage(deleteMlg);
+		Assert.assertEquals(1, res); 
 	}
 
 }
