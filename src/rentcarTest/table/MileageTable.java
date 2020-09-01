@@ -7,7 +7,7 @@ import rentcarTest.dto.Mileage;
 public class MileageTable extends AbstractItemTable<Mileage> {
 	@Override
 	Object[] getColName() {
-		return new String[] { "고객번호", "성명", "연락처", "마일리지", "비고" };
+		return new String[] { "마일리지번호", "고객번호", "추가/차감", "마일리지", "비고" };
 	}
 
 	@Override
@@ -15,7 +15,7 @@ public class MileageTable extends AbstractItemTable<Mileage> {
 		return new Object[] {
 			item.getMlg_no(),
 			item.getCtm_no(),
-			item.getMlg_kind(),
+			item.getMlg_kind(), 
 			item.getPoint(),
 			item.getMlg_remark()
 		};

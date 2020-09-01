@@ -77,6 +77,11 @@ public class MileageDaoImpl implements MileageDao {
 			throw new RuntimeException(e);
 		}
 	}
+	
+	public int getLastMlg_no() {
+		List<Mileage> list = selectMileageByAll();
+		return list.get(list.size()-1).getMlg_no()+1;
+	}
 
 	private Mileage getMileage(ResultSet rs) throws SQLException {
 		int mlg_no = rs.getInt("MLG_NO");
@@ -85,5 +90,16 @@ public class MileageDaoImpl implements MileageDao {
 		int point = rs.getInt("MILEAGE");
 		String mlg_remark = rs.getString("MLG_REMARK");
 		return new Mileage(mlg_no, ctm_no, mlg_kind, point, mlg_remark);
+	}
+
+	@Override
+	public int deleteMileage(Mileage deleteMlg) {
+		String sql = "DELETE FROM MILEAGE WHERE CTM_NO = ?";
+		try (Connection con = JdbcUtil.getConnection(); PreparedStatement pstmt = con.prepareStatement(sql)) {
+			pstmt.setInt(1, deleteMlg.getMlg_no());
+			return pstmt.executeUpdate();
+		} catch (SQLException e) {
+			throw new RuntimeException(e);
+		}
 	}
 }

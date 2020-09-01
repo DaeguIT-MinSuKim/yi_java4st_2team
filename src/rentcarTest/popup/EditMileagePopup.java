@@ -15,6 +15,9 @@ import javax.swing.JTextField;
 import javax.swing.SwingConstants;
 
 import rentcarTest.Dao.service.CustomerService;
+import rentcarTest.Dao.service.MileageService;
+import rentcarTest.dto.Mileage;
+import rentcarTest.panel.MileagePanel;
 
 public class EditMileagePopup extends JDialog implements ActionListener {
 
@@ -28,9 +31,13 @@ public class EditMileagePopup extends JDialog implements ActionListener {
 	private JTextField tfMileage;
 	private JTextField tfRemark;
 	private JLabel lblDialog;
+	private int mlg_kind=0;
+	private int point;
 	
-	private CustomerService service = new CustomerService();
-
+	private MileageService Mservice = new MileageService();
+	private CustomerService Cservice = new CustomerService();
+	private MileagePanel mList = new MileagePanel();
+	
 	public EditMileagePopup() {
 		initComponents();
 	}
@@ -65,8 +72,8 @@ public class EditMileagePopup extends JDialog implements ActionListener {
 
 		tfNo = new JTextField();
 		tfNo.setColumns(10);
-		tfNo.setEnabled(false);
-		tfNo.setText(Integer.toString(service.lastCtmNo()));
+		//tfNo.setEnabled(false);
+		//	tfNo.setText(Cservice.findCustomers()); 고객명 검색 impl d
 		pContent.add(tfNo);
 
 		JLabel lblName = new JLabel("고객명");
@@ -107,18 +114,32 @@ public class EditMileagePopup extends JDialog implements ActionListener {
 		}
 		if (e.getSource() == btnDeduct) {
 			actionPerformedBtnDeduct(e);
+			mlg_kind=0;
 		}
 		if (e.getSource() == btnAdd) {
 			actionPerformedBtnAdd(e);
+			mlg_kind=1;
 		}
 	}
 
 	private void actionPerformedBtnAdd(ActionEvent e) {
-
+		int mlg_no = Mservice.lastMlgNo();
+		int ctm_no = Integer.parseInt(tfNo.getText().trim());
+		int point = Integer.parseInt(tfMileage.getText().trim());
+		String mlg_remark = tfRemark.getText().trim();
+		Mileage item = new Mileage(mlg_no, ctm_no, mlg_kind, point,mlg_remark);
+		Mservice.insertMile(item);
+		mList.insertMile(item);
 	}
 
 	private void actionPerformedBtnDeduct(ActionEvent e) {
-
+		int mlg_no = Mservice.lastMlgNo();
+		int ctm_no = Integer.parseInt(tfNo.getText().trim());
+		int point = Integer.parseInt(tfMileage.getText().trim());
+		String mlg_remark = tfRemark.getText().trim();
+		Mileage item = new Mileage(mlg_no, ctm_no, mlg_kind,point,mlg_remark);
+		Mservice.insertMile(item);
+		mList.insertMile(item);
 	}
 
 	private void actionPerformedBtnCancel(ActionEvent e) {
