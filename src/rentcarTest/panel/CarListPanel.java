@@ -2,6 +2,7 @@ package rentcarTest.panel;
 
 import java.awt.BorderLayout;
 import java.awt.Color;
+import java.awt.Dimension;
 import java.awt.FlowLayout;
 import java.awt.Font;
 import java.awt.event.ActionEvent;
@@ -26,14 +27,13 @@ import javax.swing.SwingConstants;
 
 import rentcarTest.Dao.service.CarService;
 import rentcarTest.dto.Car;
-import rentcarTest.dto.Customer;
 import rentcarTest.dto.Kind;
 import rentcarTest.table.CarTable;
 
-public class CarListPanel  extends JPanel implements ActionListener, ItemListener {
+public class CarListPanel extends JPanel implements ActionListener, ItemListener {
 	private JTextField tfSearch;
 	private CarTable table;
-	
+
 	private JPanel pTable;
 	private JScrollPane scrollPane;
 	private JPanel pTitle;
@@ -49,90 +49,96 @@ public class CarListPanel  extends JPanel implements ActionListener, ItemListene
 	private JCheckBox chckbxRent;
 	private JComboBox<String> cmbCate;
 	private JButton btnSearch;
-	
+
 	public CarListPanel() {
+		setPreferredSize(new Dimension(650, 661));
 		service = new CarService();
 		lists = service.showCars();
-		
+
 		initComponents();
-		
+
 		table.setItems(lists);
 
 		CarPopupMenu popMenu = new CarPopupMenu(this);
 		table.setComponentPopupMenu(popMenu);
 		scrollPane.setViewportView(table);
-		
+
 	}
-	
+
 	private void initComponents() {
-		
-		setBackground(Color.WHITE);
+
+		setBackground(new Color(255, 255, 255));
 		setLayout(new BoxLayout(this, BoxLayout.Y_AXIS));
-		
+
 		pTitle = new JPanel();
+		pTitle.setPreferredSize(new Dimension(50, 70));
+		pTitle.setBackground(new Color(255, 255, 255));
 		add(pTitle);
 		pTitle.setLayout(new BorderLayout(0, 0));
-		
+
 		JLabel lblTitle = new JLabel("차량 현황");
 		lblTitle.setHorizontalAlignment(SwingConstants.CENTER);
 		lblTitle.setFont(new Font("굴림", Font.BOLD, 30));
-		lblTitle.setBackground(Color.WHITE);
+		lblTitle.setBackground(new Color(255, 255, 255));
 		pTitle.add(lblTitle);
-		
+
 		pSearch = new JPanel();
 		add(pSearch);
 		pSearch.setLayout(new BoxLayout(pSearch, BoxLayout.X_AXIS));
-		
+
 		pSearch_check = new JPanel();
 		pSearch.add(pSearch_check);
 		pSearch_check.setLayout(new FlowLayout(FlowLayout.LEFT, 5, 5));
-		
+
 		chckbxRent = new JCheckBox("대여중");
 		chckbxRent.addItemListener(this);
 		pSearch_check.add(chckbxRent);
-		
+
 		pSearch_button = new JPanel();
 		FlowLayout flowLayout = (FlowLayout) pSearch_button.getLayout();
 		flowLayout.setAlignment(FlowLayout.RIGHT);
 		pSearch.add(pSearch_button);
-		
+
 		cmbCate = new JComboBox<String>();
 		setSearchCate();
 		pSearch_button.add(cmbCate);
-		
+
 		tfSearch = new JTextField();
 		tfSearch.setColumns(10);
 		pSearch_button.add(tfSearch);
-		
+
 		btnSearch = new JButton("검색");
 		btnSearch.addActionListener(this);
 		pSearch_button.add(btnSearch);
-		
+
 		pTable = new JPanel();
+		pTable.setBackground(new Color(255, 255, 255));
 		add(pTable);
 		pTable.setLayout(new BorderLayout(0, 0));
-		
+
 		scrollPane = new JScrollPane();
+		scrollPane.setBackground(new Color(255, 255, 255));
 		pTable.add(scrollPane, BorderLayout.CENTER);
-		
+
 		table = new CarTable();
-		
+
 		pBtns = new JPanel();
+		pBtns.setBackground(new Color(255, 255, 255));
 		add(pBtns);
-		
+
 		btnAdd = new JButton("추가");
 		pBtns.add(btnAdd);
-		
+
 		btnRent = new JButton("대여");
 		pBtns.add(btnRent);
 	}
-	
+
 	@Override
 	public void itemStateChanged(ItemEvent e) {
 		if (e.getSource() == chckbxRent) {
 			selectSearchCheckedRent(e);
 		}
-		
+
 	}
 
 	// check_box - 대여중
@@ -145,21 +151,19 @@ public class CarListPanel  extends JPanel implements ActionListener, ItemListene
 			table.setItems(lists);
 		}
 	}
-	
 
 	public void insertCar(Car item) {
 		service = new CarService();
-		
+
 	}
-	
+
 	// 검색 분류
 	private void setSearchCate() {
 		String[] items = { "소형", "중형", "승합차", "버스", "지프" };
 		DefaultComboBoxModel<String> model = new DefaultComboBoxModel<String>(items);
 		cmbCate.setModel(model);
 	}
-	
-	
+
 	public void actionPerformed(ActionEvent e) {
 		if (e.getSource() == btnSearch) {
 			actionPerformedBtnSearch(e);
@@ -185,12 +189,12 @@ public class CarListPanel  extends JPanel implements ActionListener, ItemListene
 			}
 		}
 	}
-	
+
 	protected void actionPerformedBtnSearch(ActionEvent e) {
 		List<Car> ctmList = null;
 		String searchText = tfSearch.getText().trim();
 		Car carListFind = new Car();
-		
+
 		Object cmbCateText = cmbCate.getSelectedItem();
 		if (searchText.equals("")) {
 			JOptionPane.showMessageDialog(null, "검색할 내용을 입력해주세요.");
@@ -217,11 +221,9 @@ public class CarListPanel  extends JPanel implements ActionListener, ItemListene
 				ctmList = service.findCars(carListFind);
 			}
 			table.setItems(ctmList);
-			
+
 		}
 	}
-	
-	
 
 	private class CarPopupMenu extends JPopupMenu {
 		public CarPopupMenu(ActionListener listener) {

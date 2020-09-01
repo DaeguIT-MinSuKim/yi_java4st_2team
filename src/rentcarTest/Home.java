@@ -273,7 +273,7 @@ public class Home extends JFrame {
 		paneTodo.add(lblNewLabel);
 		
 				lblNewLabel_1 = new JLabel(Month + "/" + Date /* + Hour + "시 " + Minute +"분 " */);
-				lblNewLabel_1.setBounds(104, 416, 146, 123);
+				lblNewLabel_1.setBounds(114, 416, 146, 123);
 				panemenu.add(lblNewLabel_1);
 				lblNewLabel_1.setFont(new Font("인터파크고딕 M", Font.PLAIN, 20));
 	
