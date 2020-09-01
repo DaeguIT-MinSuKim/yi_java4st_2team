@@ -55,7 +55,7 @@ SELECT car.CAR_NAME, car.CAR_NO, c.CTM_NAME , c.TEL, r.RENT_DATE, r.RETURN_DATE,
  
 SELECT car.CAR_NAME, car.CAR_NO, c.CTM_NAME , c.TEL, r.RENT_DATE, r.RETURN_DATE, r.IS_DRIVER, r.RENT_REMARK
   FROM RENT r LEFT OUTER JOIN CUSTOMER c ON r.CTM_NO = c.CTM_NO JOIN CAR car ON r.Car_NO = car.CAR_NO
- WHERE r.RENT_DATE >= SYSDATE - 5 AND r.RETURN_DATE <= SYSDATE + 2;
+ WHERE r.RENT_DATE >= '2020/04/29' AND r.RETURN_DATE <= '2020/10/22';
  
 SELECT car.CAR_NAME, car.CAR_NO, c.CTM_NAME , c.TEL, r.RENT_DATE, r.RETURN_DATE, r.RENT_TIME, r.IS_DRIVER, r.RENT_REMARK
   FROM RENT r LEFT OUTER JOIN CUSTOMER c ON r.CTM_NO = c.CTM_NO JOIN CAR car ON r.Car_NO = car.CAR_NO
@@ -92,7 +92,10 @@ SELECT CAR_NO, CAR_NAME, k.CAR_KIND, k.KIND_NAME, FUEL, DISTANCE, FARE, SALE, CA
 
 SELECT * FROM car;
   
- 
+ SELECT car.CAR_NAME, car.CAR_NO, c.CTM_NO , c.CTM_NAME , c.TEL, r.RENT_DATE, r.RETURN_DATE, r.RENT_TIME, r.IS_DRIVER, r.RENT_REMARK 
+  FROM RENT r LEFT OUTER JOIN CUSTOMER c ON r.CTM_NO = c.CTM_NO JOIN CAR car ON r.Car_NO = car.CAR_NO
+ WHERE car.CAR_NO LIKE '%' || '12하4219' || '%' OR c.CTM_NAME LIKE '%' || '배지' || '%' OR c.TEL LIKE '%' || '' || '%'
+ORDER BY r.RENT_NO;
 
 -----------------------------------------------------------------------------김보현-----------------------------------------------------------------------------
 SELECT CTM_NO, CTM_NAME, TEL, ADDRESS, CTM_REMARK, CTM_MLG FROM CUSTOMER WHERE LIST_CTM = 1;

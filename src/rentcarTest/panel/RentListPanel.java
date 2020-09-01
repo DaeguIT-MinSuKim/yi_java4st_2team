@@ -2,7 +2,14 @@ package rentcarTest.panel;
 
 import java.awt.BorderLayout;
 import java.awt.Color;
+import java.awt.Dimension;
 import java.awt.FlowLayout;
+import java.awt.Font;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
+import java.awt.event.ItemEvent;
+import java.awt.event.ItemListener;
+import java.util.Calendar;
 import java.util.List;
 
 import javax.swing.BoxLayout;
@@ -18,16 +25,12 @@ import javax.swing.JTextField;
 
 import rentcarTest.Dao.service.RentService;
 import rentcarTest.dto.Car;
-import rentcarTest.dto.Kind;
+import rentcarTest.dto.Customer;
 import rentcarTest.dto.Rent;
 import rentcarTest.table.RentTable;
-import java.awt.Dimension;
-import java.awt.Font;
-import javax.swing.SwingConstants;
-import java.awt.event.ActionListener;
-import java.awt.event.ActionEvent;
+import com.toedter.calendar.JDateChooser;
 
-public class RentListPanel extends JPanel implements ActionListener{
+public class RentListPanel extends JPanel implements ActionListener, ItemListener {
 	private JTextField tfSearch;
 	private RentTable table;
 	
@@ -45,6 +48,8 @@ public class RentListPanel extends JPanel implements ActionListener{
 	private JButton btnUpdate;
 	private JButton btnRent;
 	private List<Rent> rentFindList;
+	private JDateChooser dateRent;
+	private JDateChooser dateReturn;
 	
 	public RentListPanel() {
 		setPreferredSize(new Dimension(650, 650));
@@ -78,6 +83,19 @@ public class RentListPanel extends JPanel implements ActionListener{
 		pSearch_check.setLayout(new FlowLayout(FlowLayout.LEFT, 5, 5));
 		
 		chckbxRent = new JCheckBox("대여중");
+		chckbxRent.addItemListener(this);
+		
+		JLabel lblRentDate = new JLabel("대여일자");
+		pSearch_check.add(lblRentDate);
+		
+		dateRent = new JDateChooser();
+		pSearch_check.add(dateRent);
+		
+		JLabel lblReturnDate = new JLabel("반납일자");
+		pSearch_check.add(lblReturnDate);
+		
+		dateReturn = new JDateChooser();
+		pSearch_check.add(dateReturn);
 		pSearch_check.add(chckbxRent);
 		
 		pSearch_button = new JPanel();
@@ -118,6 +136,25 @@ public class RentListPanel extends JPanel implements ActionListener{
 		
 	}
 
+	@Override
+	public void itemStateChanged(ItemEvent e) {
+		if (e.getSource() == chckbxRent) {
+			selectSearchCheckedRent(e);
+		}
+
+	}
+
+	// check_box - 대여중
+	private void selectSearchCheckedRent(ItemEvent e) {
+		if (e.getStateChange() == ItemEvent.SELECTED) {
+			lists = service.showRentsIng();
+			table.setItems(lists);
+		} else {
+			lists = service.showRents();
+			table.setItems(lists);
+		}
+	}
+
 	// 검색 분류
 	private void setSearchCate() {
 		String[] items = {"검색", "차번호", "성명", "연락처"};
@@ -130,19 +167,54 @@ public class RentListPanel extends JPanel implements ActionListener{
 			actionPerformedBtnSearch(e);
 		}
 	}
+	
 	protected void actionPerformedBtnSearch(ActionEvent e) {
 		rentFindList = null;
 		String searchText = tfSearch.getText().trim();
 		Rent rentListFind = new Rent();
 		
+		Car car = new Car();
+		Customer ctm = new Customer();
+
+		rentListFind.setCar_no(car);
+		rentListFind.setCtm_no(ctm);
+		
 		Object cmbCateText = cmbCate.getSelectedItem();
 		
+		if (dateRent.getDate() != null) {
+			Calendar rent_date = Calendar.getInstance();
+			rent_date.clear();
+			rent_date.setTime(dateRent.getDate());
+			
+
+			Calendar return_date = Calendar.getInstance();
+			return_date.clear();
+			return_date.setTime(dateReturn.getDate());
+			
+			rentListFind.setRent_date(rent_date.getTime());
+			rentListFind.setReturn_date(return_date.getTime());
+			
+			service.showDateRents(rentListFind);
+			System.out.println("dateRent.getDate()"+ dateRent.getDate());
+			System.out.println(rentListFind);
+		}
+		
 		if (cmbCateText.equals("검색")) {
+			rentFindList = service.showRents();
+			
 		} else if (searchText.equals("")) {
 			JOptionPane.showMessageDialog(null, "검색할 내용을 입력해주세요.");
 		} else {
 			if (cmbCateText.equals("차번호")) {
-				rentListFind.setCar_no(new Car(searchText));
+				car.setCarNo(searchText);
+				rentFindList = service.findRents(rentListFind);
+			}
+			if (cmbCateText.equals("성명")) {
+				ctm.setName(searchText);
+				rentFindList = service.findRents(rentListFind);
+			}
+			if (cmbCateText.equals("연락처")) {
+				ctm.setTel(searchText);
 				rentFindList = service.findRents(rentListFind);
 			}
 		}

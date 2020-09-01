@@ -34,13 +34,18 @@ public class RentDaoImplTest {
 		System.out.println("testSelectRentByFind()");
 		Rent rent_search = new Rent(0);
 		Customer ctm_info = new Customer();
-		ctm_info.setNo(1);
+		Car car = new Car();
+		car.setCarNo("29허9435");
+		
+		rent_search.setCar_no(car);
+		
+		
 		ctm_info.setName("홍길동");
-		ctm_info.setTel("010-5177-0965");
-		ctm_info.setAddress("지구");
+		ctm_info.setTel("7724");
 		
 		rent_search.setCtm_no(ctm_info);		
 		List<Rent> rent = RentDaoImpl.getInstance().selectRentByFind(rent_search);
+		System.out.println(rent);
 		Assert.assertNotNull(rent);
 		rent.stream().forEach(System.out::println);
 	}
@@ -52,7 +57,7 @@ public class RentDaoImplTest {
 		
 		Calendar rent_date = Calendar.getInstance();
 		rent_date.clear();
-		rent_date.set(2020, 5-1, 25);
+		rent_date.set(2020, 4, 25);
 		
 		Calendar return_date = Calendar.getInstance();
 		return_date.clear();

@@ -54,6 +54,7 @@ public class CustomerListPanel extends JPanel implements ActionListener, ItemLis
 	private EditCustomerPopup editPopup;
 	private JButton btnNewButton;
 	private List<Customer> ctmFindList;
+	private JCheckBox chckbxRent;
 
 	public CustomerListPanel() {
 		editPopup = new EditCustomerPopup();
@@ -92,6 +93,10 @@ public class CustomerListPanel extends JPanel implements ActionListener, ItemLis
 		pSearch_check = new JPanel();
 		pSearch.add(pSearch_check);
 		pSearch_check.setLayout(new FlowLayout(FlowLayout.LEFT, 5, 5));
+		
+		chckbxRent = new JCheckBox("대여중");
+		chckbxRent.addItemListener(this);
+		pSearch_check.add(chckbxRent);
 
 		chckbxBlackList = new JCheckBox("블랙리스트");
 		chckbxBlackList.addItemListener(this);
@@ -152,11 +157,26 @@ public class CustomerListPanel extends JPanel implements ActionListener, ItemLis
 
 	@Override
 	public void itemStateChanged(ItemEvent e) {
+		if (e.getSource() == chckbxRent) {
+			selectSearchCheckedRent(e);
+		}
 		if (e.getSource() == chckbxBlackList) {
 			selectSearchCheckedBlackList(e);
 		}
 
 	}
+
+	// check_box - 대여중
+	private void selectSearchCheckedRent(ItemEvent e) {
+		if (e.getStateChange() == ItemEvent.SELECTED) {
+			lists = service.showRentCustomers();
+			table.setItems(lists);
+		} else {
+			lists = service.showCustomers();
+			table.setItems(lists);
+		}
+	}
+
 
 	// check_box - 블랙리스트
 	private void selectSearchCheckedBlackList(ItemEvent e) {
