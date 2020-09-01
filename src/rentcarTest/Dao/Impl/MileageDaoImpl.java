@@ -25,7 +25,7 @@ public class MileageDaoImpl implements MileageDao {
 	}
 
 	public List<Mileage> selectMileageByAll() {
-		String sql = "SELECT MLG_NO, CTM_NO, MLG_KIND, MILEAGE, MLG_REMARK FROM MILEAGE";
+		String sql = "SELECT MLG_NO, CTM_NO, MLG_KIND, MILEAGE, MLG_REMARK FROM MILEAGE ORDER BY MLG_NO";
 		try (Connection con = JdbcUtil.getConnection();
 				PreparedStatement pstmt = con.prepareStatement(sql);
 				ResultSet rs = pstmt.executeQuery()) {

@@ -106,4 +106,5 @@ SELECT CTM_NO, CTM_NAME, TEL, ADDRESS, CTM_REMARK, CTM_MLG FROM CUSTOMER C NATUR
 =======
 
 SELECT * FROM CAR;
->>>>>>> branch 'master' of https://github.com/DaeguIT-MinSuKim/yi_java4st_2team.git
+
+DELETE FROM MILEAGE WHERE CTM_NO=1;
