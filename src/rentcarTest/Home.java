@@ -4,6 +4,7 @@ import java.awt.BorderLayout;
 import java.awt.Color;
 import java.awt.Font;
 import java.awt.Image;
+import java.awt.Window;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 import java.util.Calendar;
@@ -15,13 +16,14 @@ import javax.swing.JPanel;
 import javax.swing.SwingConstants;
 import javax.swing.border.LineBorder;
 
+import rentcarTest.panel.CalFrame;
 import rentcarTest.panel.CarListPanel;
 import rentcarTest.panel.CustomerListPanel;
 import rentcarTest.panel.Homepanel;
 import rentcarTest.panel.MileagePanel;
 import rentcarTest.panel.RentListPanel;
 
-public class Home extends JFrame {
+public class Home extends JFrame{
 	private Image img_logo = new ImageIcon(Home.class.getResource("../res/logout.png")).getImage().getScaledInstance(40,
 			40, Image.SCALE_SMOOTH);
 	private Image img_person = new ImageIcon(Home.class.getResource("../res/person.png")).getImage()
@@ -48,15 +50,14 @@ public class Home extends JFrame {
 	private JPanel CarListPanel;
 	private JPanel RentListPanel;
 	private JPanel MileagePanel;
-
-	private JPanel HomePanel = new JPanel();
+	private JPanel HomePanel;
 	private JLabel lblSignOut;
 	private JLabel lblPerson;
 	private JLabel lblWelcome;
 	private JPanel paneTodo;
 	private JLabel lbltodo;
-	private JLabel lblNewLabel;
-	private JLabel lblNewLabel_1;
+	private JLabel lblScheduler;
+	private JLabel lblMonthDate;
 	private int ThisMonth;
 	private int ThisDate;
 	private String Month;
@@ -80,7 +81,8 @@ public class Home extends JFrame {
 		// contentPane 안의 panel 선언
 		CustomerListPanel = new CustomerListPanel();
 		MileagePanel = new MileagePanel();
-		HomePanel = new Homepanel();
+		
+		//HomePanel = new Homepanel();
 		// 사이드바 _1_로고
 		panemenu = new JPanel();
 		panemenu.setBackground(new Color(30, 144, 255));
@@ -258,6 +260,11 @@ public class Home extends JFrame {
 		lblPerson.setIcon(new ImageIcon(img_person));
 
 		paneTodo = new JPanel();
+		paneTodo.addMouseListener(new MouseAdapter() {
+			public void mouseClicked(MouseEvent e) {
+				CalFrame calframe = new CalFrame();
+			}
+		});
 		paneTodo.setBounds(64, 651, 114, 39);
 		panemenu.add(paneTodo);
 		paneTodo.setBackground(new Color(30, 144, 255));
@@ -267,15 +274,15 @@ public class Home extends JFrame {
 		lbltodo.setIcon(new ImageIcon(img_todo));
 		paneTodo.add(lbltodo);
 
-		lblNewLabel = new JLabel("스케쥴러");
-		lblNewLabel.setForeground(new Color(0, 0, 0));
-		lblNewLabel.setFont(new Font("인터파크고딕 L", Font.PLAIN, 17));
-		paneTodo.add(lblNewLabel);
+		lblScheduler = new JLabel("스케쥴러");
+		lblScheduler.setForeground(new Color(0, 0, 0));
+		lblScheduler.setFont(new Font("인터파크고딕 L", Font.PLAIN, 17));
+		paneTodo.add(lblScheduler);
 		
-				lblNewLabel_1 = new JLabel(Month + "/" + Date /* + Hour + "시 " + Minute +"분 " */);
-				lblNewLabel_1.setBounds(114, 416, 146, 123);
-				panemenu.add(lblNewLabel_1);
-				lblNewLabel_1.setFont(new Font("인터파크고딕 M", Font.PLAIN, 20));
+				lblMonthDate = new JLabel(Month + "/" + Date /* + Hour + "시 " + Minute +"분 " */);
+				lblMonthDate.setBounds(114, 416, 146, 123);
+				panemenu.add(lblMonthDate);
+				lblMonthDate.setFont(new Font("인터파크고딕 M", Font.PLAIN, 20));
 	
 		
 	}

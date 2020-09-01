@@ -9,6 +9,10 @@ import rentcarTest.dto.Rent;
 public class RentService {
 	private RentDao dao = RentDaoImpl.getInstance();
 	
+	public List<Rent> findRents(Rent item){
+		return dao.selectRentByFind(item);
+	}
+	
 	public List<Rent> showRents(){
 		return dao.selectRentByAll();
 	}

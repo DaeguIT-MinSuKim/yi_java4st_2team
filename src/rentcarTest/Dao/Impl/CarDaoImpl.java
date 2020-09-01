@@ -17,6 +17,10 @@ import rentcarTest.dto.Mileage;
 public class CarDaoImpl implements CarDao {
 	private static final CarDaoImpl instance = new CarDaoImpl();
 
+	public static CarDao getInstance() {
+		return instance;
+	}
+
 	@Override
 	public List<Car> selectCarByAll() {
 		String sql = "SELECT CAR_NO, CAR_NAME, k.CAR_KIND, k.KIND_NAME, FUEL, DISTANCE, FARE, SALE, CAR_REMARK FROM CAR c LEFT OUTER JOIN KIND k ON c.CAR_KIND = k.CAR_KIND";
@@ -52,9 +56,9 @@ public class CarDaoImpl implements CarDao {
 	
 	@Override
 	public List<Car> selectCarByFind(Car car) {
-		String sql = "SELECT CAR_NO, CAR_NAME, k.CAR_KIND, k.KIND_NAME, FUEL, DISTANCE, FARE, SALE, CAR_REMARK \r\n" + 
-				"  FROM CAR c LEFT OUTER JOIN KIND k ON c.CAR_KIND = k.CAR_KIND\r\n" + 
-				" WHERE k.KIND_NAME = ? AND CAR_NAME = ?";
+		String sql = "SELECT CAR_NO, CAR_NAME, k.CAR_KIND, k.KIND_NAME, FUEL, DISTANCE, FARE, SALE, CAR_REMARK " + 
+				"  FROM CAR c LEFT OUTER JOIN KIND k ON c.CAR_KIND = k.CAR_KIND" + 
+				" WHERE k.KIND_NAME = ? AND CAR_NAME LIKE  '%' || ? || '%' ";
 		try (Connection con = JdbcUtil.getConnection(); PreparedStatement pstmt = con.prepareStatement(sql)) {
 			pstmt.setString(1, car.getCarKind().getKind_name());
 			pstmt.setString(2, car.getCarName());
@@ -163,10 +167,6 @@ public class CarDaoImpl implements CarDao {
 		} catch (SQLException e) {
 			throw new RuntimeException(e);
 		}
-	}
-
-	public static CarDao getInstance() {
-		return instance;
 	}
 
 

@@ -58,6 +58,9 @@ SELECT *
  WHERE MLG_KIND = 0;
 
 -----------------------------------------------------------------------------오수정-----------------------------------------------------------------------------
+SELECT *
+  FROM CUSTOMER ;
+
 SELECT r.RENT_NO, car.CAR_NAME, car.CAR_NO, c.CTM_NO , c.CTM_NAME , c.TEL, r.RENT_DATE, r.RETURN_DATE, r.RENT_TIME, r.IS_DRIVER, r.RENT_REMARK 
   FROM RENT r LEFT OUTER JOIN CUSTOMER c ON r.CTM_NO = c.CTM_NO JOIN CAR car ON r.Car_NO = car.CAR_NO ;
  
@@ -100,6 +103,10 @@ INSERT INTO CAR VALUES ('06호8258', '지프지sd프', 'J', '휘발휘발', TRUN
 SELECT CAR_NO, CAR_NAME, k.CAR_KIND, k.KIND_NAME, FUEL, DISTANCE, FARE, SALE, CAR_REMARK 
   FROM CAR c LEFT OUTER JOIN KIND k ON c.CAR_KIND = k.CAR_KIND
  WHERE k.KIND_NAME = '승합차' AND CAR_NAME = '스타렉스';
+
+SELECT * FROM car;
+  
+ 
 
 -----------------------------------------------------------------------------김보현-----------------------------------------------------------------------------
 SELECT CTM_NO, CTM_NAME, TEL, ADDRESS, CTM_REMARK, CTM_MLG FROM CUSTOMER WHERE LIST_CTM = 1;
