@@ -16,11 +16,6 @@ Implement 메서드 구현: By All, Delete <daoimpl>
 swing 구현: 차량현황, 대여현황, 고객명단
 Implement 메서드 구현: By Find <daoimpl>
 
-김보현 
--------------
-Swing 구현: 차량추가, 차량대여<swing>
-Implement 구현: BlackList, Update <daoimpl>
-
 배성덕
 -----------
 swing구현: 마일리지, 성과현황, 메인디자인구현
