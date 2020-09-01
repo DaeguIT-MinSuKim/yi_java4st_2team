@@ -23,5 +23,5 @@ Implement 구현: BlackList, Update <daoimpl>
 
 배성덕
 -----------
-swing구현: 마일리지, 성과현황, 디자인구현
+swing구현: 마일리지, 성과현황, 메인디자인구현
 Implement 메서드 구현: By Rent, Insert <daoimpl>
