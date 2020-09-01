@@ -30,6 +30,8 @@ public class Home extends JFrame{
 			.getScaledInstance(70, 70, Image.SCALE_SMOOTH);
 	private Image img_todo = new ImageIcon(Home.class.getResource("../res/things.png")).getImage().getScaledInstance(25,
 			25, Image.SCALE_SMOOTH);
+	private Image img_car = new ImageIcon(Home.class.getResource("../res/carrent.png")).getImage().getScaledInstance(200,
+			50, Image.SCALE_SMOOTH);
 	private JPanel contentPane;
 	private JPanel panemenu;
 	private JPanel RentListPane;
@@ -82,8 +84,6 @@ public class Home extends JFrame{
 		// contentPane 안의 panel 선언
 		CustomerListPanel = new CustomerListPanel();
 		MileagePanel = new MileagePanel();
-		
-		//HomePanel = new Homepanel();
 		// 사이드바 _1_로고
 		panemenu = new JPanel();
 		panemenu.setBackground(new Color(30, 144, 255));
@@ -239,15 +239,18 @@ public class Home extends JFrame{
 				MenuClicked(HomePanel);
 			}
 		});
-		HomePane.setBounds(0, 29, 250, 60);
+		HomePane.setBounds(0, 10, 250, 79);
 		panemenu.add(HomePane);
 		HomePane.setBackground(new Color(30, 144, 255));
 		HomePane.setForeground(new Color(255, 255, 255));
+		HomePane.setLayout(null);
 
-		lblLogo = new JLabel("Rent_Car");
+		lblLogo = new JLabel("RENTCAR");
+		lblLogo.setBounds(43, 0, 195, 79);
 		HomePane.add(lblLogo);
 		lblLogo.setForeground(new Color(255, 255, 255));
-		lblLogo.setFont(new Font("인터파크고딕 M", Font.PLAIN, 30));
+		lblLogo.setFont(new Font("인터파크고딕 M", Font.BOLD, 36));
+		//lblLogo.setIcon(new ImageIcon(img_car));
 
 		lblWelcome = new JLabel("관리자님, 환영합니다.");
 		lblWelcome.setForeground(new Color(0, 0, 0));
