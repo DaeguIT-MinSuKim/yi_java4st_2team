@@ -113,6 +113,9 @@ public class EditMileagePopup extends JDialog implements ActionListener {
 
 	@Override
 	public void actionPerformed(ActionEvent e) {
+		if (e.getSource() == btnCancel) {
+			actionPerformedBtnCancel(e);
+		}
 		if (e.getSource() == btnDeduct) {
 			actionPerformedBtnDeduct(e);
 			mlg_kind = 0;
@@ -130,7 +133,6 @@ public class EditMileagePopup extends JDialog implements ActionListener {
 		String mlg_remark = tfRemark.getText().trim();
 		Mileage mitem = new Mileage(mlg_no, ctm_no, mlg_kind, point, mlg_remark);
 		Customer citem = new Customer(ctm_no);
-		citem.setMile(point);
 		MCservice.transAddMileAndCustomer(mitem, citem);
 		mList.insertMile(mitem);
 		cList.insertCtm(citem);

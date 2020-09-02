@@ -71,26 +71,16 @@ public class CustomerDaoImplTest {
 
 	@Test
 	public void test01InsertCustomer() {
-<<<<<<< HEAD
-		System.out.printf("%s()%n","testInsertCustomer");
-		Customer newCtm = new Customer(12, "백종원", "010","서울시 강남구","돈이 많다", 1000);
-=======
 		System.out.printf("%s()%n", "testInsertCustomer");
 		Customer newCtm = new Customer(12, "백종원", "010", "서울시 강남구", "돈이 많다", 0);
->>>>>>> branch 'master' of https://github.com/DaeguIT-MinSuKim/yi_java4st_2team.git
 		int res = dao.insertCustomer(newCtm);
 		Assert.assertEquals(1, res);
 	}
 
 	@Test
 	public void test02UpdateCustomer() {
-<<<<<<< HEAD
 		System.out.printf("%s()%n","test02UpdateCustomer()");
 		Customer updateCtm = new Customer(2, "김창동", "010-7724-6072", "대구 두류동", "근육천사",  1000);
-=======
-		System.out.printf("%s()%n", "test02UpdateCustomer()");
-		Customer updateCtm = new Customer(2, "김창동", "010-7724-6072", "대구 두류동", "근육천사", 99999);
->>>>>>> branch 'master' of https://github.com/DaeguIT-MinSuKim/yi_java4st_2team.git
 		int res = dao.updateCustomer(updateCtm);
 		Assert.assertEquals(1, res);
 	}

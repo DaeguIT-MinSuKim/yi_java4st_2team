@@ -68,7 +68,7 @@ public class EditCustomerPopup extends AbstractItemPopup<Customer> implements Ac
 		pContent.setBorder(new EmptyBorder(5, 5, 5, 5));
 		getContentPane().add(pContent);
 		pContent.setLayout(new BoxLayout(pContent, BoxLayout.X_AXIS));
-		
+
 		pLeft = new JPanel();
 		pContent.add(pLeft);
 		pLeft.setLayout(new GridLayout(0, 2, 20, 10));
@@ -165,28 +165,13 @@ public class EditCustomerPopup extends AbstractItemPopup<Customer> implements Ac
 		}
 	}
 
-<<<<<<< HEAD
-	private void actionPerformedBtnDetail(ActionEvent e) {
-		tfName.setEnabled(true);
-		tfTel.setEnabled(true);
-		tfAddress.setEnabled(true);
-		tfMlg.setEnabled(true);
-		tfRemark.setEnabled(true);
-
-		btnEdit.setText("확인");
-		btnCancel.setText("취소");
-		lblDialog.setText("고객 수정");
-	}
-
-=======
->>>>>>> branch 'master' of https://github.com/DaeguIT-MinSuKim/yi_java4st_2team.git
 	protected void actionPerformedBtnEdit(ActionEvent e) {
 		if (isTfEmpty()) {
-			JOptionPane.showMessageDialog(null,"공란이 존재");
+			JOptionPane.showMessageDialog(null, "공란이 존재");
 			throw new EmptyTfException("공란 이 존재");
 		}
 		if (!isValidTf()) {
-			JOptionPane.showMessageDialog(null,"이름은 한글만, 연락처는 000-0000-0000만 가능, 마일리지는 숫자만 가능");
+			JOptionPane.showMessageDialog(null, "이름은 한글만, 연락처는 000-0000-0000만 가능, 마일리지는 숫자만 가능");
 			throw new InValidTfValue("이름은 한글만, 연락처는 000-0000-0000만 가능, 마일리지는 숫자만 가능");
 		}
 
@@ -195,13 +180,8 @@ public class EditCustomerPopup extends AbstractItemPopup<Customer> implements Ac
 		String tel = tfTel.getText().trim();
 		String address = tfAddress.getText().trim();
 		String remark = tfRemark.getText().trim();
-<<<<<<< HEAD
 		int mile = Integer.parseInt(tfMlg.getText().trim());
 		Customer item = new Customer(no, name, tel, address, remark, mile);
-=======
-		int ctm_mlg = Integer.parseInt(tfMlg.getText().trim());
-		Customer item = new Customer(no, name, tel, address, remark, ctm_mlg);
->>>>>>> branch 'master' of https://github.com/DaeguIT-MinSuKim/yi_java4st_2team.git
 
 		service.updateCtm(item);
 		ctmList.updateCtm(selIdx, item);
@@ -211,7 +191,7 @@ public class EditCustomerPopup extends AbstractItemPopup<Customer> implements Ac
 	private void actionPerformedBtnDetail(ActionEvent e) {
 		setTfEditable(pLeft, true);
 		setTfEditable(pRight, true);
-		
+
 		btnEdit.setText("확인");
 		btnCancel.setText("취소");
 		lblDialog.setText("고객 수정");
@@ -220,7 +200,7 @@ public class EditCustomerPopup extends AbstractItemPopup<Customer> implements Ac
 	public void setDetail() {
 		setTfEditable(pLeft, false);
 		setTfEditable(pRight, false);
-		
+
 		btnEdit.setText("수정");
 		btnCancel.setText("닫기");
 		lblDialog.setText("고객 세부 정보");
