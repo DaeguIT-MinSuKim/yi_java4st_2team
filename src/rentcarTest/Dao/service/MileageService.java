@@ -20,8 +20,4 @@ public class MileageService {
 	public int lastMlgNo() {
 		return dao.getLastMlg_no();
 	}
-
-	public int deleteMlg(Mileage deleteMlg) {
-		return dao.deleteMileage(deleteMlg);
-	}
 }
