@@ -5,20 +5,23 @@ import java.awt.Font;
 import java.awt.GridLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.util.regex.Pattern;
 
 import javax.swing.BoxLayout;
 import javax.swing.JButton;
-import javax.swing.JDialog;
 import javax.swing.JLabel;
+import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JTextField;
 import javax.swing.SwingConstants;
 
 import rentcarTest.Dao.service.CustomerService;
 import rentcarTest.dto.Customer;
+import rentcarTest.exception.EmptyTfException;
+import rentcarTest.exception.InValidTfValue;
 import rentcarTest.panel.CustomerListPanel;
 
-public class AddCustomerPopup extends JDialog implements ActionListener {
+public class AddCustomerPopup extends AbstractItemPopup<Customer> implements ActionListener {
 	private JPanel pBtns;
 	private JButton btnAdd;
 	private JButton btnCancel;
@@ -34,10 +37,11 @@ public class AddCustomerPopup extends JDialog implements ActionListener {
 	private CustomerService service = new CustomerService();
 
 	private CustomerListPanel ctmList = new CustomerListPanel();
-	
+
 	public void setCtmList(CustomerListPanel ctmList) {
 		this.ctmList = ctmList;
 	}
+
 	public AddCustomerPopup() {
 		initComponents();
 	}
@@ -129,13 +133,22 @@ public class AddCustomerPopup extends JDialog implements ActionListener {
 	}
 
 	protected void actionPerformedBtnAdd(ActionEvent e) {
+		if (isTfEmpty()) {
+			JOptionPane.showMessageDialog(null,"공란이 존재");
+			throw new EmptyTfException("공란 이 존재");
+		}
+		if (!isValidTf()) {
+			JOptionPane.showMessageDialog(null,"이름은 한글만, 연락처는 000-0000-0000만 가능, 마일리지는 숫자만 가능");
+			throw new InValidTfValue("이름은 한글만, 연락처는 000-0000-0000만 가능, 마일리지는 숫자만 가능");
+		}
+		
 		int no = Integer.parseInt(tfNo.getText().trim());
 		String name = tfName.getText().trim();
 		String tel = tfTel.getText().trim();
 		String address = tfAddress.getText().trim();
 		String remark = tfRemark.getText().trim();
-		int ctm_mlg = Integer.parseInt(tfMlg.getText().trim());
-		Customer item = new Customer(no, name, tel, address, remark, ctm_mlg);
+		int mile = Integer.parseInt(tfMlg.getText().trim());
+		Customer item = new Customer(no, name, tel, address, remark, mile);
 		service.insertCtm(item);
 		ctmList.insertCtm(item);
 		AddCustomerPopup.this.dispose();
@@ -143,5 +156,22 @@ public class AddCustomerPopup extends JDialog implements ActionListener {
 
 	protected void actionPerformedBtnCancel(ActionEvent e) {
 		AddCustomerPopup.this.dispose();
+	}
+
+	@Override
+	boolean isValidTf() {
+		String name = tfName.getText().trim();
+		String tel = tfTel.getText().trim();
+		String mlg = tfMlg.getText().trim();
+
+		boolean nameCheck = Pattern.matches("^[가-힣]+$", name);
+		boolean telCheck = Pattern.matches("\\d{3}-\\d{3,4}-\\d{4}", tel);
+		boolean mlgCheck = Pattern.matches("^[0-9]*$", mlg);
+
+		return nameCheck && telCheck && mlgCheck;
+	}
+	
+	@Override
+	public void setItem(Customer item) {
 	}
 }

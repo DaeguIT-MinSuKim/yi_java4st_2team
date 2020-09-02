@@ -9,7 +9,7 @@ public class Customer {
 	private String tel;		//연락처
 	private String address;	//주소
 	private String remark;	//고객비고
-	private int ctm_mlg;	//고객마일리지
+	private int mile;	//고객마일리지
 	private int list_ctm;	//블랙리스트
 	
 //	생성자
@@ -24,23 +24,23 @@ public class Customer {
 		this.name = name;
 	}
 
-	public Customer(int no, String name, String tel, String address, String remark, int ctm_mlg) {
+	public Customer(int no, String name, String tel, String address, String remark, int mile) {
 		super();
 		this.no = no;
 		this.name = name;
 		this.tel = tel;
 		this.address = address;
 		this.remark = remark;
-		this.ctm_mlg = ctm_mlg;
+		this.mile = mile;
 	}
 
-	public Customer(int no, String name, String tel, String address, String remark, int ctm_mlg, int list_ctm) {
+	public Customer(int no, String name, String tel, String address, String remark, int mile, int list_ctm) {
 		this.no = no;
 		this.name = name;
 		this.tel = tel;
 		this.address = address;
 		this.remark = remark;
-		this.ctm_mlg = ctm_mlg;
+		this.mile = mile;
 		this.list_ctm = list_ctm;
 	}
 
@@ -85,12 +85,12 @@ public class Customer {
 		this.remark = remark;
 	}
 
-	public int getCtm_mlg() {
-		return ctm_mlg;
+	public int getMile() {
+		return mile;
 	}
 
-	public void setCtm_mlg(int ctm_mlg) {
-		this.ctm_mlg = ctm_mlg;
+	public void setMile(int mile) {
+		this.mile = mile;
 	}
 	
 	public int getList_ctm() {
@@ -104,7 +104,7 @@ public class Customer {
 	@Override
 	public String toString() {
 		return String.format("%s %s %s %s %s %s", no, name, tel,
-				address, remark, ctm_mlg);
+				address, remark, mile);
 	}
 
 	//	고객번호가 기본키이기 때문에 hashcode & equals 고객번호(no)만 비교

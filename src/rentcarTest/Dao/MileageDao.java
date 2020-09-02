@@ -13,5 +13,6 @@ public interface MileageDao {
 
 	int getLastMlg_no();
 
-	int deleteMileage(Mileage deleteMlg);
-	}
+	/*
+	 * int deleteMileage(Mileage deleteMlg);
+	 */	}

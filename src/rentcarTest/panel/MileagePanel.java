@@ -40,7 +40,7 @@ public class MileagePanel extends JPanel implements ActionListener {
 	}
 
 	private void initcomponents() {
-		setPreferredSize(new Dimension(650, 661));
+		setPreferredSize(new Dimension(870, 661));
 		setBackground(Color.WHITE);
 		setLayout(new BoxLayout(this, BoxLayout.Y_AXIS));
 

@@ -12,7 +12,7 @@ public class MileageTable extends AbstractItemTable<Mileage> {
 
 	@Override
 	Object[] toArray(Mileage item) {
-		return new Object[] { item.getMlg_no(), item.getCtm_no(), item.getMlg_kind() , item.getPoint(),
+		return new Object[] { item.getMlg_no(), item.getCtm_no(), item.getStringMlg_kind(), item.getPoint(),
 				item.getMlg_remark() };
 	}
 

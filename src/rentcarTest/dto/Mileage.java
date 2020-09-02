@@ -7,6 +7,7 @@ public class Mileage {
 	private int mlg_kind;		// 마일리지 분류 (+ , - 체크사항)
 	private int point;			// 마일리지
 	private String mlg_remark; 	// 마일리지비고
+	private String mlg_skind; //마일리지 차감 및 추가를 String 타입으로 보이게 함
 	
 //	생성자
 //	더 추가할 생성자? 매개변수 뭘로할지 피드백 주세요
@@ -42,10 +43,21 @@ public Mileage(int mlg_no) {
 	public int getMlg_kind() {
 		return mlg_kind;
 	}
+	public String getStringMlg_kind() {
+		 getMlg_kind();
+		if(mlg_kind == 1) {
+			mlg_skind = "추가";
+		}if(mlg_kind == 0) {
+			mlg_skind = "차감";
+		}
+		return mlg_skind;
+	}
+	
 	public void setMlg_kind(int mlg_kind) {
 		this.mlg_kind = mlg_kind;
 	}
-	public int getPoint() {
+	
+	public  int getPoint() {
 		return point;
 	}
 	public void setPoint(int point) {

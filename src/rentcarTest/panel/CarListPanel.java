@@ -51,7 +51,7 @@ public class CarListPanel extends JPanel implements ActionListener, ItemListener
 	private JButton btnSearch;
 
 	public CarListPanel() {
-		setPreferredSize(new Dimension(650, 661));
+		setPreferredSize(new Dimension(860, 661));
 		service = new CarService();
 		lists = service.showCars();
 

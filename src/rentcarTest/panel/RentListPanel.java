@@ -22,13 +22,15 @@ import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 import javax.swing.JTextField;
+import javax.swing.SwingConstants;
+
+import com.toedter.calendar.JDateChooser;
 
 import rentcarTest.Dao.service.RentService;
 import rentcarTest.dto.Car;
 import rentcarTest.dto.Customer;
 import rentcarTest.dto.Rent;
 import rentcarTest.table.RentTable;
-import com.toedter.calendar.JDateChooser;
 
 public class RentListPanel extends JPanel implements ActionListener, ItemListener {
 	private JTextField tfSearch;
@@ -52,7 +54,7 @@ public class RentListPanel extends JPanel implements ActionListener, ItemListene
 	private JDateChooser dateReturn;
 	
 	public RentListPanel() {
-		setPreferredSize(new Dimension(650, 650));
+		setPreferredSize(new Dimension(870, 650));
 		service = new RentService();
 		lists = service.showRents();
 		
@@ -71,6 +73,7 @@ public class RentListPanel extends JPanel implements ActionListener, ItemListene
 		pTitle.setLayout(new BorderLayout(0, 0));
 		
 		JLabel lblNewLabel = new JLabel("대여 기록");
+		lblNewLabel.setHorizontalAlignment(SwingConstants.CENTER);
 		lblNewLabel.setFont(new Font("굴림", Font.PLAIN, 30));
 		pTitle.add(lblNewLabel, BorderLayout.CENTER);
 		
@@ -79,6 +82,7 @@ public class RentListPanel extends JPanel implements ActionListener, ItemListene
 		pSearch.setLayout(new BoxLayout(pSearch, BoxLayout.X_AXIS));
 		
 		pSearch_check = new JPanel();
+		pSearch_check.setBackground(new Color(255, 255, 255));
 		pSearch.add(pSearch_check);
 		pSearch_check.setLayout(new FlowLayout(FlowLayout.LEFT, 5, 5));
 		
@@ -96,9 +100,11 @@ public class RentListPanel extends JPanel implements ActionListener, ItemListene
 		
 		dateReturn = new JDateChooser();
 		pSearch_check.add(dateReturn);
+		chckbxRent.setBackground(new Color(255, 255, 255));
 		pSearch_check.add(chckbxRent);
 		
 		pSearch_button = new JPanel();
+		pSearch_button.setBackground(new Color(255, 255, 255));
 		FlowLayout flowLayout = (FlowLayout) pSearch_button.getLayout();
 		flowLayout.setAlignment(FlowLayout.RIGHT);
 		pSearch.add(pSearch_button);
@@ -116,6 +122,7 @@ public class RentListPanel extends JPanel implements ActionListener, ItemListene
 		pSearch_button.add(btnSearch);
 		
 		pTable = new JPanel();
+		pTable.setBackground(new Color(255, 255, 255));
 		add(pTable);
 		pTable.setLayout(new BorderLayout(0, 0));
 		
@@ -126,6 +133,7 @@ public class RentListPanel extends JPanel implements ActionListener, ItemListene
 		scrollPane.setViewportView(table);
 		
 		pBtns = new JPanel();
+		pBtns.setBackground(new Color(255, 255, 255));
 		add(pBtns);
 		
 		btnUpdate = new JButton("수정");

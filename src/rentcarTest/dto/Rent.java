@@ -12,6 +12,7 @@ public class Rent {
 	private int rent_time;	//대여시간
 	private int is_driver; // 기사여부
 	private String rent_remark; // 대여비고
+	private String Sis_driver; //기사여부를 strin으로 바꿈
 	
 //	생성자
 //	더 추가할 생성자? 매개변수 뭘로할지 피드백 주세요
@@ -93,6 +94,16 @@ public class Rent {
 
 	public int getIs_driver() {
 		return is_driver;
+	}
+	
+	public String getSIs_driver() {
+		 getIs_driver();
+		 if(is_driver == 0) {
+			 Sis_driver="있음";
+		 }else {
+			 Sis_driver="없음";
+		 }
+		return Sis_driver;
 	}
 
 	public void setIs_driver(int is_driver) {

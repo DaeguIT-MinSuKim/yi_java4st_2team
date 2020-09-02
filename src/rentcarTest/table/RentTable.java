@@ -19,14 +19,14 @@ public class RentTable extends AbstractItemTable<Rent>  {
 			item.getCtm_no().getName(),
 			item.getCtm_no().getTel(),
 			String.format("%s ~ %s", item.getRent_date(), item.getReturn_date()),
-			item.getIs_driver(),
+			item.getSIs_driver(),
 			item.getRent_remark()
 		};
 	}
 
 	@Override
 	void setWidthAndAlign() {
-		tableSetWidth(100, 200, 100, 100, 100, 100, 100);
+		tableSetWidth(100, 100, 100, 100, 280, 50, 100);
 		
 		tableCellAlign(SwingConstants.CENTER, 0, 1, 2, 3, 4, 5);
 		tableCellAlign(SwingConstants.LEADING, 6);
