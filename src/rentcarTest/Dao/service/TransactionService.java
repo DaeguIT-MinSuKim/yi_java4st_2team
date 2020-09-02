@@ -30,6 +30,7 @@ public class TransactionService {
 			try (PreparedStatement cpstmt = con.prepareStatement(cSql)) {
 				cpstmt.setInt(1, ctm.getMile());
 				cpstmt.setInt(2, ctm.getNo());
+				cpstmt.executeUpdate();
 			}
 			con.commit();
 			con.setAutoCommit(true);
@@ -76,8 +77,7 @@ public class TransactionService {
 			System.out.println(con.getAutoCommit());
 		} catch (SQLException ee) {
 			throw new RuntimeException(ee);
-		}
-		;
+		};
 		throw new RuntimeException(e);
 	}		
 }
