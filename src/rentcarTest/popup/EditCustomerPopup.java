@@ -10,6 +10,7 @@ import javax.swing.border.EmptyBorder;
 
 import rentcarTest.Dao.service.CustomerService;
 import rentcarTest.dto.Customer;
+import rentcarTest.dto.Mileage;
 import rentcarTest.panel.CustomerListPanel;
 
 import javax.swing.JLabel;
@@ -47,7 +48,7 @@ public class EditCustomerPopup extends JDialog implements ActionListener {
 	public void setCtmList(CustomerListPanel ctmList) {
 		this.ctmList = ctmList;
 	}
-	
+
 	public EditCustomerPopup() {
 		initComponents();
 	}
@@ -154,10 +155,9 @@ public class EditCustomerPopup extends JDialog implements ActionListener {
 		tfName.setText(ctm.getName());
 		tfTel.setText(ctm.getTel());
 		tfAddress.setText(ctm.getAddress());
-		tfMlg.setText(String.valueOf(ctm.getCtm_mlg()));
+		tfMlg.setText(String.valueOf(ctm.getMile()));
 		tfRemark.setText(ctm.getRemark());
 	}
-	
 
 	public void actionPerformed(ActionEvent e) {
 		if (e.getSource() == btnEdit) {
@@ -178,7 +178,7 @@ public class EditCustomerPopup extends JDialog implements ActionListener {
 		tfAddress.setEnabled(true);
 		tfMlg.setEnabled(true);
 		tfRemark.setEnabled(true);
-		
+
 		btnEdit.setText("확인");
 		btnCancel.setText("취소");
 		lblDialog.setText("고객 수정");
@@ -190,9 +190,9 @@ public class EditCustomerPopup extends JDialog implements ActionListener {
 		String tel = tfTel.getText().trim();
 		String address = tfAddress.getText().trim();
 		String remark = tfRemark.getText().trim();
-		int ctm_mlg = Integer.parseInt(tfMlg.getText().trim());
-		Customer item = new Customer(no, name, tel, address, remark, ctm_mlg);
-		
+		int mile = Integer.parseInt(tfMlg.getText().trim());
+		Customer item = new Customer(no, name, tel, address, remark, mile);
+
 		service.updateCtm(item);
 		ctmList.updateCtm(selIdx, item);
 		EditCustomerPopup.this.dispose();

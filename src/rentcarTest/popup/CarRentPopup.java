@@ -279,7 +279,7 @@ public class CarRentPopup extends JDialog implements ActionListener, ItemListene
 		tfCtmNo.setText(String.valueOf(item.getNo()));
 		tfCtmName.setText(item.getName());
 		tfTel.setText(item.getTel());
-		lblMileage3.setText(String.valueOf(item.getCtm_mlg()));
+		lblMileage3.setText(String.valueOf(item.getMile()));
 	}
 	
 	private void checkIsDriver(ItemEvent e) {

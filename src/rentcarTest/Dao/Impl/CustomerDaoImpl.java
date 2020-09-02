@@ -147,7 +147,7 @@ public class CustomerDaoImpl implements CustomerDao {
 			pstmt.setString(3, ctm.getTel());
 			pstmt.setString(4, ctm.getAddress());
 			pstmt.setString(5, ctm.getRemark());
-			pstmt.setInt(6, ctm.getCtm_mlg());
+			pstmt.setInt(6, ctm.getMile());
 			pstmt.setInt(7, 0);
 			
 			return pstmt.executeUpdate();
@@ -167,7 +167,7 @@ public class CustomerDaoImpl implements CustomerDao {
 	            pstmt.setString(2, ctm.getTel());
 	            pstmt.setString(3, ctm.getAddress());
 	            pstmt.setString(4, ctm.getRemark());
-	            pstmt.setInt(5, ctm.getCtm_mlg());
+	            pstmt.setInt(5, ctm.getMile());
 	            pstmt.setInt(6, ctm.getNo());
 	            return pstmt.executeUpdate();
 	            
@@ -195,9 +195,9 @@ public class CustomerDaoImpl implements CustomerDao {
 		String tel = rs.getString("TEL");
 		String address = rs.getString("ADDRESS");
 		String remark = rs.getString("CTM_REMARK");
-		int mlg = rs.getInt("CTM_MLG");
-		int list_ctm = rs.getInt("LIST_CTM");
-		return new Customer(no, name, tel, address, remark, mlg, list_ctm);
+		int mile = rs.getInt("CTM_MLG");
+    	int list_ctm = rs.getInt("LIST_CTM");
+		return new Customer(no, name, tel, address, remark, mile, list_ctm);
 	}
 	
 	public int getLastCtm_no() {

@@ -19,9 +19,8 @@ import rentcarTest.Dao.service.MileageService;
 import rentcarTest.Dao.service.TransactionService;
 import rentcarTest.dto.Customer;
 import rentcarTest.dto.Mileage;
+import rentcarTest.panel.CustomerListPanel;
 import rentcarTest.panel.MileagePanel;
-import javax.swing.JCheckBox;
-import java.awt.FlowLayout;
 
 public class EditMileagePopup extends JDialog implements ActionListener {
 
@@ -35,14 +34,13 @@ public class EditMileagePopup extends JDialog implements ActionListener {
 	private JTextField tfMileage;
 	private JTextField tfRemark;
 	private JLabel lblDialog;
-	private int mlg_kind = 0;
-	private int point;
 
 	private MileageService Mservice = new MileageService();
 	private CustomerService Cservice = new CustomerService();
 	private TransactionService MCservice = new TransactionService();
 	private MileagePanel mList = new MileagePanel();
-	private Customer citem;
+	private CustomerListPanel cList = new CustomerListPanel();
+	private int mlg_kind;
 
 	public EditMileagePopup() {
 		initComponents();
@@ -115,9 +113,6 @@ public class EditMileagePopup extends JDialog implements ActionListener {
 
 	@Override
 	public void actionPerformed(ActionEvent e) {
-		if (e.getSource() == btnCancel) {
-			actionPerformedBtnCancel(e);
-		}
 		if (e.getSource() == btnDeduct) {
 			actionPerformedBtnDeduct(e);
 			mlg_kind = 0;
@@ -134,9 +129,11 @@ public class EditMileagePopup extends JDialog implements ActionListener {
 		int point = Integer.parseInt(tfMileage.getText().trim());
 		String mlg_remark = tfRemark.getText().trim();
 		Mileage mitem = new Mileage(mlg_no, ctm_no, mlg_kind, point, mlg_remark);
-		Cservice.findCustomers(citem);
+		Customer citem = new Customer(ctm_no);
+		citem.setMile(point);
 		MCservice.transAddMileAndCustomer(mitem, citem);
 		mList.insertMile(mitem);
+		cList.insertCtm(citem);
 		EditMileagePopup.this.dispose();
 
 	}
@@ -146,9 +143,11 @@ public class EditMileagePopup extends JDialog implements ActionListener {
 		int ctm_no = Integer.parseInt(tfNo.getText().trim());
 		int point = Integer.parseInt(tfMileage.getText().trim());
 		String mlg_remark = tfRemark.getText().trim();
-		Mileage item = new Mileage(mlg_no, ctm_no, mlg_kind, point, mlg_remark);
-		Mservice.insertMile(item);
-		mList.insertMile(item);
+		Mileage mitem = new Mileage(mlg_no, ctm_no, mlg_kind, point, mlg_remark);
+		Customer citem = new Customer(ctm_no);
+		MCservice.transDeductMileAndCustomer(mitem, citem);
+		mList.insertMile(mitem);
+		cList.insertCtm(citem);
 		EditMileagePopup.this.dispose();
 	}
 

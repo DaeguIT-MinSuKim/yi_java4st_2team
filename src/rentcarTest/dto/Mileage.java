@@ -47,15 +47,17 @@ public Mileage(int mlg_no) {
 		 getMlg_kind();
 		if(mlg_kind == 1) {
 			mlg_skind = "추가";
-		}else {
+		}if(mlg_kind == 0) {
 			mlg_skind = "차감";
 		}
 		return mlg_skind;
 	}
+	
 	public void setMlg_kind(int mlg_kind) {
 		this.mlg_kind = mlg_kind;
 	}
-	public int getPoint() {
+	
+	public  int getPoint() {
 		return point;
 	}
 	public void setPoint(int point) {

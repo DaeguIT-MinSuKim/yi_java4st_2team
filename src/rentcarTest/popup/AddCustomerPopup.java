@@ -34,10 +34,11 @@ public class AddCustomerPopup extends JDialog implements ActionListener {
 	private CustomerService service = new CustomerService();
 
 	private CustomerListPanel ctmList = new CustomerListPanel();
-	
+
 	public void setCtmList(CustomerListPanel ctmList) {
 		this.ctmList = ctmList;
 	}
+
 	public AddCustomerPopup() {
 		initComponents();
 	}
@@ -134,8 +135,8 @@ public class AddCustomerPopup extends JDialog implements ActionListener {
 		String tel = tfTel.getText().trim();
 		String address = tfAddress.getText().trim();
 		String remark = tfRemark.getText().trim();
-		int ctm_mlg = Integer.parseInt(tfMlg.getText().trim());
-		Customer item = new Customer(no, name, tel, address, remark, ctm_mlg);
+		int mile = Integer.parseInt(tfMlg.getText().trim());
+		Customer item = new Customer(no, name, tel, address, remark, mile);
 		service.insertCtm(item);
 		ctmList.insertCtm(item);
 		AddCustomerPopup.this.dispose();
