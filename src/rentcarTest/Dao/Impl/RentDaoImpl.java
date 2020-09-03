@@ -74,7 +74,6 @@ public class RentDaoImpl implements RentDao {
 		if (sql.contains("AND")) {
 			sql = sql.substring(0, sql.lastIndexOf("AND"));
 		}
-		System.out.println(sql);
 		try (Connection con = JdbcUtil.getConnection();
 				PreparedStatement pstmt = con.prepareStatement(sql);) {
 			if (dateRent != null) {
