@@ -147,8 +147,8 @@ public class AddCustomerPopup extends AbstractItemPopup<Customer> implements Act
 		String tel = tfTel.getText().trim();
 		String address = tfAddress.getText().trim();
 		String remark = tfRemark.getText().trim();
-		int ctm_mlg = Integer.parseInt(tfMlg.getText().trim());
-		Customer item = new Customer(no, name, tel, address, remark, ctm_mlg);
+		int mile = Integer.parseInt(tfMlg.getText().trim());
+		Customer item = new Customer(no, name, tel, address, remark, mile);
 		service.insertCtm(item);
 		ctmList.insertCtm(item);
 		AddCustomerPopup.this.dispose();

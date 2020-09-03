@@ -1,7 +1,6 @@
 package rentcarTest.popup;
 
-import java.awt.Component;
-import java.awt.Container;
+import java.awt.BorderLayout;
 import java.awt.FlowLayout;
 import java.awt.Font;
 import java.awt.GridLayout;
@@ -12,9 +11,11 @@ import java.util.regex.Pattern;
 
 import javax.swing.BoxLayout;
 import javax.swing.JButton;
+import javax.swing.JCheckBox;
 import javax.swing.JLabel;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
+import javax.swing.JScrollPane;
 import javax.swing.JTextField;
 import javax.swing.SwingConstants;
 import javax.swing.border.EmptyBorder;
@@ -26,10 +27,6 @@ import rentcarTest.dto.Rent;
 import rentcarTest.exception.EmptyTfException;
 import rentcarTest.exception.InValidTfValue;
 import rentcarTest.panel.CustomerListPanel;
-import javax.swing.JCheckBox;
-import javax.swing.JScrollPane;
-import java.awt.BorderLayout;
-import javax.swing.JTable;
 import rentcarTest.table.CustomerRentTable;
 
 public class EditCustomerPopup extends AbstractItemPopup<Customer> implements ActionListener {
@@ -175,7 +172,7 @@ public class EditCustomerPopup extends AbstractItemPopup<Customer> implements Ac
 		tfName.setText(ctm.getName());
 		tfTel.setText(ctm.getTel());
 		tfAddress.setText(ctm.getAddress());
-		tfMlg.setText(String.valueOf(ctm.getCtm_mlg()));
+		tfMlg.setText(String.valueOf(ctm.getMile()));
 		tfRemark.setText(ctm.getRemark());
 		
 		if(ctm.getList_ctm() == 1) {

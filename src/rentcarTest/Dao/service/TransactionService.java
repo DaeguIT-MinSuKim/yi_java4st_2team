@@ -13,7 +13,7 @@ public class TransactionService {
 	//마일리지테이불에 마일리지 추가, 고객테이블에 마일리지 추가
 	public void transAddMileAndCustomer(Mileage mlg, Customer ctm) {
 		String mSql = "INSERT INTO MILEAGE VALUES(?,?,?,?,?)";
-		String cSql = "UPDATE CUSTOMER SET CTM_MLG=CTM_MLG+4000 WHERE CTM_NO=?";
+		String cSql = "UPDATE CUSTOMER SET CTM_MLG=CTM_MLG+? WHERE CTM_NO=?";
 		Connection con = null; 
 		try {
 			con = JdbcUtil.getConnection();
@@ -28,7 +28,38 @@ public class TransactionService {
 				mpstmt.executeUpdate();
 			}
 			try (PreparedStatement cpstmt = con.prepareStatement(cSql)) {
-				cpstmt.setInt(1, ctm.getNo());
+				cpstmt.setInt(1, ctm.getMile());
+				cpstmt.setInt(2, ctm.getNo());
+				cpstmt.executeUpdate();
+			}
+			con.commit();
+			con.setAutoCommit(true);
+			System.out.println(con.getAutoCommit());
+		} catch (SQLException e) {
+			System.out.println("rollback");
+			processRollback(con, e);
+		}
+	}
+	//마일리지 테이블에 차감했을때 고객테이블에도 차감
+	public void transDeductMileAndCustomer(Mileage mlg, Customer ctm) {
+		String mSql = "INSERT INTO MILEAGE VALUES(?,?,?,?,?)";
+		String cSql = "UPDATE CUSTOMER SET CTM_MLG=CTM_MLG-?  WHERE CTM_NO=?";
+		Connection con = null; 
+		try {
+			con = JdbcUtil.getConnection();
+			con.setAutoCommit(false); 
+			System.out.println(con.getAutoCommit());
+			try (PreparedStatement mpstmt = con.prepareStatement(mSql)) {
+				mpstmt.setInt(1, mlg.getMlg_no());
+				mpstmt.setInt(2, mlg.getCtm_no());
+				mpstmt.setInt(3, mlg.getMlg_kind());
+				mpstmt.setInt(4, mlg.getPoint());
+				mpstmt.setString(5, mlg.getMlg_remark());
+				mpstmt.executeUpdate();
+			}
+			try (PreparedStatement cpstmt = con.prepareStatement(cSql)) {
+				cpstmt.setInt(1, ctm.getMile());
+				cpstmt.setInt(2, ctm.getNo());
 			}
 			con.commit();
 			con.setAutoCommit(true);
@@ -46,8 +77,7 @@ public class TransactionService {
 			System.out.println(con.getAutoCommit());
 		} catch (SQLException ee) {
 			throw new RuntimeException(ee);
-		}
-		;
+		};
 		throw new RuntimeException(e);
 	}		
 }

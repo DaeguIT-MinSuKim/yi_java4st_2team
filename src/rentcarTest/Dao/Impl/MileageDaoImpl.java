@@ -90,15 +90,4 @@ public class MileageDaoImpl implements MileageDao {
 		String mlg_remark = rs.getString("MLG_REMARK");
 		return new Mileage(mlg_no, ctm_no, mlg_kind, point, mlg_remark);
 	}
-
-	@Override
-	public int deleteMileage(Mileage deleteMlg) {
-		String sql = "DELETE FROM MILEAGE WHERE CTM_NO = ?";
-		try (Connection con = JdbcUtil.getConnection(); PreparedStatement pstmt = con.prepareStatement(sql)) {
-			pstmt.setInt(1, deleteMlg.getMlg_no());
-			return pstmt.executeUpdate();
-		} catch (SQLException e) {
-			throw new RuntimeException(e);
-		}
-	}
 }

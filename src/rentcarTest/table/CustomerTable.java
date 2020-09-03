@@ -15,7 +15,7 @@ public class CustomerTable extends AbstractItemTable<Customer> {
 	@Override
 	Object[] toArray(Customer item) {
 		return new Object[] { String.format("%03d", item.getNo()), item.getName(), item.getTel(), item.getAddress(),
-				String.format("%,d P", item.getCtm_mlg()), item.getRemark() };
+				String.format("%,d P", item.getMile()), item.getRemark() };
 	}
 
 	@Override

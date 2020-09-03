@@ -2,7 +2,13 @@ package rentcarTest.panel;
 
 import java.awt.BorderLayout;
 import java.awt.Color;
+import java.awt.Dimension;
 import java.awt.FlowLayout;
+import java.awt.Font;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
+import java.awt.event.ItemEvent;
+import java.awt.event.ItemListener;
 import java.util.List;
 
 import javax.swing.BoxLayout;
@@ -15,19 +21,17 @@ import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 import javax.swing.JTextField;
+import javax.swing.SwingConstants;
+
+import com.toedter.calendar.JDateChooser;
 
 import rentcarTest.Dao.service.RentService;
 import rentcarTest.dto.Car;
-import rentcarTest.dto.Kind;
+import rentcarTest.dto.Customer;
 import rentcarTest.dto.Rent;
 import rentcarTest.table.RentTable;
-import java.awt.Dimension;
-import java.awt.Font;
-import javax.swing.SwingConstants;
-import java.awt.event.ActionListener;
-import java.awt.event.ActionEvent;
 
-public class RentListPanel extends JPanel implements ActionListener{
+public class RentListPanel extends JPanel implements ActionListener, ItemListener {
 	private JTextField tfSearch;
 	private RentTable table;
 	
@@ -45,6 +49,8 @@ public class RentListPanel extends JPanel implements ActionListener{
 	private JButton btnUpdate;
 	private JButton btnRent;
 	private List<Rent> rentFindList;
+	private JDateChooser dateRent;
+	private JDateChooser dateReturn;
 	
 	public RentListPanel() {
 		setPreferredSize(new Dimension(870, 650));
@@ -80,6 +86,19 @@ public class RentListPanel extends JPanel implements ActionListener{
 		pSearch_check.setLayout(new FlowLayout(FlowLayout.LEFT, 5, 5));
 		
 		chckbxRent = new JCheckBox("대여중");
+		chckbxRent.addItemListener(this);
+		
+		JLabel lblRentDate = new JLabel("대여일자");
+		pSearch_check.add(lblRentDate);
+		
+		dateRent = new JDateChooser();
+		pSearch_check.add(dateRent);
+		
+		JLabel lblReturnDate = new JLabel("반납일자");
+		pSearch_check.add(lblReturnDate);
+		
+		dateReturn = new JDateChooser();
+		pSearch_check.add(dateReturn);
 		chckbxRent.setBackground(new Color(255, 255, 255));
 		pSearch_check.add(chckbxRent);
 		
@@ -124,6 +143,25 @@ public class RentListPanel extends JPanel implements ActionListener{
 		
 	}
 
+	@Override
+	public void itemStateChanged(ItemEvent e) {
+		if (e.getSource() == chckbxRent) {
+			selectSearchCheckedRent(e);
+		}
+
+	}
+
+	// check_box - 대여중
+	private void selectSearchCheckedRent(ItemEvent e) {
+		if (e.getStateChange() == ItemEvent.SELECTED) {
+			lists = service.showRentsIng();
+			table.setItems(lists);
+		} else {
+			lists = service.showRents();
+			table.setItems(lists);
+		}
+	}
+
 	// 검색 분류
 	private void setSearchCate() {
 		String[] items = {"검색", "차번호", "성명", "연락처"};
@@ -136,22 +174,41 @@ public class RentListPanel extends JPanel implements ActionListener{
 			actionPerformedBtnSearch(e);
 		}
 	}
+	
 	protected void actionPerformedBtnSearch(ActionEvent e) {
 		rentFindList = null;
-		String searchText = tfSearch.getText().trim();
-		Rent rentListFind = new Rent();
+		Rent rent = new Rent();
+		/*Date dateRent = new Date();  // 대여일자
+		Date dateReturn = new Date();  // 반납일자*/
+		String search = cmbCate.getSelectedItem().toString();  //검색분류
+		String searchText = tfSearch.getText().trim();  //검색내용
+
+		Car car = new Car();
+		Customer ctm = new Customer();
 		
-		Object cmbCateText = cmbCate.getSelectedItem();
-		
-		if (cmbCateText.equals("검색")) {
-		} else if (searchText.equals("")) {
-			JOptionPane.showMessageDialog(null, "검색할 내용을 입력해주세요.");
-		} else {
-			if (cmbCateText.equals("차번호")) {
-				rentListFind.setCar_no(new Car(searchText));
-				rentFindList = service.findRents(rentListFind);
+		if (dateRent.getDate() != null) {
+			System.out.println(dateRent.getDate());
+		}
+		if (searchText != null) {
+			if (search.equals("차번호")) {
+				car.setCarNo(searchText);
+			}
+			if (search.equals("성명")) {
+				ctm.setName(searchText);
+			}
+			if (search.equals("연락처")) {
+				ctm.setTel(searchText);
 			}
 		}
-		table.setItems(rentFindList);
+		rent.setCar_no(car);
+		rent.setCtm_no(ctm);
+		rentFindList = service.showFindRents(rent, dateRent.getDate(), dateReturn.getDate(), search);
+		
+		if (rentFindList != null) {
+			table.setItems(rentFindList);
+		} else {
+			JOptionPane.showMessageDialog(null, "검색된 내용이 없습니다.");
+		}
+		
 	}
 }

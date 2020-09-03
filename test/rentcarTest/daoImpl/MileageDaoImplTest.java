@@ -52,13 +52,4 @@ public class MileageDaoImplTest {
 		int res = dao.insertMileage(newMile);
 		Assert.assertEquals(1, res);
 	}
-	
-	@Test
-	public void test02deleteMileageDao() {
-		System.out.printf("%s()%n", "testDeleteMileageDao()");
-		Mileage deleteMlg= new Mileage(10);
-		int res = dao.deleteMileage(deleteMlg);
-		Assert.assertEquals(1, res); 
-	}
-
 }
