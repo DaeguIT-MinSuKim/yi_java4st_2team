@@ -97,11 +97,10 @@ public class Rent {
 	}
 	
 	public String getSIs_driver() {
-		 getIs_driver();
 		 if(is_driver == 0) {
-			 Sis_driver="있음";
+			 Sis_driver="X";
 		 }else {
-			 Sis_driver="없음";
+			 Sis_driver="O";
 		 }
 		return Sis_driver;
 	}

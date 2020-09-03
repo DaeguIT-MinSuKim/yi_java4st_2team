@@ -44,4 +44,8 @@ public class CustomerService {
 	public int deleteCtm(Customer item) {
 		return dao.deleteCustomer(item);
 	}
+	
+	public boolean deleteCheck(Customer ctm) {
+		return dao.deleteCheck(ctm);
+	}
 }

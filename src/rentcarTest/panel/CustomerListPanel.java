@@ -56,8 +56,6 @@ public class CustomerListPanel extends JPanel implements ActionListener, ItemLis
 	private List<Customer> ctmFindList;
 
 	public CustomerListPanel() {
-		editPopup = new EditCustomerPopup();
-
 		initComponents();
 
 		CustomPopupMenu popMenu = new CustomPopupMenu(this);
@@ -139,14 +137,12 @@ public class CustomerListPanel extends JPanel implements ActionListener, ItemLis
 	}
 
 	public void insertCtm(Customer item) {
-		service = new CustomerService();
 		lists = service.showCustomers();
 		table.setItems(lists);
 	}
 
-	public void updateCtm(int idx, Customer item) {
-		table.updateRow(idx, item);
-		lists.set(idx, item);
+	public void updateCtm(Customer item) {
+		lists = service.showCustomers();
 		table.setItems(lists);
 	}
 
@@ -197,7 +193,6 @@ public class CustomerListPanel extends JPanel implements ActionListener, ItemLis
 					return;
 				}
 				Customer selCtm = lists.get(selIdx);
-				editPopup.setSelIdx(selIdx);
 				editPopup.setCtmList(this);
 				editPopup.setItem(selCtm);
 				editPopup.setVisible(true);
@@ -210,9 +205,9 @@ public class CustomerListPanel extends JPanel implements ActionListener, ItemLis
 				}
 				Customer deleteCtm = lists.get(selIdx);
 				service.deleteCtm(deleteCtm);
-				lists.remove(selIdx);
-				table.removeRow(selIdx);
-
+				lists = service.showCustomers();
+				deleteCtm =lists.get(selIdx);
+				this.updateCtm(deleteCtm);
 			}
 			if (e.getActionCommand().equals("세부정보")) {
 				int selIdx = table.getSelectedRow();
@@ -223,7 +218,6 @@ public class CustomerListPanel extends JPanel implements ActionListener, ItemLis
 				Customer selCtm = lists.get(selIdx);
 				editPopup.setItem(selCtm);
 				editPopup.setDetail();
-				editPopup.setSelIdx(selIdx);
 				editPopup.setCtmList(this);
 				editPopup.setVisible(true);
 			}
