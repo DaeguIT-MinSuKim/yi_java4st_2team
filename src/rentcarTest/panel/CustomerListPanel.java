@@ -298,6 +298,11 @@ public class CustomerListPanel extends JPanel implements ActionListener, ItemLis
 				ctmFindList = service.findCustomers(ctmListFind);
 			}
 		}
-		table.setItems(ctmFindList);
+		
+		if (ctmFindList != null) {
+			table.setItems(ctmFindList);			
+		} else {
+			JOptionPane.showMessageDialog(null, "검색된 내용이 없습니다.");
+		}
 	}
 }

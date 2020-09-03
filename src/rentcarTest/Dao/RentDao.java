@@ -1,11 +1,14 @@
 package rentcarTest.Dao;
 
+import java.util.Date;
 import java.util.List;
 
 import rentcarTest.dto.Rent;
 
 public interface RentDao {
 	List<Rent> selectRentByAll();
+	
+	List<Rent> selectRentByAllFind(Rent rent, Date dateRent, Date dateReturn, String search);
 	
 	List<Rent> selectRentByFind(Rent rent);
 	

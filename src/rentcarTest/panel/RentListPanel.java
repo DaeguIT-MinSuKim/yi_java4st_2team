@@ -10,6 +10,7 @@ import java.awt.event.ActionListener;
 import java.awt.event.ItemEvent;
 import java.awt.event.ItemListener;
 import java.util.Calendar;
+import java.util.Date;
 import java.util.List;
 
 import javax.swing.BoxLayout;
@@ -178,54 +179,38 @@ public class RentListPanel extends JPanel implements ActionListener, ItemListene
 	
 	protected void actionPerformedBtnSearch(ActionEvent e) {
 		rentFindList = null;
-		String searchText = tfSearch.getText().trim();
-		Rent rentListFind = new Rent();
-		
+		Rent rent = new Rent();
+		/*Date dateRent = new Date();  // 대여일자
+		Date dateReturn = new Date();  // 반납일자*/
+		String search = cmbCate.getSelectedItem().toString();  //검색분류
+		String searchText = tfSearch.getText().trim();  //검색내용
+
 		Car car = new Car();
 		Customer ctm = new Customer();
-
-		rentListFind.setCar_no(car);
-		rentListFind.setCtm_no(ctm);
-		
-		Object cmbCateText = cmbCate.getSelectedItem();
 		
 		if (dateRent.getDate() != null) {
-			Calendar rent_date = Calendar.getInstance();
-			rent_date.clear();
-			rent_date.setTime(dateRent.getDate());
-			
-
-			Calendar return_date = Calendar.getInstance();
-			return_date.clear();
-			return_date.setTime(dateReturn.getDate());
-			
-			rentListFind.setRent_date(rent_date.getTime());
-			rentListFind.setReturn_date(return_date.getTime());
-			
-			service.showDateRents(rentListFind);
-			System.out.println("dateRent.getDate()"+ dateRent.getDate());
-			System.out.println(rentListFind);
+			System.out.println(dateRent.getDate());
+		}
+		if (searchText != null) {
+			if (search.equals("차번호")) {
+				car.setCarNo(searchText);
+			}
+			if (search.equals("성명")) {
+				ctm.setName(searchText);
+			}
+			if (search.equals("연락처")) {
+				ctm.setTel(searchText);
+			}
+		}
+		rent.setCar_no(car);
+		rent.setCtm_no(ctm);
+		rentFindList = service.showFindRents(rent, dateRent.getDate(), dateReturn.getDate(), search);
+		
+		if (rentFindList != null) {
+			table.setItems(rentFindList);
+		} else {
+			JOptionPane.showMessageDialog(null, "검색된 내용이 없습니다.");
 		}
 		
-		if (cmbCateText.equals("검색")) {
-			rentFindList = service.showRents();
-			
-		} else if (searchText.equals("")) {
-			JOptionPane.showMessageDialog(null, "검색할 내용을 입력해주세요.");
-		} else {
-			if (cmbCateText.equals("차번호")) {
-				car.setCarNo(searchText);
-				rentFindList = service.findRents(rentListFind);
-			}
-			if (cmbCateText.equals("성명")) {
-				ctm.setName(searchText);
-				rentFindList = service.findRents(rentListFind);
-			}
-			if (cmbCateText.equals("연락처")) {
-				ctm.setTel(searchText);
-				rentFindList = service.findRents(rentListFind);
-			}
-		}
-		table.setItems(rentFindList);
 	}
 }

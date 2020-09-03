@@ -18,6 +18,7 @@ import rentcarTest.dto.UsingDate;
 
 public class RentDaoImpl implements RentDao {
 	private static final RentDaoImpl instance = new RentDaoImpl();
+	private static final String SYSDATE = null;
 
 	private RentDaoImpl() {
 		System.out.println("메소드 실행");
@@ -41,6 +42,77 @@ public class RentDaoImpl implements RentDao {
 				} while (rs.next());
 				return list;
 			}
+		} catch (SQLException e) {
+			throw new RuntimeException(e);
+		}
+		return null;
+	}
+
+	@Override
+	public List<Rent> selectRentByAllFind(Rent rent, Date dateRent, Date dateReturn, String search) {
+		String sql = "SELECT car.CAR_NAME, car.CAR_NO, c.CTM_NO , c.CTM_NAME , c.TEL, r.RENT_DATE, r.RETURN_DATE, r.RENT_TIME, r.IS_DRIVER, r.RENT_REMARK "
+				+ "  FROM RENT r LEFT OUTER JOIN CUSTOMER c ON r.CTM_NO = c.CTM_NO JOIN CAR car ON r.Car_NO = car.CAR_NO";
+		
+		if (dateRent != null) {
+			sql += " WHERE r.RENT_DATE >= ? AND r.RETURN_DATE <= ? AND";
+		}
+		if (search != null) {
+			if (!sql.contains("WHERE") && !search.equals("검색")) {
+				sql += " WHERE ";
+			}
+			if (search.equals("차번호")) {
+				sql += " car.CAR_NO LIKE '%' || ? || '%' AND";
+			}
+			if (search.equals("성명")) {
+				sql += " c.CTM_NAME LIKE '%' || ? || '%' AND";
+			}
+			if (search.equals("연락처")) {
+				sql += " c.TEL LIKE '%' || ? || '%' AND";
+			}
+		}
+		// 앤드 제거
+		if (sql.contains("AND")) {
+			sql = sql.substring(0, sql.lastIndexOf("AND"));
+		}
+		System.out.println(sql);
+		try (Connection con = JdbcUtil.getConnection();
+				PreparedStatement pstmt = con.prepareStatement(sql);) {
+			if (dateRent != null) {
+				pstmt.setTimestamp(1, new Timestamp(dateRent.getTime()));
+				if (dateReturn == null) {
+					pstmt.setTimestamp(2, new Timestamp(new Date(System.currentTimeMillis()).getTime()));
+				} else {
+					pstmt.setTimestamp(2, new Timestamp(dateReturn.getTime()));
+				}
+			}
+			if (search != null) {
+				int num;
+				if (dateRent != null) {
+					num = 3;
+				} else {
+					num = 1;
+				}
+				if (search.equals("차번호")) {
+					pstmt.setString(num, "%"+rent.getCar_no().getCarNo()+"%");
+				}
+				if (search.equals("성명")) {
+					pstmt.setString(num, "%"+rent.getCtm_no().getName()+"%");
+				}
+				if (search.equals("연락처")) {
+					pstmt.setString(num, "%"+rent.getCtm_no().getTel()+"%");
+				}
+			}
+			
+			try (ResultSet rs = pstmt.executeQuery()) {
+				if (rs.next()) {
+					List<Rent> item_list = new ArrayList<>();
+					do {
+						item_list.add(getRent(rs));
+					} while (rs.next());
+					return item_list;
+				}
+			}
+			
 		} catch (SQLException e) {
 			throw new RuntimeException(e);
 		}
