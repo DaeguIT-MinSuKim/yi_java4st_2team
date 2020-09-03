@@ -20,6 +20,7 @@ import javax.swing.JTextField;
 import javax.swing.SwingConstants;
 import javax.swing.border.EmptyBorder;
 
+import rentcarTest.Dao.service.CarService;
 import rentcarTest.Dao.service.CustomerService;
 import rentcarTest.Dao.service.RentService;
 import rentcarTest.dto.Customer;
@@ -54,6 +55,7 @@ public class EditCustomerPopup extends AbstractItemPopup<Customer> implements Ac
 	private CustomerListPanel ctmList;
 	private CustomerService service = new CustomerService();
 	private RentService rentService = new RentService();
+	private CarService carService = new CarService();
 	private List<Rent> lists;
 	private Rent item;
 
@@ -188,10 +190,15 @@ public class EditCustomerPopup extends AbstractItemPopup<Customer> implements Ac
 			cbDelete.setSelected(false);
 			checking = false;
 		}
-		item = new Rent(new Customer(ctm.getNo()));
-		lists = rentService.findRents(item);
-		System.out.println(lists);
-		System.out.println(lists.get(0).getCar_no().getCarKind().getKind_name());
+		Customer rentCtm = new Customer();
+		rentCtm.setTel(ctm.getTel());
+		Rent rent = new Rent();
+		rent.setCtm_no(rentCtm);
+//		Car car = carService.
+		System.out.println(rent);
+		
+		//lists = rentService.findRents(item);
+		lists = rentService.showFindRents(rent, null, null, "연락처");
 		table.setItems(lists);
 	}
 
@@ -228,6 +235,7 @@ public class EditCustomerPopup extends AbstractItemPopup<Customer> implements Ac
 		if(cbBlack.isSelected()) list_ctm = 1;	// 블랙리스트 check!
 		Customer item = new Customer(no, name, tel, address, remark, ctm_mlg, list_ctm);
 		
+		System.out.println(item);
 		service.updateCtm(item);
 		if(cbDelete.isSelected() != checking) service.deleteCtm(item);	//삭제!
 		

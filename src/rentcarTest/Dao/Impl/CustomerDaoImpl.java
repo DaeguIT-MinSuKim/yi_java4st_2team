@@ -161,7 +161,8 @@ public class CustomerDaoImpl implements CustomerDao {
 	            pstmt.setString(3, ctm.getAddress());
 	            pstmt.setString(4, ctm.getRemark());
 	            pstmt.setInt(5, ctm.getMile());
-	            pstmt.setInt(6, ctm.getNo());
+	            pstmt.setInt(6, ctm.getList_ctm());
+	            pstmt.setInt(7, ctm.getNo());
 	            return pstmt.executeUpdate();
 	            
 	        } catch (SQLException e) {
