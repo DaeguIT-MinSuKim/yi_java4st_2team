@@ -5,6 +5,7 @@ import java.awt.Component;
 import java.awt.FlowLayout;
 
 import javax.swing.JButton;
+import javax.swing.JCheckBox;
 import javax.swing.JDialog;
 import javax.swing.JPanel;
 import javax.swing.JTextField;
@@ -42,6 +43,9 @@ public abstract class AbstractItemPopup<T> extends JDialog {
 		for(Component c : panel.getComponents()) {
 			if(c instanceof JTextField) {
 				((JTextField)c).setEditable(isEditable);
+			}
+			if(c instanceof JCheckBox) {
+				((JCheckBox)c).setEnabled(isEditable);
 			}
 		}
 	}

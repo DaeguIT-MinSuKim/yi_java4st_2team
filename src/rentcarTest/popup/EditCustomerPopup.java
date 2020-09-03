@@ -7,6 +7,7 @@ import java.awt.Font;
 import java.awt.GridLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.util.List;
 import java.util.regex.Pattern;
 
 import javax.swing.BoxLayout;
@@ -19,10 +20,17 @@ import javax.swing.SwingConstants;
 import javax.swing.border.EmptyBorder;
 
 import rentcarTest.Dao.service.CustomerService;
+import rentcarTest.Dao.service.RentService;
 import rentcarTest.dto.Customer;
+import rentcarTest.dto.Rent;
 import rentcarTest.exception.EmptyTfException;
 import rentcarTest.exception.InValidTfValue;
 import rentcarTest.panel.CustomerListPanel;
+import javax.swing.JCheckBox;
+import javax.swing.JScrollPane;
+import java.awt.BorderLayout;
+import javax.swing.JTable;
+import rentcarTest.table.CustomerRentTable;
 
 public class EditCustomerPopup extends AbstractItemPopup<Customer> implements ActionListener {
 
@@ -34,18 +42,23 @@ public class EditCustomerPopup extends AbstractItemPopup<Customer> implements Ac
 	private JTextField tfMlg;
 	private JTextField tfRemark;
 	private JButton btnCancel;
-	private int selIdx;
-
-	private CustomerService service = new CustomerService();
-	private CustomerListPanel ctmList;
 	private JLabel lblDialog;
 	private JButton btnEdit;
 	private JPanel pLeft;
 	private JPanel pRight;
-
-	public void setSelIdx(int selIdx) {
-		this.selIdx = selIdx;
-	}
+	private JCheckBox cbBlack;
+	private JPanel pTable;
+	private JCheckBox cbDelete;
+	private JPanel pCheckBox;
+	private JScrollPane scrollPane;
+	
+	private boolean checking;
+	private CustomerRentTable table;
+	private CustomerListPanel ctmList;
+	private CustomerService service = new CustomerService();
+	private RentService rentService = new RentService();
+	private List<Rent> lists;
+	private Rent item;
 
 	public void setCtmList(CustomerListPanel ctmList) {
 		this.ctmList = ctmList;
@@ -67,7 +80,7 @@ public class EditCustomerPopup extends AbstractItemPopup<Customer> implements Ac
 		pContent.setBorder(new EmptyBorder(5, 5, 5, 5));
 		getContentPane().add(pContent);
 		pContent.setLayout(new BoxLayout(pContent, BoxLayout.X_AXIS));
-		
+
 		pLeft = new JPanel();
 		pContent.add(pLeft);
 		pLeft.setLayout(new GridLayout(0, 2, 20, 10));
@@ -124,8 +137,24 @@ public class EditCustomerPopup extends AbstractItemPopup<Customer> implements Ac
 		tfRemark.setColumns(10);
 		pRight.add(tfRemark);
 
-		JPanel pTable = new JPanel();
+		pCheckBox = new JPanel();
+		getContentPane().add(pCheckBox);
+
+		cbDelete = new JCheckBox("탈퇴회원");
+		pCheckBox.add(cbDelete);
+
+		cbBlack = new JCheckBox("블랙리스트");
+		pCheckBox.add(cbBlack);
+
+		pTable = new JPanel();
 		getContentPane().add(pTable);
+		pTable.setLayout(new BorderLayout(0, 0));
+		
+		scrollPane = new JScrollPane();
+		pTable.add(scrollPane, BorderLayout.CENTER);
+		
+		table = new CustomerRentTable();
+		scrollPane.setViewportView(table);
 
 		JPanel pBtns = new JPanel();
 		getContentPane().add(pBtns);
@@ -139,7 +168,6 @@ public class EditCustomerPopup extends AbstractItemPopup<Customer> implements Ac
 		btnCancel.addActionListener(this);
 		btnCancel.setActionCommand("Cancel");
 		pBtns.add(btnCancel);
-
 	}
 
 	public void setItem(Customer ctm) {
@@ -149,6 +177,25 @@ public class EditCustomerPopup extends AbstractItemPopup<Customer> implements Ac
 		tfAddress.setText(ctm.getAddress());
 		tfMlg.setText(String.valueOf(ctm.getCtm_mlg()));
 		tfRemark.setText(ctm.getRemark());
+		
+		if(ctm.getList_ctm() == 1) {
+			cbBlack.setSelected(true);
+		}else {
+			cbBlack.setSelected(false);
+		}
+		
+		if(service.deleteCheck(ctm)) {
+			cbDelete.setSelected(true);
+			checking = true; 
+		}else {
+			cbDelete.setSelected(false);
+			checking = false;
+		}
+		item = new Rent(new Customer(ctm.getNo()));
+		lists = rentService.findRents(item);
+		System.out.println(lists);
+		System.out.println(lists.get(0).getCar_no().getCarKind().getKind_name());
+		table.setItems(lists);
 	}
 
 	public void actionPerformed(ActionEvent e) {
@@ -166,11 +213,11 @@ public class EditCustomerPopup extends AbstractItemPopup<Customer> implements Ac
 
 	protected void actionPerformedBtnEdit(ActionEvent e) {
 		if (isTfEmpty()) {
-			JOptionPane.showMessageDialog(null,"공란이 존재");
+			JOptionPane.showMessageDialog(null, "공란이 존재");
 			throw new EmptyTfException("공란 이 존재");
 		}
 		if (!isValidTf()) {
-			JOptionPane.showMessageDialog(null,"이름은 한글만, 연락처는 000-0000-0000만 가능, 마일리지는 숫자만 가능");
+			JOptionPane.showMessageDialog(null, "이름은 한글만, 연락처는 000-0000-0000만 가능, 마일리지는 숫자만 가능");
 			throw new InValidTfValue("이름은 한글만, 연락처는 000-0000-0000만 가능, 마일리지는 숫자만 가능");
 		}
 
@@ -180,17 +227,22 @@ public class EditCustomerPopup extends AbstractItemPopup<Customer> implements Ac
 		String address = tfAddress.getText().trim();
 		String remark = tfRemark.getText().trim();
 		int ctm_mlg = Integer.parseInt(tfMlg.getText().trim());
-		Customer item = new Customer(no, name, tel, address, remark, ctm_mlg);
-
+		int list_ctm = 0;
+		if(cbBlack.isSelected()) list_ctm = 1;	// 블랙리스트 check!
+		Customer item = new Customer(no, name, tel, address, remark, ctm_mlg, list_ctm);
+		
 		service.updateCtm(item);
-		ctmList.updateCtm(selIdx, item);
+		if(cbDelete.isSelected() != checking) service.deleteCtm(item);	//삭제!
+		
+		ctmList.updateCtm(item);
 		EditCustomerPopup.this.dispose();
 	}
 
 	private void actionPerformedBtnDetail(ActionEvent e) {
 		setTfEditable(pLeft, true);
 		setTfEditable(pRight, true);
-		
+		setTfEditable(pCheckBox, true);
+
 		btnEdit.setText("확인");
 		btnCancel.setText("취소");
 		lblDialog.setText("고객 수정");
@@ -199,6 +251,7 @@ public class EditCustomerPopup extends AbstractItemPopup<Customer> implements Ac
 	public void setDetail() {
 		setTfEditable(pLeft, false);
 		setTfEditable(pRight, false);
+		setTfEditable(pCheckBox, false);
 		
 		btnEdit.setText("수정");
 		btnCancel.setText("닫기");
@@ -215,7 +268,7 @@ public class EditCustomerPopup extends AbstractItemPopup<Customer> implements Ac
 		String tel = tfTel.getText().trim();
 		String mlg = tfMlg.getText().trim();
 
-		boolean nameCheck = Pattern.matches("^[가-힣]+$", name);
+		boolean nameCheck = Pattern.matches("^[가-힣()]+$", name);
 		boolean telCheck = Pattern.matches("\\d{3}-\\d{3,4}-\\d{4}", tel);
 		boolean mlgCheck = Pattern.matches("^[0-9]*$", mlg);
 

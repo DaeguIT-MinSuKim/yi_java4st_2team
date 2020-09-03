@@ -13,6 +13,7 @@ import rentcarTest.Dao.RentDao;
 import rentcarTest.conn.JdbcUtil;
 import rentcarTest.dto.Car;
 import rentcarTest.dto.Customer;
+import rentcarTest.dto.Kind;
 import rentcarTest.dto.Rent;
 import rentcarTest.dto.UsingDate;
 
@@ -49,8 +50,8 @@ public class RentDaoImpl implements RentDao {
 
 	@Override
 	public List<Rent> selectRentByFind(Rent rent) {
-		String sql = "SELECT car.CAR_NAME, car.CAR_NO, c.CTM_NO , c.CTM_NAME , c.TEL, r.RENT_DATE, r.RETURN_DATE, r.RENT_TIME, r.IS_DRIVER, r.RENT_REMARK "
-				+ "  FROM RENT r LEFT OUTER JOIN CUSTOMER c ON r.CTM_NO = c.CTM_NO JOIN CAR car ON r.Car_NO = car.CAR_NO"
+		String sql = "SELECT car.CAR_NAME, car.CAR_NO, c.CTM_NO , c.CTM_NAME , c.TEL, r.RENT_DATE, r.RETURN_DATE, r.RENT_TIME, r.IS_DRIVER, r.RENT_REMARK, k.KIND_NAME "
+				+ "  FROM RENT r LEFT OUTER JOIN CUSTOMER c ON r.CTM_NO = c.CTM_NO JOIN CAR car ON r.Car_NO = car.CAR_NO JOIN KIND k ON car.CAR_KIND = k.CAR_KIND "
 				+ " WHERE c.CTM_NO = ? OR c.CTM_NAME = ? OR c.TEL = ? OR c.ADDRESS = ?" + " ORDER BY r.RENT_NO";
 		try (Connection con = JdbcUtil.getConnection(); PreparedStatement pstmt = con.prepareStatement(sql)) {
 			pstmt.setInt(1, rent.getCtm_no().getNo());
@@ -175,13 +176,17 @@ public class RentDaoImpl implements RentDao {
 		Rent rent = new Rent();
 		Customer ctm = new Customer();
 		Car car = new Car();
+		Kind kind = new Kind();
 
 		ctm.setNo(rs.getInt("CTM_NO"));
 		ctm.setName(rs.getString("CTM_NAME"));
 		ctm.setTel(rs.getString("TEL"));
 
+		kind.setKind_name(rs.getString("KIND_NAME"));
+		
 		car.setCarName(rs.getString("CAR_NAME"));
 		car.setCarNo(rs.getString("CAR_NO"));
+		car.setCarKind(kind);
 
 		rent.setCtm_no(ctm);
 		rent.setCar_no(car);
