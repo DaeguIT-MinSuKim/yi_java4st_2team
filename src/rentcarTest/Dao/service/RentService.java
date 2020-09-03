@@ -1,5 +1,6 @@
 package rentcarTest.Dao.service;
 
+import java.util.Date;
 import java.util.List;
 
 import rentcarTest.Dao.RentDao;
@@ -15,6 +16,14 @@ public class RentService {
 	
 	public List<Rent> showRents(){
 		return dao.selectRentByAll();
+	}
+	
+	public List<Rent> showFindRents(Rent rent, Date dateRent, Date dateReturn, String search){
+		return dao.selectRentByAllFind(rent, dateRent, dateReturn, search);
+	}
+	
+	public List<Rent> showRentsIng() {
+		return dao.selectRentByRent();
 	}
 	
 	public long lookup(String kind) {
