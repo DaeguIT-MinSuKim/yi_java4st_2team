@@ -61,6 +61,14 @@ SELECT *
 UPDATE CUSTOMER SET CTM_NAME = ? + '(탈퇴)' WHERE CTM_NO = 1;
 SELECT CTM_NAME FROM CUSTOMER WHERE CTM_NO = 1;
 
+SELECT WM_CONCAT(DISTINCT k.KIND_NAME) AS 차분류,
+		c.CAR_NAME AS 차종,
+		SUM(r.RENT_TIME ) AS 대여시간,
+		SUM(C.FARE * R.RENT_TIME * C.SALE / 100) AS 할인요금,
+		SUM(C.FARE * R.RENT_TIME * (100 - C.SALE) / 100) AS 최종요금
+  FROM RENT r LEFT OUTER JOIN CAR c ON r.CAR_NO = c.CAR_NO JOIN CUSTOMER ctm ON r.CTM_NO = ctm.CTM_NO JOIN KIND k ON c.CAR_KIND = k.CAR_KIND
+ WHERE c.CAR_KIND = 'B' AND C.CAR_NAME LIKE '%0%'
+ GROUP BY c.CAR_NAME;
 
 -----------------------------------------------------------------------------오수정-----------------------------------------------------------------------------
 SELECT *

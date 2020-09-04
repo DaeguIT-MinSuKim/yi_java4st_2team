@@ -21,17 +21,18 @@ import rentcarTest.panel.CarListPanel;
 import rentcarTest.panel.CustomerListPanel;
 import rentcarTest.panel.Homepanel;
 import rentcarTest.panel.MileagePanel;
+import rentcarTest.panel.PerformanceListPanel;
 import rentcarTest.panel.RentListPanel;
 
-public class Home extends JFrame{
+public class Home extends JFrame {
 	private Image img_logo = new ImageIcon(Home.class.getResource("../res/logout.png")).getImage().getScaledInstance(40,
 			40, Image.SCALE_SMOOTH);
 	private Image img_person = new ImageIcon(Home.class.getResource("../res/person.png")).getImage()
 			.getScaledInstance(70, 70, Image.SCALE_SMOOTH);
 	private Image img_todo = new ImageIcon(Home.class.getResource("../res/things.png")).getImage().getScaledInstance(25,
 			25, Image.SCALE_SMOOTH);
-	private Image img_car = new ImageIcon(Home.class.getResource("../res/carrent.png")).getImage().getScaledInstance(200,
-			50, Image.SCALE_SMOOTH);
+	private Image img_car = new ImageIcon(Home.class.getResource("../res/carrent.png")).getImage()
+			.getScaledInstance(200, 50, Image.SCALE_SMOOTH);
 	private JPanel contentPane;
 	private JPanel panemenu;
 	private JPanel RentListPane;
@@ -65,7 +66,7 @@ public class Home extends JFrame{
 	private String Month;
 	private String Date;
 	Calendar today = Calendar.getInstance();
-
+	private JPanel PerformancePanel;
 
 	public Home() {
 		initComponents();
@@ -174,7 +175,7 @@ public class Home extends JFrame{
 		PerformancePane.addMouseListener(new PanelButtonMouseAdaptor(PerformancePane) {
 			@Override
 			public void mouseClicked(MouseEvent e) {
-				MenuClicked(PerformancePane);
+				MenuClicked(PerformancePanel);
 				HomePanel.setVisible(false);
 			}
 
@@ -195,7 +196,7 @@ public class Home extends JFrame{
 		ThisDate = today.get(Calendar.DATE);
 		Month = Integer.toString(ThisMonth);
 		Date = Integer.toString(ThisDate);
-		
+
 		// 오른쪽 MainContentPane
 		MainContentPane = new JPanel();
 		MainContentPane.setBackground(new Color(255, 255, 255));
@@ -213,6 +214,8 @@ public class Home extends JFrame{
 		MainContentPane.add(MileagePanel);
 		HomePanel = new Homepanel();
 		MainContentPane.add(HomePanel);
+		PerformancePanel = new PerformanceListPanel();
+		MainContentPane.add(PerformancePanel);
 
 //		MainContentPane.add(PerformancePane);
 //		 
@@ -250,7 +253,7 @@ public class Home extends JFrame{
 		HomePane.add(lblLogo);
 		lblLogo.setForeground(new Color(255, 255, 255));
 		lblLogo.setFont(new Font("인터파크고딕 M", Font.BOLD, 36));
-		//lblLogo.setIcon(new ImageIcon(img_car));
+		// lblLogo.setIcon(new ImageIcon(img_car));
 
 		lblWelcome = new JLabel("관리자님, 환영합니다.");
 		lblWelcome.setForeground(new Color(0, 0, 0));
@@ -282,24 +285,22 @@ public class Home extends JFrame{
 		lblScheduler.setForeground(new Color(0, 0, 0));
 		lblScheduler.setFont(new Font("인터파크고딕 L", Font.PLAIN, 17));
 		paneTodo.add(lblScheduler);
-		
-				lblMonthDate = new JLabel(Month + "/" + Date /* + Hour + "시 " + Minute +"분 " */);
-				lblMonthDate.setBounds(114, 416, 146, 123);
-				panemenu.add(lblMonthDate);
-				lblMonthDate.setFont(new Font("인터파크고딕 M", Font.PLAIN, 20));
-	
-		
+
+		lblMonthDate = new JLabel(Month + "/" + Date /* + Hour + "시 " + Minute +"분 " */);
+		lblMonthDate.setBounds(114, 416, 146, 123);
+		panemenu.add(lblMonthDate);
+		lblMonthDate.setFont(new Font("인터파크고딕 M", Font.PLAIN, 20));
+
 	}
 
 	// 오른쪽 MainContentPane 클릭시 보이는 메뉴 컨트롤
 	public void MenuClicked(JPanel panel) {
-
 		HomePanel.setVisible(true);
 		CarListPanel.setVisible(false);
 		RentListPanel.setVisible(false);
 		CustomerListPanel.setVisible(false);
 		MileagePanel.setVisible(false);
-//		PerformancePanel.setVisible(false);
+		PerformancePanel.setVisible(false);
 
 		panel.setVisible(true);
 	}

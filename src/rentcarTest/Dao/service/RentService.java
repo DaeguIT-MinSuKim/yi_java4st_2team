@@ -1,11 +1,13 @@
 package rentcarTest.Dao.service;
 
+import java.sql.Connection;
 import java.util.Date;
 import java.util.List;
 
 import rentcarTest.Dao.RentDao;
 import rentcarTest.Dao.Impl.RentDaoImpl;
 import rentcarTest.dto.Rent;
+import rentcarTest.dto.RentPerformance;
 
 public class RentService {
 	private RentDao dao = RentDaoImpl.getInstance();
@@ -28,5 +30,9 @@ public class RentService {
 	
 	public long lookup(String kind) {
 		return dao.rentLookupCarKind(kind);
+	}
+	
+	public List<RentPerformance> showPerformance(int selKind, String selName, int selOption) {
+		return dao.showPerformance(selKind, selName, selOption);
 	}
 }

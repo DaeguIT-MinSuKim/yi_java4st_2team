@@ -4,6 +4,7 @@ import java.util.Date;
 import java.util.List;
 
 import rentcarTest.dto.Rent;
+import rentcarTest.dto.RentPerformance;
 
 public interface RentDao {
 	List<Rent> selectRentByAll();
@@ -21,4 +22,6 @@ public interface RentDao {
 	int updateRent (Rent rent);
 	
 	long rentLookupCarKind(String kind);
+	
+	List<RentPerformance> showPerformance(int selKind, String selName, int selOption);
 }

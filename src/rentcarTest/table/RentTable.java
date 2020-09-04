@@ -30,7 +30,6 @@ public class RentTable extends AbstractItemTable<Rent>  {
 		
 		tableCellAlign(SwingConstants.CENTER, 0, 1, 2, 3, 4, 5);
 		tableCellAlign(SwingConstants.LEADING, 6);
-		
 	}
 
 }
