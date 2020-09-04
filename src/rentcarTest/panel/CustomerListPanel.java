@@ -91,6 +91,10 @@ public class CustomerListPanel extends JPanel implements ActionListener, ItemLis
 		pSearch_check = new JPanel();
 		pSearch.add(pSearch_check);
 		pSearch_check.setLayout(new FlowLayout(FlowLayout.LEFT, 5, 5));
+		
+		chckbxRent = new JCheckBox("대여중");
+		chckbxRent.addItemListener(this);
+		pSearch_check.add(chckbxRent);
 
 		chckbxBlackList = new JCheckBox("블랙리스트");
 		chckbxBlackList.addItemListener(this);
@@ -291,6 +295,11 @@ public class CustomerListPanel extends JPanel implements ActionListener, ItemLis
 				ctmFindList = service.findCustomers(ctmListFind);
 			}
 		}
-		table.setItems(ctmFindList);
+		
+		if (ctmFindList != null) {
+			table.setItems(ctmFindList);			
+		} else {
+			JOptionPane.showMessageDialog(null, "검색된 내용이 없습니다.");
+		}
 	}
 }

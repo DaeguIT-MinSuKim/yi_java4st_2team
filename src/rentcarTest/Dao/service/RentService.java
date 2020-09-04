@@ -10,10 +10,6 @@ import rentcarTest.dto.Rent;
 public class RentService {
 	private RentDao dao = RentDaoImpl.getInstance();
 	
-	public List<Rent> findRents(Rent item){
-		return dao.selectRentByFind(item);
-	}
-	
 	public List<Rent> showRents(){
 		return dao.selectRentByAll();
 	}
@@ -22,8 +18,20 @@ public class RentService {
 		return dao.selectRentByAllFind(rent, dateRent, dateReturn, search);
 	}
 	
-	public List<Rent> showRentsIng() {
+	public List<Rent> findRents(Rent item){
+		return dao.selectRentByFind(item);
+	}
+	
+	public List<Rent> showRentsIng(){
 		return dao.selectRentByRent();
+	}
+	
+	public List<Rent> showDateRents(Rent item){
+		return dao.selectRentByDate(item);
+	}
+	
+	public int insertRent(Rent item) {
+		return dao.insertRent(item);
 	}
 	
 	public long lookup(String kind) {

@@ -13,6 +13,7 @@ public class Rent {
 	private int is_driver; // 기사여부
 	private String rent_remark; // 대여비고
 	private String Sis_driver; //기사여부를 strin으로 바꿈
+	private int final_fare;
 	
 //	생성자
 //	더 추가할 생성자? 매개변수 뭘로할지 피드백 주세요
@@ -123,6 +124,14 @@ public class Rent {
 
 	public void setRent_remark(String rent_remark) {
 		this.rent_remark = rent_remark;
+	}
+
+	public int getFinal_fare() {
+		return final_fare;
+	}
+
+	public void setFinal_fare(int final_fare) {
+		this.final_fare = final_fare;
 	}
 
 	@Override
