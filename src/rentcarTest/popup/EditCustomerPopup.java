@@ -153,7 +153,6 @@ public class EditCustomerPopup extends AbstractItemPopup<Customer> implements Ac
 		pTable.add(scrollPane, BorderLayout.CENTER);
 		
 		table = new CustomerRentTable();
-		scrollPane.setViewportView(table);
 
 		JPanel pBtns = new JPanel();
 		getContentPane().add(pBtns);
@@ -199,7 +198,13 @@ public class EditCustomerPopup extends AbstractItemPopup<Customer> implements Ac
 		
 		//lists = rentService.findRents(item);
 		lists = rentService.showFindRents(rent, null, null, "연락처");
-		table.setItems(lists);
+		if (lists != null) {
+			scrollPane.setVisible(true);
+			scrollPane.setViewportView(table);
+			table.setItems(lists);
+		} else {
+			scrollPane.setVisible(false);
+		}
 	}
 
 	public void actionPerformed(ActionEvent e) {
