@@ -30,6 +30,10 @@ public class RentService {
 		return dao.selectRentByDate(item);
 	}
 	
+	public int insertRent(Rent item) {
+		return dao.insertRent(item);
+	}
+	
 	public long lookup(String kind) {
 		return dao.rentLookupCarKind(kind);
 	}

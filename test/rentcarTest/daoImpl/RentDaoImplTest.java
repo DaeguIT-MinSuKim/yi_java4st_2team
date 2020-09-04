@@ -11,6 +11,7 @@ import org.junit.runners.MethodSorters;
 import rentcarTest.Dao.Impl.RentDaoImpl;
 import rentcarTest.dto.Car;
 import rentcarTest.dto.Customer;
+import rentcarTest.dto.Kind;
 import rentcarTest.dto.Rent;
 
 @FixMethodOrder(MethodSorters.NAME_ASCENDING)
@@ -44,7 +45,7 @@ public class RentDaoImplTest {
 		list.stream().forEach(System.out::println);
 		
 	}
-/*
+	
 	@Test
 	public void test03SelectRentByAll() {
 		System.out.println("testSelectRentByAll()");
@@ -141,7 +142,7 @@ public class RentDaoImplTest {
 		System.out.println(newRent);
 		int res = RentDaoImpl.getInstance().insertRent(newRent);
 		Assert.assertEquals(1, res);
-	}*
+	}*/
 
 	@Test
 	public void test02UpdateRent() {
@@ -182,6 +183,5 @@ public class RentDaoImplTest {
 		int res = RentDaoImpl.getInstance().updateRent(updateRent);
 		Assert.assertEquals(1, res);
 	}
-	*/
 
 }
