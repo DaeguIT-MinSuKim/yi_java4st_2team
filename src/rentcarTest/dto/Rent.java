@@ -43,14 +43,6 @@ public class Rent {
 		this.final_fare = final_fare;
 	}
 
-	public int getFinal_fare() {
-		return final_fare;
-	}
-
-	public void setFinal_fare(int final_fare) {
-		this.final_fare = final_fare;
-	}
-
 	public Rent(int rent_no) {
 		super();
 		this.rent_no = rent_no;
@@ -144,6 +136,14 @@ public class Rent {
 
 	public void setRent_remark(String rent_remark) {
 		this.rent_remark = rent_remark;
+	}
+
+	public int getFinal_fare() {
+		return final_fare;
+	}
+
+	public void setFinal_fare(int final_fare) {
+		this.final_fare = final_fare;
 	}
 
 	@Override

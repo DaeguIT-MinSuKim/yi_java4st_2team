@@ -1,8 +1,6 @@
 package rentcarTest.daoImpl;
 
-import java.text.SimpleDateFormat;
 import java.util.Calendar;
-import java.util.Date;
 import java.util.List;
 
 import org.junit.Assert;
@@ -10,7 +8,6 @@ import org.junit.FixMethodOrder;
 import org.junit.Test;
 import org.junit.runners.MethodSorters;
 
-import oracle.sql.TIMESTAMP;
 import rentcarTest.Dao.Impl.RentDaoImpl;
 import rentcarTest.dto.Car;
 import rentcarTest.dto.Customer;
@@ -19,7 +16,36 @@ import rentcarTest.dto.Rent;
 
 @FixMethodOrder(MethodSorters.NAME_ASCENDING)
 public class RentDaoImplTest {
-
+	
+	@Test
+	public void testSelectRentByAllRent() {
+		System.out.println("testSelectRentByAllRent()");
+		Rent rent = new Rent();
+		Customer ctm_info = new Customer();
+		Car car = new Car();
+		car.setCarNo("29허9435");
+		
+		ctm_info.setName("동");
+		ctm_info.setTel("7724");
+		
+		rent.setCar_no(car);
+		rent.setCtm_no(ctm_info);		
+		
+		Calendar rent_date = Calendar.getInstance();
+		rent_date.clear();
+		rent_date.set(2015, 9, 27);
+		
+		Calendar return_date = Calendar.getInstance();
+		return_date.clear();
+		return_date.set(2020, 9, 27);
+		
+		//List<Rent> list = RentDaoImpl.getInstance().selectRentByAllFind(rent, rent_date.getTime(), return_date.getTime(), "성명");
+		List<Rent> list = RentDaoImpl.getInstance().selectRentByAllFind(rent, null, null, null);
+		Assert.assertNotNull(list);
+		list.stream().forEach(System.out::println);
+		
+	}
+	
 	@Test
 	public void test03SelectRentByAll() {
 		System.out.println("testSelectRentByAll()");
@@ -34,13 +60,18 @@ public class RentDaoImplTest {
 		System.out.println("testSelectRentByFind()");
 		Rent rent_search = new Rent(0);
 		Customer ctm_info = new Customer();
-		ctm_info.setNo(1);
+		Car car = new Car();
+		car.setCarNo("29허9435");
+		
+		rent_search.setCar_no(car);
+		
+		
 		ctm_info.setName("홍길동");
-		ctm_info.setTel("010-5177-0965");
-		ctm_info.setAddress("지구");
+		ctm_info.setTel("7724");
 		
 		rent_search.setCtm_no(ctm_info);		
 		List<Rent> rent = RentDaoImpl.getInstance().selectRentByFind(rent_search);
+		System.out.println(rent);
 		Assert.assertNotNull(rent);
 		rent.stream().forEach(System.out::println);
 	}
@@ -52,11 +83,11 @@ public class RentDaoImplTest {
 		
 		Calendar rent_date = Calendar.getInstance();
 		rent_date.clear();
-		rent_date.set(2020, 5-1, 25);
+		rent_date.set(2020, 4-1, 1, 12, 30, 50);
 		
 		Calendar return_date = Calendar.getInstance();
 		return_date.clear();
-		return_date.set(2020, 8-1, 27);
+		return_date.set(2020, 9, 27);
 		
 		date_search.setRent_date(rent_date.getTime());
 		date_search.setReturn_date(return_date.getTime());

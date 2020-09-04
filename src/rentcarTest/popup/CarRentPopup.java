@@ -7,27 +7,35 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.ItemEvent;
 import java.awt.event.ItemListener;
+import java.awt.event.MouseEvent;
+import java.awt.event.MouseListener;
 import java.util.Calendar;
 import java.util.Date;
+import java.util.List;
 
 import javax.swing.BoxLayout;
 import javax.swing.DefaultComboBoxModel;
 import javax.swing.JButton;
 import javax.swing.JCheckBox;
-import javax.swing.JComboBox;
-import javax.swing.JDialog;
 import javax.swing.JLabel;
+import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JSpinner;
 import javax.swing.JTextField;
 import javax.swing.SpinnerDateModel;
 import javax.swing.SwingConstants;
 
+import com.toedter.calendar.JDateChooser;
+
+import rentcarTest.Dao.service.RentService;
 import rentcarTest.dto.Car;
 import rentcarTest.dto.Customer;
 import rentcarTest.dto.Kind;
+import rentcarTest.dto.Rent;
+import rentcarTest.panel.RentListPanel;
 
-public class CarRentPopup extends JDialog implements ActionListener, ItemListener{
+
+public class CarRentPopup extends AbstractItemPopup<Rent> implements ActionListener, ItemListener, MouseListener{
 	private JTextField tfCode;
 	private JTextField tfCtmName;
 	private JTextField tfTel;
@@ -50,7 +58,6 @@ public class CarRentPopup extends JDialog implements ActionListener, ItemListene
 	private JLabel lblDate1;
 	private JLabel lblDate2;
 	private JLabel lblCarKind;
-	private JComboBox cbCarKind;
 	private JLabel lblCarName;
 	private JLabel lblMileage;
 	private JLabel lblMileage2;
@@ -63,21 +70,35 @@ public class CarRentPopup extends JDialog implements ActionListener, ItemListene
 	private JSpinner spDate2;
 	Calendar calendar = Calendar.getInstance();
 	Date value = calendar.getTime();
-	private JLabel lblCarNo;
-	private JTextField tfCarNo;
-	private JLabel lblCtmNo;
-	private JTextField tfCtmNo;
 	private JLabel lblDriver;
 	private JCheckBox chkDriver;
 	private JLabel lblNewLabel_1;
 	private JTextField textField;
 	private JLabel lblNewLabel;
 	
+	private RentService service = new RentService();
+	private RentListPanel rentList = new RentListPanel();
+	private JDateChooser dateRent;
+	private JDateChooser dateReturn;
+	private JTextField tfCarKind;
+	private int driverCheck = 0;
 	
-
+	Car selectCar = new Car();
+	
+	public void setCarRentList(RentListPanel rentList) {
+		this.rentList = rentList;
+	}
+	
 	
 	public CarRentPopup() {
+		initComponents();
+	}
+
+	
+	public void initComponents() {
 		getContentPane().setLayout(new BoxLayout(getContentPane(), BoxLayout.Y_AXIS));
+
+		setBounds(100, 100, 450, 450);
 		
 		lblTitle = new JLabel("차량 대여");
 		lblTitle.setFont(new Font("굴림", Font.BOLD, 20));
@@ -102,24 +123,9 @@ public class CarRentPopup extends JDialog implements ActionListener, ItemListene
 		pContent.add(lblCtmName);
 		
 		tfCtmName = new JTextField();
+		tfCtmName.addMouseListener(this);
 		tfCtmName.setColumns(10);
 		pContent.add(tfCtmName);
-		
-		lblCarNo = new JLabel("차량 번호");
-		lblCarNo.setHorizontalAlignment(SwingConstants.RIGHT);
-		pContent.add(lblCarNo);
-		
-		tfCarNo = new JTextField();
-		pContent.add(tfCarNo);
-		tfCarNo.setColumns(10);
-		
-		lblCtmNo = new JLabel("고객 번호");
-		lblCtmNo.setHorizontalAlignment(SwingConstants.RIGHT);
-		pContent.add(lblCtmNo);
-		
-		tfCtmNo = new JTextField();
-		pContent.add(tfCtmNo);
-		tfCtmNo.setColumns(10);
 		
 		lblTel = new JLabel("연락처");
 		lblTel.setHorizontalAlignment(SwingConstants.RIGHT);
@@ -134,6 +140,7 @@ public class CarRentPopup extends JDialog implements ActionListener, ItemListene
 		pContent.add(lblTime);
 		
 		tfTime = new JTextField();
+		tfTime.setEditable(false);
 		tfTime.setColumns(10);
 		pContent.add(tfTime);
 		
@@ -149,38 +156,34 @@ public class CarRentPopup extends JDialog implements ActionListener, ItemListene
 		Date max = calendar.getTime();
 		
 		SpinnerDateModel sm = new SpinnerDateModel(date, min, max, Calendar.DATE); 
-		spDate1 = new JSpinner(sm);
-		JSpinner.DateEditor der = new JSpinner.DateEditor(spDate1, "YY.MM.dd");
-		spDate1.setEditor(der);
-	
 		
-		pContent.add(spDate1);
+		dateRent = new JDateChooser();
+		pContent.add(dateRent);
 		
 		lblDate2 = new JLabel("반납일자");
 		lblDate2.setHorizontalAlignment(SwingConstants.RIGHT);
 		pContent.add(lblDate2);
 		
-		spDate2 = new JSpinner();
-
-		pContent.add(spDate2);
+		dateReturn = new JDateChooser();
+		pContent.add(dateReturn);
 		
 		lblCarKind = new JLabel("차분류선택");
 		lblCarKind.setHorizontalAlignment(SwingConstants.RIGHT);
 		pContent.add(lblCarKind);
-		
-		
-		cbCarKind = new JComboBox<String>();
 		String[] items = { "소형", "중형", "승합차", "버스", "지프" };
 		DefaultComboBoxModel<String> model = new DefaultComboBoxModel<String>(items);
-		cbCarKind.setModel(model);
-		pContent.add(cbCarKind);
+		
+		tfCarKind = new JTextField();
+		tfCarKind.setEditable(false);
+		pContent.add(tfCarKind);
+		tfCarKind.setColumns(10);
 		
 		lblCarName = new JLabel("차종 선택");
 		lblCarName.setHorizontalAlignment(SwingConstants.RIGHT);
 		pContent.add(lblCarName);
 		
 		tfCarName = new JTextField();
-		tfCarName.setEditable(false);
+		tfCarName.addMouseListener(this);
 		pContent.add(tfCarName);
 		tfCarName.setColumns(10);
 		
@@ -203,15 +206,20 @@ public class CarRentPopup extends JDialog implements ActionListener, ItemListene
 		pContent.add(lblSale);
 		
 		tfSale = new JTextField();
+		tfSale.setEditable(false);
 		tfSale.setColumns(10);
 		pContent.add(tfSale);
 		
 		lblDiscount1 = new JLabel("장기렌트할인");
 		lblDiscount1.setHorizontalAlignment(SwingConstants.CENTER);
-		pContent.add(lblDiscount1);
 		
 		lblDiscount2 = new JLabel("%");
 		lblDiscount2.setForeground(Color.RED);
+		
+		lblDiscount1.setVisible(false);
+		lblDiscount2.setVisible(false);
+		
+		pContent.add(lblDiscount1);
 		pContent.add(lblDiscount2);
 		
 		pTotal = new JPanel();
@@ -254,58 +262,218 @@ public class CarRentPopup extends JDialog implements ActionListener, ItemListene
 		getContentPane().add(pBtns);
 		
 		btnConfirm = new JButton("확인");
+		btnConfirm.addActionListener(this);
 		pBtns.add(btnConfirm);
 		
 		btnCancel = new JButton("취소");
+		btnCancel.addActionListener(this);
 		pBtns.add(btnCancel);
+	}	
+
+	@Override
+	public void itemStateChanged(ItemEvent e) {
+		if (e.getSource() == chkDriver) {
+			selectSearchCheckedDriver(e);
+		}
+		
 	}
 
 
-	public void setItemFromCar(Car item) {
-		tfCarNo.setText(item.getCarNo());
-		cbCarKind.setVisible(false);
-		JTextField tfCarKind = new JTextField();
-		pContent.add(tfCarKind);
-		tfCarKind.setText(String.valueOf(item.getCarKind()));
-		tfCarName.setText(item.getCarName());
-		int fare = item.getFare();
-		lblDiscount2.setText(String.valueOf(item.getSale()));
-		lblTotal2.setText(String.valueOf(item.getFare()));
-		
-		
-	}
-	
-	public void setItemFromCustomer(Customer item) {
-		tfCtmNo.setText(String.valueOf(item.getNo()));
-		tfCtmName.setText(item.getName());
-		tfTel.setText(item.getTel());
-		lblMileage3.setText(String.valueOf(item.getMile()));
-	}
-	
-	private void checkIsDriver(ItemEvent e) {
-		
-	}
-	
-	public void actionPerformed(ActionEvent e) {
-		String code = tfCode.getText().trim();
-		String ctmName = tfCtmName.getText().trim();
-		String carNo = tfCarNo.getText().trim();
-		String tel = tfTel.getText().trim();
-		String time = tfTime.getText().trim();
-		Kind carKind = new Kind(cbCarKind.getSelectedItem().toString());
-		String carName = tfCarName.getText().trim();
-		String mileage = tfMileage.getText().trim();
-		
+	private void selectSearchCheckedDriver(ItemEvent e) {
+		if (e.getStateChange() == ItemEvent.SELECTED) {
+			driverCheck = 1;
+		} else {
+			driverCheck = 0;
+		}
 		
 	}
 
 
 	@Override
-	public void itemStateChanged(ItemEvent e) {
-		if (e.getSource() == chkDriver) {
-			System.out.println("운전기사");
+	public void actionPerformed(ActionEvent e) {
+		System.out.println(e.getSource());
+		if (e.getActionCommand().equals("확인")) {
+			actionPerformedBtnAdd(e);
+		}
+		if (e.getActionCommand().equals("추가")) {
+			actionPerformedBtnRentAdd(e);
+		}
+		if (e.getSource() == btnCancel) {
+			System.out.println("취소");
 		}
 		
 	}
+	
+	private void actionPerformedBtnRentAdd(ActionEvent e) {
+		
+		if (Integer.parseInt(tfMileage.getText().trim()) > Integer.parseInt(lblMileage3.getText().trim())) {
+			JOptionPane.showMessageDialog(null, "보유하신 마일리지 금액보다 더 많은 금액입니다. 다시 작성해주세요.");
+			tfSale.setText("");
+			btnConfirm.setText("확인");
+			return;
+		}
+		
+		List<Rent> list = service.showRents();
+		int num = list.get(list.size() - 1).getRent_no() + 1;
 
+		Customer ctm = new Customer();
+		ctm.setNo(Integer.parseInt(tfCode.getText().trim()));
+		ctm.setName(tfCtmName.getText().trim());
+		ctm.setTel(tfTel.getText().trim());
+		
+		Kind kind = new Kind();
+		kind.setKind_name(tfCarKind.getText().trim());
+		Car car = selectCar;
+		car.setCarKind(kind);
+		
+		
+		Rent item = new Rent();
+		item.setRent_no(num);
+		item.setCtm_no(ctm);
+		item.setCar_no(car);
+		item.setRent_date(dateRent.getDate());
+		item.setReturn_date(dateReturn.getDate());
+		item.setRent_time(Integer.parseInt(tfTime.getText().trim()));
+		item.setIs_driver(driverCheck);
+		item.setRent_remark(textField.getText());
+		
+		System.out.println(item);
+		service.insertRent(item);
+		rentList.insertRent(item);
+		this.dispose();
+	}
+
+
+	private void actionPerformedBtnAdd(ActionEvent e) {
+		/*if (isTfEmpty()) {
+			JOptionPane.showMessageDialog(null, "고객정보, 대여날짜, 차량정보를 선택해주세요.");
+		}*/
+		
+		String ctm_mlg = tfMileage.getText().trim();
+		
+		Customer ctm = new Customer();
+		ctm.setNo(Integer.parseInt(tfCode.getText().trim()));
+		ctm.setName(tfCtmName.getText().trim());
+		ctm.setTel(tfTel.getText().trim());
+		
+		Kind kind = new Kind();
+		kind.setKind_name(tfCarKind.getText().trim());
+		Car car = selectCar;
+		car.setCarKind(kind);
+		
+		Rent item = new Rent();
+		item.setCtm_no(ctm);
+		item.setCar_no(car);
+		item.setRent_date(dateRent.getDate());
+		item.setReturn_date(dateReturn.getDate());
+		item.setRent_time((int) ((dateReturn.getDate().getTime() - dateRent.getDate().getTime()) / (60 * 60 * 1000)));
+		item.setIs_driver(driverCheck);
+
+		long totalPrice = car.getFare() * item.getRent_time();
+		
+		if (ctm_mlg.equals("")) {
+			ctm_mlg = "0";
+			tfMileage.setText("0");
+		}
+
+		
+
+		if (Integer.parseInt(ctm_mlg) > Integer.parseInt(lblMileage3.getText())) {
+			JOptionPane.showMessageDialog(null, "보유하신 마일리지 금액보다 더 많은 금액입니다. 다시 작성해주세요.");
+			tfSale.setText("");
+			return;
+		}
+		
+		if (item.getRent_time() >= 720) {
+			lblDiscount1.setVisible(true);
+			lblDiscount2.setVisible(true);
+			totalPrice = totalPrice - (long)((double)totalPrice * ((item.getCar_no().getSale() / 100f))) - Integer.parseInt(ctm_mlg);
+			tfSale.setText(String.format("%s", (long)((double)totalPrice * ((item.getCar_no().getSale() / 100f)) + Integer.parseInt(ctm_mlg))));
+		} else {
+			tfSale.setText(ctm_mlg);			
+			totalPrice -= Integer.parseInt(ctm_mlg);
+		}
+		
+		tfTime.setText(String.format("%s", item.getRent_time()));
+		lblTotal2.setText(String.format("%,d", totalPrice));
+		
+		btnConfirm.setText("추가");
+		
+		System.out.println(item);
+		
+	}
+	public void mouseClicked(MouseEvent e) {
+		if (e.getSource() == tfCarName) {
+			mouseClickedTfCarName(e);
+		}
+		if (e.getSource() == tfCtmName) {
+			mouseClickedTfCtmName(e);
+		}
+	}
+
+	public void mouseEntered(MouseEvent e) {
+		System.out.println("mouseEntered");
+	}
+
+	public void mouseExited(MouseEvent e) {
+		System.out.println("mouseExited");
+	}
+
+	public void mousePressed(MouseEvent e) {
+		System.out.println("mousePressed");
+	}
+
+	public void mouseReleased(MouseEvent e) {
+		System.out.println("mouseReleased");
+	}
+
+	protected void mouseClickedTfCtmName(MouseEvent e) {
+		System.out.println("mouseClickedTfCtmName");
+		CustomerSearchPopup ctmSchPopup = new CustomerSearchPopup();
+		ctmSchPopup.setCtmList(this);
+		ctmSchPopup.setVisible(true);
+	}
+	
+	protected void mouseClickedTfCarName(MouseEvent e) {
+		System.out.println("mouseClickedTfCarName");
+		CarSearchPopup carSchPopup = new CarSearchPopup();
+		carSchPopup.setCarList(this);
+		carSchPopup.setVisible(true);
+	}
+	
+	
+	
+	public void setCustomer(Customer ctm) {
+		tfCode.setText(String.format("%s", ctm.getNo()));
+		tfCtmName.setText(ctm.getName());
+		tfTel.setText(ctm.getTel());
+		lblMileage3.setText(String.format("%s", ctm.getMile()));
+		
+	}
+	
+	public void setCar(Car car) {
+		tfCarKind.setText(car.getCarKind().getKind_name());
+		tfCarName.setText(car.getCarName());
+		lblDiscount2.setText(String.format("%s %%", car.getSale()));
+		
+		selectCar = car;
+		
+	}
+
+	@Override
+	boolean isValidTf() {
+
+		String ctmName = tfCtmName.getText().trim();
+		String ctmTel = tfTel.getText().trim();
+		Date rentDate = dateRent.getDate();
+		Date returnDate = dateReturn.getDate();
+		String carName = tfCarName.getText().trim();
+		return ctmName == null && ctmTel == null && rentDate == null && returnDate == null && carName ==null;
+	}
+
+
+	@Override
+	public void setItem(Rent item) {
+		
+	}
 }

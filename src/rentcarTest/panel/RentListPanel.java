@@ -29,6 +29,7 @@ import rentcarTest.Dao.service.RentService;
 import rentcarTest.dto.Car;
 import rentcarTest.dto.Customer;
 import rentcarTest.dto.Rent;
+import rentcarTest.popup.CarRentPopup;
 import rentcarTest.table.RentTable;
 
 public class RentListPanel extends JPanel implements ActionListener, ItemListener {
@@ -139,8 +140,15 @@ public class RentListPanel extends JPanel implements ActionListener, ItemListene
 		pBtns.add(btnUpdate);
 		
 		btnRent = new JButton("대여");
+		btnRent.addActionListener(this);
 		pBtns.add(btnRent);
 		
+	}
+
+	public void insertRent(Rent item) {
+		service = new RentService();
+		lists = service.showRents();
+		table.setItems(lists);
 	}
 
 	@Override
@@ -170,6 +178,11 @@ public class RentListPanel extends JPanel implements ActionListener, ItemListene
 	}
 
 	public void actionPerformed(ActionEvent e) {
+		if (e.getSource() == btnRent) {
+			CarRentPopup carRentPopup = new CarRentPopup();
+			carRentPopup.setCarRentList(this);
+			carRentPopup.setVisible(true);
+		}
 		if (e.getSource() == btnSearch) {
 			actionPerformedBtnSearch(e);
 		}

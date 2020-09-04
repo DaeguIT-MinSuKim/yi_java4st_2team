@@ -229,7 +229,12 @@ public class CarListPanel extends JPanel implements ActionListener, ItemListener
 				ctmList = service.findCars(carListFind);
 			}
 		}
-		table.setItems(ctmList);
+		
+		if (ctmList != null) {
+			table.setItems(ctmList);
+		} else {
+			JOptionPane.showMessageDialog(null, "검색된 내용이 없습니다.");
+		}
 	}
 
 	private class CarPopupMenu extends JPopupMenu {

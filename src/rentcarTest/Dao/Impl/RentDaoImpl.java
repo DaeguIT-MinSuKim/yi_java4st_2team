@@ -31,8 +31,9 @@ public class RentDaoImpl implements RentDao {
 
 	@Override
 	public List<Rent> selectRentByAll() {
-		String sql = "SELECT car.CAR_NAME, car.CAR_NO, c.CTM_NO , c.CTM_NAME , c.TEL, r.RENT_DATE, r.RETURN_DATE, r.RENT_TIME, r.IS_DRIVER, r.RENT_REMARK , k.KIND_NAME "
-				+ "  FROM RENT r LEFT OUTER JOIN CUSTOMER c ON r.CTM_NO = c.CTM_NO JOIN CAR car ON r.Car_NO = car.CAR_NO JOIN KIND k ON car.CAR_KIND = k.CAR_KIND ";
+		String sql = "SELECT r.RENT_NO, car.CAR_NAME, car.CAR_NO, c.CTM_NO , c.CTM_NAME , c.TEL, r.RENT_DATE, r.RETURN_DATE, r.RENT_TIME, r.IS_DRIVER, r.RENT_REMARK, k.KIND_NAME "
+				+ "  FROM RENT r LEFT OUTER JOIN CUSTOMER c ON r.CTM_NO = c.CTM_NO JOIN CAR car ON r.Car_NO = car.CAR_NO JOIN KIND k ON car.CAR_KIND = k.CAR_KIND "
+				+ " ORDER BY r.RENT_NO";
 		try (Connection con = JdbcUtil.getConnection();
 				PreparedStatement pstmt = con.prepareStatement(sql);
 				ResultSet rs = pstmt.executeQuery()) {
@@ -51,8 +52,8 @@ public class RentDaoImpl implements RentDao {
 
 	@Override
 	public List<Rent> selectRentByAllFind(Rent rent, Date dateRent, Date dateReturn, String search) {
-		String sql = "SELECT car.CAR_NAME, car.CAR_NO, c.CTM_NO , c.CTM_NAME , c.TEL, r.RENT_DATE, r.RETURN_DATE, r.RENT_TIME, r.IS_DRIVER, r.RENT_REMARK , k.KIND_NAME "
-				+ "  FROM RENT r LEFT OUTER JOIN CUSTOMER c ON r.CTM_NO = c.CTM_NO JOIN CAR car ON r.Car_NO = car.CAR_NO JOIN KIND k ON car.CAR_KIND = k.CAR_KIND ";
+		String sql = "SELECT r.RENT_NO, car.CAR_NAME, car.CAR_NO, c.CTM_NO , c.CTM_NAME , c.TEL, r.RENT_DATE, r.RETURN_DATE, r.RENT_TIME, r.IS_DRIVER, r.RENT_REMARK, k.KIND_NAME "
+				+ "  FROM RENT r LEFT OUTER JOIN CUSTOMER c ON r.CTM_NO = c.CTM_NO JOIN CAR car ON r.Car_NO = car.CAR_NO JOIN KIND k ON car.CAR_KIND = k.CAR_KIND";
 		
 		if (dateRent != null) {
 			sql += " WHERE r.RENT_DATE >= ? AND r.RETURN_DATE <= ? AND";
@@ -75,6 +76,7 @@ public class RentDaoImpl implements RentDao {
 		if (sql.contains("AND")) {
 			sql = sql.substring(0, sql.lastIndexOf("AND"));
 		}
+		System.out.println(sql);
 		try (Connection con = JdbcUtil.getConnection();
 				PreparedStatement pstmt = con.prepareStatement(sql);) {
 			if (dateRent != null) {
@@ -120,30 +122,31 @@ public class RentDaoImpl implements RentDao {
 	}
 
 	@Override
-	   public List<Rent> selectRentByFind(Rent rent) {
-	      String sql = "SELECT car.CAR_NAME, car.CAR_NO, c.CTM_NO , c.CTM_NAME , c.TEL, r.RENT_DATE, r.RETURN_DATE, r.RENT_TIME, r.IS_DRIVER, r.RENT_REMARK "
-	            + "  FROM RENT r LEFT OUTER JOIN CUSTOMER c ON r.CTM_NO = c.CTM_NO JOIN CAR car ON r.Car_NO = car.CAR_NO"
-	            + " WHERE car.CAR_NO LIKE '%' || ? || '%' OR c.CTM_NAME LIKE '%' || ? || '%' OR c.TEL LIKE '%' || ? || '%' OR c.CTM_NO LIKE '%' || ? || '%'" 
-	            + " ORDER BY r.RENT_NO";
-	      try (Connection con = JdbcUtil.getConnection(); PreparedStatement pstmt = con.prepareStatement(sql)) {
-	         pstmt.setString(1, "%"+rent.getCar_no().getCarNo()+"%");
-	         pstmt.setString(2, "%"+rent.getCtm_no().getName()+"%");
-	         pstmt.setString(3, "%"+rent.getCtm_no().getTel()+"%");
-	         pstmt.setString(4, "%"+rent.getCtm_no().getNo()+"%");
-	         try (ResultSet rs = pstmt.executeQuery()) {
-	            if (rs.next()) {
-	               List<Rent> item_list = new ArrayList<>();
-	               do {
-	                  item_list.add(getRent(rs));
-	               } while (rs.next());
-	               return item_list;
-	            }
-	         }
-	      } catch (SQLException e) {
-	         throw new RuntimeException(e);
-	      }
-	      return null;
-	   }
+	public List<Rent> selectRentByFind(Rent rent) {
+		String sql = "SELECT r.RENT_NO, car.CAR_NAME, car.CAR_NO, c.CTM_NO , c.CTM_NAME , c.TEL, r.RENT_DATE, r.RETURN_DATE, r.RENT_TIME, r.IS_DRIVER, r.RENT_REMARK, k.KIND_NAME  "
+				+ "  FROM RENT r LEFT OUTER JOIN CUSTOMER c ON r.CTM_NO = c.CTM_NO JOIN CAR car ON r.Car_NO = car.CAR_NO JOIN KIND k ON car.CAR_KIND = k.CAR_KIND"
+				+ " WHERE car.CAR_NO LIKE '%' || ? || '%' OR c.CTM_NAME LIKE '%' || ? || '%' OR c.TEL LIKE '%' || ? || '%'" 
+				+ " ORDER BY r.RENT_NO";
+		try (Connection con = JdbcUtil.getConnection(); PreparedStatement pstmt = con.prepareStatement(sql)) {
+			pstmt.setString(1, "%"+rent.getCar_no().getCarNo()+"%");
+			pstmt.setString(2, "%"+rent.getCtm_no().getName()+"%");
+			pstmt.setString(3, "%"+rent.getCtm_no().getTel()+"%");
+			try (ResultSet rs = pstmt.executeQuery()) {
+				if (rs.next()) {
+					List<Rent> item_list = new ArrayList<>();
+					do {
+						item_list.add(getRent(rs));
+					} while (rs.next());
+					return item_list;
+				}
+			}
+			
+		} catch (SQLException e) {
+			throw new RuntimeException(e);
+		}
+		return null;
+	}
+
 
 	@Override
 	public List<Rent> selectRentByDate(Rent rent) {
@@ -170,7 +173,7 @@ public class RentDaoImpl implements RentDao {
 
 	@Override
 	public List<Rent> selectRentByRent() {
-		String sql = "SELECT car.CAR_NAME, car.CAR_NO, c.CTM_NO , c.CTM_NAME , c.TEL, r.RENT_DATE, r.RETURN_DATE, r.RENT_TIME, r.IS_DRIVER, r.RENT_REMARK , k.KIND_NAME "
+		String sql = "SELECT r.RENT_NO, car.CAR_NAME, car.CAR_NO, c.CTM_NO , c.CTM_NAME , c.TEL, r.RENT_DATE, r.RETURN_DATE, r.RENT_TIME, r.IS_DRIVER, r.RENT_REMARK , k.KIND_NAME "
 				+ "  FROM RENT r LEFT OUTER JOIN CUSTOMER c ON r.CTM_NO = c.CTM_NO JOIN CAR car ON r.Car_NO = car.CAR_NO JOIN KIND k ON car.CAR_KIND = k.CAR_KIND "
 				+ " WHERE c.CTM_NO IN(SELECT R.CTM_NO FROM RENT r LEFT OUTER JOIN CUSTOMER c ON r.CTM_NO = c.CTM_NO WHERE IS_RENT=1) "
 				+ " ORDER BY r.RENT_NO";
@@ -258,6 +261,7 @@ public class RentDaoImpl implements RentDao {
 
 		rent.setCtm_no(ctm);
 		rent.setCar_no(car);
+		rent.setRent_no(rs.getInt("RENT_NO"));
 		rent.setRent_date(rs.getTimestamp("RENT_DATE"));
 		rent.setReturn_date(rs.getTimestamp("RETURN_DATE"));
 		rent.setRent_time(rs.getInt("RENT_TIME"));
