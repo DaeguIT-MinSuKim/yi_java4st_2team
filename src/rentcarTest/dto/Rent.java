@@ -4,16 +4,16 @@ import java.util.Date;
 
 public class Rent {
 //	릴레이션 (대여 객체 특징 / DB연동 필요요소)
-	private int rent_no; // 대여번호
-	private Customer ctm_no; // 고객번호
-	private Car car_no; // 차량번호
-	private Date rent_date; // 대여일자
-	private Date return_date; // 반납일자
-	private int rent_time;	//대여시간
-	private int is_driver; // 기사여부
-	private String rent_remark; // 대여비고
-	private String Sis_driver; //기사여부를 strin으로 바꿈
-	private int final_fare;
+	private int rent_no;		// 대여번호
+	private Customer ctm_no;	// 고객번호
+	private Car car_no;			// 차량번호
+	private Date rent_date;		// 대여일자
+	private Date return_date;	// 반납일자
+	private int rent_time;		// 대여시간
+	private int is_driver;		// 기사여부
+	private String rent_remark;	// 대여비고
+	private String Sis_driver;	// 기사여부를 strin으로 바꿈
+	private int final_fare;		// 최종요금
 	
 //	생성자
 //	더 추가할 생성자? 매개변수 뭘로할지 피드백 주세요
@@ -21,7 +21,6 @@ public class Rent {
 	
 	public Rent(int rent_no, Customer ctm_no, Car car_no, Date rent_date, Date return_date, int is_driver,
 			String rent_remark) {
-		super();
 		this.rent_no = rent_no;
 		this.ctm_no = ctm_no;
 		this.car_no = car_no;
@@ -29,6 +28,19 @@ public class Rent {
 		this.return_date = return_date;
 		this.is_driver = is_driver;
 		this.rent_remark = rent_remark;
+	}
+
+	public Rent(int rent_no, Customer ctm_no, Car car_no, Date rent_date, Date return_date, int rent_time,
+			int is_driver, String rent_remark,int final_fare) {
+		this.rent_no = rent_no;
+		this.ctm_no = ctm_no;
+		this.car_no = car_no;
+		this.rent_date = rent_date;
+		this.return_date = return_date;
+		this.rent_time = rent_time;
+		this.is_driver = is_driver;
+		this.rent_remark = rent_remark;
+		this.final_fare = final_fare;
 	}
 
 	public Rent(int rent_no) {

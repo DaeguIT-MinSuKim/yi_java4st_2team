@@ -191,8 +191,6 @@ public class RentListPanel extends JPanel implements ActionListener, ItemListene
 	protected void actionPerformedBtnSearch(ActionEvent e) {
 		rentFindList = null;
 		Rent rent = new Rent();
-		/*Date dateRent = new Date();  // 대여일자
-		Date dateReturn = new Date();  // 반납일자*/
 		String search = cmbCate.getSelectedItem().toString();  //검색분류
 		String searchText = tfSearch.getText().trim();  //검색내용
 

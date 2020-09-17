@@ -15,7 +15,7 @@ import rentcarTest.dto.Car;
 import rentcarTest.dto.Customer;
 import rentcarTest.dto.Kind;
 import rentcarTest.dto.Rent;
-import rentcarTest.dto.UsingDate;
+import rentcarTest.dto.RentPerformance;
 
 public class RentDaoImpl implements RentDao {
 	private static final RentDaoImpl instance = new RentDaoImpl();
@@ -31,7 +31,7 @@ public class RentDaoImpl implements RentDao {
 
 	@Override
 	public List<Rent> selectRentByAll() {
-		String sql = "SELECT r.RENT_NO, car.CAR_NAME, car.CAR_NO, c.CTM_NO , c.CTM_NAME , c.TEL, r.RENT_DATE, r.RETURN_DATE, r.RENT_TIME, r.IS_DRIVER, r.RENT_REMARK , k.KIND_NAME "
+		String sql = "SELECT r.RENT_NO, car.CAR_NAME, car.CAR_NO, c.CTM_NO , c.CTM_NAME , c.TEL, r.RENT_DATE, r.RETURN_DATE, r.RENT_TIME, r.IS_DRIVER, r.RENT_REMARK, k.KIND_NAME "
 				+ "  FROM RENT r LEFT OUTER JOIN CUSTOMER c ON r.CTM_NO = c.CTM_NO JOIN CAR car ON r.Car_NO = car.CAR_NO JOIN KIND k ON car.CAR_KIND = k.CAR_KIND "
 				+ " ORDER BY r.RENT_NO";
 		try (Connection con = JdbcUtil.getConnection();
@@ -52,8 +52,8 @@ public class RentDaoImpl implements RentDao {
 
 	@Override
 	public List<Rent> selectRentByAllFind(Rent rent, Date dateRent, Date dateReturn, String search) {
-		String sql = "SELECT r.RENT_NO, car.CAR_NAME, car.CAR_NO, c.CTM_NO , c.CTM_NAME , c.TEL, r.RENT_DATE, r.RETURN_DATE, r.RENT_TIME, r.IS_DRIVER, r.RENT_REMARK "
-				+ "  FROM RENT r LEFT OUTER JOIN CUSTOMER c ON r.CTM_NO = c.CTM_NO JOIN CAR car ON r.Car_NO = car.CAR_NO";
+		String sql = "SELECT r.RENT_NO, car.CAR_NAME, car.CAR_NO, c.CTM_NO , c.CTM_NAME , c.TEL, r.RENT_DATE, r.RETURN_DATE, r.RENT_TIME, r.IS_DRIVER, r.RENT_REMARK, k.KIND_NAME "
+				+ "  FROM RENT r LEFT OUTER JOIN CUSTOMER c ON r.CTM_NO = c.CTM_NO JOIN CAR car ON r.Car_NO = car.CAR_NO JOIN KIND k ON car.CAR_KIND = k.CAR_KIND";
 		
 		if (dateRent != null) {
 			sql += " WHERE r.RENT_DATE >= ? AND r.RETURN_DATE <= ? AND";
@@ -122,30 +122,30 @@ public class RentDaoImpl implements RentDao {
 	}
 
 	@Override
-	   public List<Rent> selectRentByFind(Rent rent) {
-	      String sql = "SELECT r.RENT_NO, car.CAR_NAME, car.CAR_NO, c.CTM_NO , c.CTM_NAME , c.TEL, r.RENT_DATE, r.RETURN_DATE, r.RENT_TIME, r.IS_DRIVER, r.RENT_REMARK "
-	            + "  FROM RENT r LEFT OUTER JOIN CUSTOMER c ON r.CTM_NO = c.CTM_NO JOIN CAR car ON r.Car_NO = car.CAR_NO"
-	            + " WHERE car.CAR_NO LIKE '%' || ? || '%' OR c.CTM_NAME LIKE '%' || ? || '%' OR c.TEL LIKE '%' || ? || '%' OR c.CTM_NO LIKE '%' || ? || '%'" 
-	            + " ORDER BY r.RENT_NO";
-	      try (Connection con = JdbcUtil.getConnection(); PreparedStatement pstmt = con.prepareStatement(sql)) {
-	         pstmt.setString(1, "%"+rent.getCar_no().getCarNo()+"%");
-	         pstmt.setString(2, "%"+rent.getCtm_no().getName()+"%");
-	         pstmt.setString(3, "%"+rent.getCtm_no().getTel()+"%");
-	         pstmt.setString(4, "%"+rent.getCtm_no().getNo()+"%");
-	         try (ResultSet rs = pstmt.executeQuery()) {
-	            if (rs.next()) {
-	               List<Rent> item_list = new ArrayList<>();
-	               do {
-	                  item_list.add(getRent(rs));
-	               } while (rs.next());
-	               return item_list;
-	            }
-	         }
-	      } catch (SQLException e) {
-	         throw new RuntimeException(e);
-	      }
-	      return null;
-	   }
+	public List<Rent> selectRentByFind(Rent rent) {
+		String sql = "SELECT r.RENT_NO, car.CAR_NAME, car.CAR_NO, c.CTM_NO , c.CTM_NAME , c.TEL, r.RENT_DATE, r.RETURN_DATE, r.RENT_TIME, r.IS_DRIVER, r.RENT_REMARK, k.KIND_NAME  "
+				+ "  FROM RENT r LEFT OUTER JOIN CUSTOMER c ON r.CTM_NO = c.CTM_NO JOIN CAR car ON r.Car_NO = car.CAR_NO JOIN KIND k ON car.CAR_KIND = k.CAR_KIND"
+				+ " WHERE car.CAR_NO LIKE '%' || ? || '%' OR c.CTM_NAME LIKE '%' || ? || '%' OR c.TEL LIKE '%' || ? || '%'" 
+				+ " ORDER BY r.RENT_NO";
+		try (Connection con = JdbcUtil.getConnection(); PreparedStatement pstmt = con.prepareStatement(sql)) {
+			pstmt.setString(1, "%"+rent.getCar_no().getCarNo()+"%");
+			pstmt.setString(2, "%"+rent.getCtm_no().getName()+"%");
+			pstmt.setString(3, "%"+rent.getCtm_no().getTel()+"%");
+			try (ResultSet rs = pstmt.executeQuery()) {
+				if (rs.next()) {
+					List<Rent> item_list = new ArrayList<>();
+					do {
+						item_list.add(getRent(rs));
+					} while (rs.next());
+					return item_list;
+				}
+			}
+			
+		} catch (SQLException e) {
+			throw new RuntimeException(e);
+		}
+		return null;
+	}
 
 	@Override
 	public List<Rent> selectRentByDate(Rent rent) {
@@ -202,10 +202,6 @@ public class RentDaoImpl implements RentDao {
 			pstmt.setString(3, rent.getCar_no().getCarNo());
 			pstmt.setDate(4, new java.sql.Date(rent.getRent_date().getTime()));
 			pstmt.setDate(5, new java.sql.Date(rent.getReturn_date().getTime()));
-			/*
-			 * pstmt.setString(4, String.valueOf(rent.getRent_date())); pstmt.setString(5,
-			 * String.valueOf(rent.getReturn_date()));
-			 */
 			pstmt.setInt(6, rent.getRent_time());
 			pstmt.setInt(7, rent.getIs_driver());
 			pstmt.setString(8, rent.getRent_remark());
@@ -291,6 +287,58 @@ public class RentDaoImpl implements RentDao {
 		} catch (SQLException e) {
 			throw new RuntimeException(e);
 		}
+	}
+
+	@Override
+	public List<RentPerformance> showPerformance(int selKind, String selName, int selOption) {
+		String sql = "SELECT WM_CONCAT(DISTINCT k.KIND_NAME) AS 차분류,\r\n" + 
+				"		c.CAR_NAME AS 차종,\r\n" + 
+				"		SUM(r.RENT_TIME ) AS 대여시간,\r\n" + 
+				"		SUM(C.FARE * R.RENT_TIME * C.SALE / 100) AS 할인요금,\r\n" + 
+				"		SUM(C.FARE * R.RENT_TIME * (100 - C.SALE) / 100) AS 최종요금\r\n" + 
+				"  FROM RENT r LEFT OUTER JOIN CAR c ON r.CAR_NO = c.CAR_NO JOIN CUSTOMER ctm ON r.CTM_NO = ctm.CTM_NO JOIN KIND k ON c.CAR_KIND = k.CAR_KIND\r\n";
+		
+		if(selKind != 0) {
+			switch(selKind) {
+			case 1 : sql += "WHERE c.CAR_KIND = 'S' ";
+			break;
+			case 2 : sql += "WHERE c.CAR_KIND = 'M' ";
+			break;
+			case 3 : sql += "WHERE c.CAR_KIND = 'H' ";
+			break;
+			case 4 : sql += "WHERE c.CAR_KIND = 'B' ";
+			break;
+			case 5 : sql += "WHERE c.CAR_KIND = 'J' ";
+			break;
+			}
+			sql += "AND C.CAR_NAME LIKE '%" + selName + "%' ";
+		}
+		sql += " GROUP BY c.CAR_NAME";
+		
+		try (Connection con = JdbcUtil.getConnection();
+				PreparedStatement pstmt = con.prepareStatement(sql);
+				ResultSet rs = pstmt.executeQuery()){
+			if (rs.next()) {
+				List<RentPerformance> list = new ArrayList<RentPerformance>();
+				do {
+					list.add(getRentPerformance(rs));
+				} while (rs.next());
+				return list;
+			}
+		} catch (SQLException e) {
+			throw new RuntimeException(e);
+		}
+		return null;
+	}
+	 
+	private RentPerformance getRentPerformance(ResultSet rs) throws SQLException {
+		String car_Kind = rs.getString("차분류");
+		String car_Name = rs.getString("차종");
+		long rent_Time = rs.getLong("대여시간");
+		long sale_Price = rs.getLong("할인요금");
+		long final_Price = rs.getLong("최종요금");
+		
+		return new RentPerformance(car_Kind, car_Name, rent_Time, sale_Price, final_Price);
 	}
 
 }

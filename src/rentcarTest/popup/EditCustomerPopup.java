@@ -193,10 +193,7 @@ public class EditCustomerPopup extends AbstractItemPopup<Customer> implements Ac
 		rentCtm.setTel(ctm.getTel());
 		Rent rent = new Rent();
 		rent.setCtm_no(rentCtm);
-//		Car car = carService.
-		System.out.println(rent);
 		
-		//lists = rentService.findRents(item);
 		lists = rentService.showFindRents(rent, null, null, "연락처");
 		if (lists != null) {
 			scrollPane.setVisible(true);

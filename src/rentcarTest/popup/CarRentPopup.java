@@ -299,11 +299,31 @@ public class CarRentPopup extends AbstractItemPopup<Rent> implements ActionListe
 			actionPerformedBtnRentAdd(e);
 		}
 		if (e.getSource() == btnCancel) {
-			System.out.println("취소");
+			actionPerformedBtnCancel(e);
 		}
 		
 	}
 	
+	private void actionPerformedBtnCancel(ActionEvent e) {
+		tfCode.setText("");
+		tfCtmName.setText("");
+		tfTel.setText("");
+		tfTime.setText("");
+		tfCarKind.setText("");
+		tfCarName.setText("");
+		tfMileage.setText("");
+		lblMileage3.setText("");
+		lblTotal2.setText("");
+		textField.setText("");
+		dateRent.setDate(null);
+		dateReturn.setDate(null);
+		tfSale.setText("");
+		lblDiscount1.setVisible(false);
+		lblDiscount2.setVisible(false);
+		
+	}
+
+
 	private void actionPerformedBtnRentAdd(ActionEvent e) {
 		
 		if (Integer.parseInt(tfMileage.getText().trim()) > Integer.parseInt(lblMileage3.getText().trim())) {
